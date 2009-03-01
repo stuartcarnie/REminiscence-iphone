@@ -22,10 +22,8 @@
 
 @interface JoystickView : UIView<InputControllerChangedDelegate> {
 	UIImageView					*background;
-	UIImageView					*fireButton;
 	UIImageView					*joystick;
 	UIImage						*joystick_images[9];
-	UIImage						*firebutton_images[2];
 }
 
 @end
