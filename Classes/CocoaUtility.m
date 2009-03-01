@@ -1,7 +1,7 @@
 /*
  Frodo, Commodore 64 emulator for the iPhone
  Copyright (C) 2007, 2008 Stuart Carnie
- See README for license information.
+ See gpl.txt for license information.
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,56 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "CocoaUtility.h"
+
 @implementation UIImage(Loading)
 
-+ (UIImage*)imageFromResource:(NSString*)name {
-	return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:nil]];
++ (UIImage*)imageFromResource:(NSString*)resourceName {
+	NSData *imageData = [[NSData alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:resourceName 
+																							   ofType:nil]];
+	UIImage *image = [UIImage imageWithData:imageData];
+	[imageData release];
+	return image;
 }
+
+@end
+
+@implementation UIImageView(UIImageHelpers)
+
++ (UIImageView*)newViewFromImageResource:(NSString*)resourceName {
+	NSData *imageData = [[NSData alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:resourceName 
+																							   ofType:nil]];
+	UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
+	[imageData release];
+	return view;	
+}
+
+@end
+
+@implementation NSString(URLEncoding)
+
+- (NSString *)encodeForURL {
+	NSString *reserved = @":/?#[]@!$&'()*+;=";
+    return [NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, (CFStringRef)reserved, kCFStringEncodingUTF8)) autorelease];
+}
+
+- (NSString *) decodeFromURL {
+	return [NSMakeCollectable(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""), kCFStringEncodingUTF8)) autorelease];
+}
+
+@end
+
+@implementation UIButton(ButtonHelpers)
+
++ (UIButton*)newButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName {
+	UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
+	UIImage *image = [UIImage imageFromResource:imageName];
+	view.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+	[view setImage:image forState:UIControlStateNormal];
+	if (selectedImageName)
+		[view setImage:[UIImage imageFromResource:selectedImageName] forState:UIControlStateSelected];
+	return view;
+}
+
 
 @end

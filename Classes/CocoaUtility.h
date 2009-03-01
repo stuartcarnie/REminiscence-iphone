@@ -22,3 +22,24 @@
 + (UIImage*)imageFromResource:(NSString*)name;
 
 @end
+
+@interface UIImageView(UIImageHelpers)
+
++ (UIImageView*)newViewFromImageResource:(NSString*)resourceName;
+
+@end
+
+@interface UIButton(ButtonHelpers)
+
+//! Creates a new UIButton with the specified imageName and selectedImageName.  If selectedImageName is
+//  nil, it is not used.
++ (UIButton*)newButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName;
+
+@end
+
+@interface NSString(URLEncoding)
+
+- (NSString *) encodeForURL;
+- (NSString *) decodeFromURL;
+
+@end

@@ -55,10 +55,6 @@ static char* joystick_files[] = {
 	"left_up.png"
 };
 
-static char* firebutton_files[] = {
-	"firebutton.png", "firebutton_active.png"
-};
-
 const int kJoystickTop			= 2;
 
 - (id)initWithFrame:(CGRect)frame {
@@ -71,14 +67,6 @@ const int kJoystickTop			= 2;
 		for (int i = 0; i < sizeof(joystick_files) / sizeof(joystick_files[0]); i++) {
 			joystick_images[i] = [UIImage imageNamed:[NSString stringWithCString:joystick_files[i]]]; 
 		}
-
-		for (int i = 0; i < sizeof(firebutton_files) / sizeof(firebutton_files[0]); i++) {
-			firebutton_images[i] = [UIImage imageNamed:[NSString stringWithCString:firebutton_files[i]]]; 
-		}
-		
-		fireButton = [[UIImageView alloc] initWithFrame:CGRectMake(10, kJoystickTop, 123, 153)];
-		fireButton.image = firebutton_images[0];
-		[self addSubview:fireButton];
 
 		joystick = [[UIImageView alloc] initWithFrame:CGRectMake(140, kJoystickTop-5, 182, 168)];
 		joystick.image = joystick_images[0];
@@ -93,15 +81,11 @@ const int kJoystickTop			= 2;
 }
 
 - (void)joystickStateChanged:(TouchStickDPadState)state {
-	DLog(@"JoystickView state changed: %d", state);
-	
 	joystick.image = joystick_images[state];
 }
 
 - (void)fireButton:(FireButtonState)state {
-	DLog(@"JoystickView state changed: %d", state);
-	
-	fireButton.image = firebutton_images[state];
+	//fireButton.image = firebutton_images[state];
 }
 
 - (void)dealloc {

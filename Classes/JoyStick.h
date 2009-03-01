@@ -36,14 +36,33 @@ enum FireButtonState {
 
 class CJoyStick  {
 public:
-	TouchStickDPadState		dPadState() { return _dPadState; }
-	FireButtonState			buttonOneState() { return _buttonOneState; }
+	CJoyStick() {
+		_joystickState.state = 0;
+	}
 	
-	void					setDPadState(TouchStickDPadState value) { _dPadState = value; }
-	void					setButtonOneState(FireButtonState value) { _buttonOneState = value; }
+	TouchStickDPadState		dPadState() { return _joystickState.dPad; }
+	FireButtonState			buttonOneState() { return _joystickState.button1; }
+	FireButtonState			button2State() { return _joystickState.button2; }
+	FireButtonState			button3State() { return _joystickState.button3; }
+	FireButtonState			button4State() { return _joystickState.button4; }
+	
+	void					setDPadState(TouchStickDPadState value) { _joystickState.dPad = value; }
+	void					setButtonOneState(FireButtonState value) { _joystickState.button1 = value; }
+	void					setButton2State(FireButtonState value) { _joystickState.button2 = value; }
+	void					setButton3State(FireButtonState value) { _joystickState.button3 = value; }
+	void					setButton4State(FireButtonState value) { _joystickState.button4 = value; }
 
 private:
-	TouchStickDPadState _dPadState;
-	FireButtonState _buttonOneState;
+	union {
+		struct {
+			TouchStickDPadState	dPad:4;
+
+			FireButtonState		button1:1;
+			FireButtonState		button2:1;
+			FireButtonState		button3:1;
+			FireButtonState		button4:1;
+		};
+		unsigned int state;
+	} _joystickState;
 
 };

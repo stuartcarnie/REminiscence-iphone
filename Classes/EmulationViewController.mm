@@ -50,7 +50,7 @@ const int kPortraitSkinHeight				= 265;
 
 const int kInputAreaTop						= kPortraitSkinHeight + 1;
 
-#define kDisplayFramePortrait				CGRectMake(0, 0, Video::GAMESCREEN_W, Video::GAMESCREEN_H)
+#define kDisplayFramePortrait				CGRectMake(32, 0, Video::GAMESCREEN_W, Video::GAMESCREEN_H)
 #define kJoystickViewFramePortrait			CGRectMake(0, kInputAreaTop, 320, 200)
 #define kInputFramePortrait					CGRectMake(0, kInputAreaTop, 320, 480 - kInputAreaTop)
 
@@ -60,6 +60,7 @@ const int kInputAreaTop						= kPortraitSkinHeight + 1;
 
 // landscape frames
 #define kFullControlsOverlayFrameLandscape	CGRectMake(10, 10, 459, 300)
+#define kDisplayFrameLandscapeFullScreen	CGRectMake(80, 0, 320, 320);
 
 // miscellaneous constants
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
@@ -175,8 +176,6 @@ static Version detectVersion(const char *dataPath) {
 	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation) || layoutOrientation == (UIInterfaceOrientation)orientation)
 		return;
 	
-	DLog(@"didRotate:");
-	
 	layoutOrientation = (UIInterfaceOrientation)orientation;
 	
 	[UIView beginAnimations:@"rotate" context:nil];
@@ -211,9 +210,7 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)rotateToPortrait {
-	DLog(@"Rotating to portrait");
-		
-	self.displayView.frame = kDisplayFramePortrait;
+	self.displayView.frame			= kDisplayFramePortrait;
 	[self.displayView setNeedsLayout];
 	
 	self.joystickView.alpha			= 1.0;
@@ -221,15 +218,13 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)rotateToLandscape {
-	DLog(@"Rotating to landscape");
-	
-	self.displayView.frame			= CGRectMake(0, 0, 480, 260);
+	self.displayView.frame			= kDisplayFrameLandscapeFullScreen;
 	[self.displayView setNeedsLayout];
 		
 	// hide joystick
 	self.joystickView.alpha			= 0.0;
 	
-	self.inputController.frame		= CGRectMake(0, 0, 480, 300);
+	self.inputController.frame		= CGRectMake(0, 0, 480, 320);
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
