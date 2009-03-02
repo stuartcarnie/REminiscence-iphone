@@ -19,7 +19,7 @@ class PlayerInput;
 
 - (IBAction)quickLoad;
 - (IBAction)quickSave;
-- (IBAction)enter;
+- (IBAction)options;
 - (IBAction)restart;
 
 @end

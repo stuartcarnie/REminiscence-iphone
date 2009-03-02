@@ -39,17 +39,17 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	DLog(@"Application received applicationDidBecomeActive message");
-	//[self.emulationController resume];
+	[self.emulationController resume];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	DLog(@"Application received applicationWillResignActive message");
-	//[self.emulationController pause];
+	[self.emulationController pause];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	DLog(@"Application received terminate message");
-	//[self.emulationController saveDefaultGame];
+	[self.emulationController saveDefaultGame];
 }
 
 

@@ -22,6 +22,7 @@
 
 uint16 g_debugMask;
 
+#if DEBUG
 void debug(uint16 cm, const char *msg, ...) {
 	char buf[1024];
 	if (cm & g_debugMask) {
@@ -33,6 +34,7 @@ void debug(uint16 cm, const char *msg, ...) {
 		fflush(stdout);
 	}
 }
+#endif
 
 void error(const char *msg, ...) {
 	char buf[1024];

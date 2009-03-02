@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		055227650F5BAF8200512D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
+		055227740F5BB01600512D4B /* ls-fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227700F5BB01600512D4B /* ls-fire.png */; };
+		055227750F5BB01600512D4B /* ls-bgimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227710F5BB01600512D4B /* ls-bgimage.png */; };
+		055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227720F5BB01600512D4B /* ls-joystick_active.png */; };
+		055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227730F5BB01600512D4B /* ls-joystick_rest.png */; };
+		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
 		05CF8DE70F1343FB00493EED /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC00F1343FB00493EED /* collision.cpp */; };
 		05CF8DE80F1343FB00493EED /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8DC10F1343FB00493EED /* COPYING */; };
 		05CF8DE90F1343FB00493EED /* cutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC20F1343FB00493EED /* cutscene.cpp */; };
 		05CF8DEA0F1343FB00493EED /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC40F1343FB00493EED /* file.cpp */; };
 		05CF8DEB0F1343FB00493EED /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC60F1343FB00493EED /* game.cpp */; };
 		05CF8DEC0F1343FB00493EED /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC80F1343FB00493EED /* graphics.cpp */; };
-		05CF8DEE0F1343FB00493EED /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DCD0F1343FB00493EED /* main.cpp */; };
 		05CF8DF00F1343FB00493EED /* menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DCF0F1343FB00493EED /* menu.cpp */; };
 		05CF8DF10F1343FB00493EED /* mixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DD10F1343FB00493EED /* mixer.cpp */; };
 		05CF8DF20F1343FB00493EED /* mod_player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DD30F1343FB00493EED /* mod_player.cpp */; };
@@ -227,13 +233,19 @@
 		05CF90090F134C2100493EED /* JoystickView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF90040F134C2100493EED /* JoystickView.mm */; };
 		05CF900B0F134C9C00493EED /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CF900A0F134C9C00493EED /* MainWindow.xib */; };
 		1D3623260D0F684500981E51 /* FlashbackAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
+		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
+		055227700F5BB01600512D4B /* ls-fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-fire.png"; sourceTree = "<group>"; };
+		055227710F5BB01600512D4B /* ls-bgimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-bgimage.png"; sourceTree = "<group>"; };
+		055227720F5BB01600512D4B /* ls-joystick_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_active.png"; sourceTree = "<group>"; };
+		055227730F5BB01600512D4B /* ls-joystick_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_rest.png"; sourceTree = "<group>"; };
+		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		05CF8DC00F1343FB00493EED /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
 		05CF8DC10F1343FB00493EED /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		05CF8DC20F1343FB00493EED /* cutscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cutscene.cpp; sourceTree = "<group>"; };
@@ -520,6 +532,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0552276F0F5BB01600512D4B /* landscape-joystick */ = {
+			isa = PBXGroup;
+			children = (
+				055227700F5BB01600512D4B /* ls-fire.png */,
+				055227710F5BB01600512D4B /* ls-bgimage.png */,
+				055227720F5BB01600512D4B /* ls-joystick_active.png */,
+				055227730F5BB01600512D4B /* ls-joystick_rest.png */,
+			);
+			name = "landscape-joystick";
+			sourceTree = "<group>";
+		};
 		05CF8DB50F1343CA00493EED /* Game Engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +830,8 @@
 				05CF90020F134C2100493EED /* InputControllerView.mm */,
 				05CF90030F134C2100493EED /* JoystickView.h */,
 				05CF90040F134C2100493EED /* JoystickView.mm */,
+				0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */,
+				0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */,
 				05CF8F9E0F13480700493EED /* CGVector.h */,
 				05CF8F9F0F13480700493EED /* JoyStick.h */,
 				05CF8FA00F13480700493EED /* debug.h */,
@@ -827,6 +852,7 @@
 			isa = PBXGroup;
 			children = (
 				05CF8FE00F134BCC00493EED /* joystick */,
+				0552276F0F5BB01600512D4B /* landscape-joystick */,
 				05CF8FED0F134BCD00493EED /* fullcontrols_overlay.png */,
 			);
 			name = images;
@@ -899,6 +925,7 @@
 				05CF8E4A0F13469000493EED /* DATA */,
 				05CF900A0F134C9C00493EED /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				0552293B0F5BCBA900512D4B /* Entitlements.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1137,6 +1164,11 @@
 				05CF8FF90F134BCD00493EED /* up.png in Resources */,
 				05CF8FFA0F134BCD00493EED /* fullcontrols_overlay.png in Resources */,
 				05CF900B0F134C9C00493EED /* MainWindow.xib in Resources */,
+				055227740F5BB01600512D4B /* ls-fire.png in Resources */,
+				055227750F5BB01600512D4B /* ls-bgimage.png in Resources */,
+				055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */,
+				055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */,
+				0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,14 +1179,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				055227650F5BAF8200512D4B /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* FlashbackAppDelegate.mm in Sources */,
 				05CF8DE70F1343FB00493EED /* collision.cpp in Sources */,
 				05CF8DE90F1343FB00493EED /* cutscene.cpp in Sources */,
 				05CF8DEA0F1343FB00493EED /* file.cpp in Sources */,
 				05CF8DEB0F1343FB00493EED /* game.cpp in Sources */,
 				05CF8DEC0F1343FB00493EED /* graphics.cpp in Sources */,
-				05CF8DEE0F1343FB00493EED /* main.cpp in Sources */,
 				05CF8DF00F1343FB00493EED /* menu.cpp in Sources */,
 				05CF8DF10F1343FB00493EED /* mixer.cpp in Sources */,
 				05CF8DF20F1343FB00493EED /* mod_player.cpp in Sources */,
@@ -1186,6 +1217,7 @@
 				05CF90070F134C2100493EED /* GameControlsViewController.mm in Sources */,
 				05CF90080F134C2100493EED /* InputControllerView.mm in Sources */,
 				05CF90090F134C2100493EED /* JoystickView.mm in Sources */,
+				0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

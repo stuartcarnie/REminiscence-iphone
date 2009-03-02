@@ -14,6 +14,7 @@
 #import "DisplayView.h"
 #import "InputControllerView.h"
 #import "JoystickView.h"
+#import "JoystickViewLandscape.h"
 #import "GameControlsViewController.h"
 
 #import "CocoaUtility.h"
@@ -43,7 +44,7 @@
 
 @implementation EmulationViewController
 
-@synthesize displayView, inputController, joystickView, fullControlsImage;
+@synthesize displayView, inputController, joystickView, fullControlsImage, landscapeJoystickView;
 
 const int kHeaderBarHeight					= 16;
 const int kPortraitSkinHeight				= 265;
@@ -61,6 +62,8 @@ const int kInputAreaTop						= kPortraitSkinHeight + 1;
 // landscape frames
 #define kFullControlsOverlayFrameLandscape	CGRectMake(10, 10, 459, 300)
 #define kDisplayFrameLandscapeFullScreen	CGRectMake(80, 0, 320, 320);
+#define kInputFrameLandscape				CGRectMake(0, 0, 480, 320)
+#define kJoystickViewFrameLandscape			CGRectMake(120, 0, 360, 320)
 
 // miscellaneous constants
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
@@ -117,6 +120,11 @@ static Version detectVersion(const char *dataPath) {
 	self.inputController.delegate = self.joystickView;
 	self.inputController.TheJoyStick = &systemStub->TheJoyStick;
 	[view addSubview:self.inputController];
+	
+	self.landscapeJoystickView = [[JoystickViewLandscape alloc] initWithFrame:kJoystickViewFrameLandscape];
+	self.landscapeJoystickView.hidden = YES;
+	[self.inputController addSubview:self.landscapeJoystickView];
+	
 
 	self.fullControlsImage = [[UIImageView alloc] initWithImage:[UIImage imageFromResource:@"fullcontrols_overlay.png"]];
 	self.fullControlsImage.alpha = 0.0;
@@ -149,6 +157,10 @@ static Version detectVersion(const char *dataPath) {
 	if (emulatorState == EmulatorPaused) {
 		return;//[self resumeEmulator];
 	} else if (emulatorState == EmulatorNotStarted) {
+		if (engine->hasDefaultGameState()) {
+			engine->autoLoadDefaultGameState();
+		}
+
 		emulationThread = [[NSThread alloc] initWithTarget:self selector:@selector(runEmulator) object:nil];
 		[emulationThread start];
 		[self.displayView startTimer];
@@ -210,21 +222,25 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)rotateToPortrait {
-	self.displayView.frame			= kDisplayFramePortrait;
+	self.displayView.frame				= kDisplayFramePortrait;
 	[self.displayView setNeedsLayout];
 	
-	self.joystickView.alpha			= 1.0;
-	self.inputController.frame		= kInputFramePortrait;
+	self.landscapeJoystickView.hidden	= YES;
+	self.inputController.delegate		= joystickView;
+	
+	self.joystickView.alpha				= 1.0;
+	self.inputController.frame			= kInputFramePortrait;
 }
 
 - (void)rotateToLandscape {
-	self.displayView.frame			= kDisplayFrameLandscapeFullScreen;
+	self.displayView.frame				= kDisplayFrameLandscapeFullScreen;
 	[self.displayView setNeedsLayout];
 		
 	// hide joystick
-	self.joystickView.alpha			= 0.0;
-	
-	self.inputController.frame		= CGRectMake(0, 0, 480, 320);
+	self.joystickView.alpha				= 0.0;	
+	self.landscapeJoystickView.hidden	= NO;
+	self.inputController.delegate		= landscapeJoystickView;
+	self.inputController.frame			= kInputFrameLandscape;
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
@@ -272,8 +288,9 @@ static Version detectVersion(const char *dataPath) {
 - (void)loadDefaultGame {
 	systemStub->_pi.stateSlot	= 99;
 	systemStub->_pi.load		= true;
-	while (systemStub->_pi.load)
+	while (systemStub->_pi.load) {
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 20.0/1000.0, false);	
+	}
 }
 
 - (void)saveDefaultGame {

@@ -52,6 +52,20 @@ void iPhoneStub::setPalette(const uint8 *pal, uint16 n) {
 		palette2[i].b = b >> 3;
 	}
 }
+
+const float kGammaCorrectionCurve = 1/1.8f;
+
+inline Color gammaCorrection(const Color *c) {
+	Color result;
+	float r = c->r / 255.0;
+	float g = c->g / 255.0;
+	float b = c->b / 255.0;
+	result.r = MIN(pow(r, kGammaCorrectionCurve), 1.0) * 255.99;
+	result.g = MIN(pow(g, kGammaCorrectionCurve), 1.0) * 255.99;
+	result.b = MIN(pow(b, kGammaCorrectionCurve), 1.0) * 255.99;
+	return result;
+}
+
 void iPhoneStub::setPaletteEntry(uint8 i, const Color *c) {
 	uint8 r = (c->r << 2) | (c->r & 3);
 	uint8 g = (c->g << 2) | (c->g & 3);
@@ -59,12 +73,20 @@ void iPhoneStub::setPaletteEntry(uint8 i, const Color *c) {
 	palette2[i].r = r >> 3;
 	palette2[i].g = g >> 3;
 	palette2[i].b = b >> 3;
+	
+	//Color gammaCorrected = gammaCorrection(c);
+	//palette2[i].r = gammaCorrected.r >> 3;
+	//palette2[i].g = gammaCorrected.g >> 3;
+	//palette2[i].b = gammaCorrected.b >> 3;
 }
 
 void iPhoneStub::getPaletteEntry(uint8 i, Color *c) {
-	c->r = palette2[i].r << 3;
-	c->g = palette2[i].r << 3;
-	c->b = palette2[i].r << 3;
+	c->r = palette2[i].r;
+	c->g = palette2[i].g;
+	c->b = palette2[i].b;
+//	c->r = palette2[i].r << 3;
+//	c->g = palette2[i].g << 3;
+//	c->b = palette2[i].b << 3;
 }
 
 void iPhoneStub::setOverscanColor(uint8 i) {

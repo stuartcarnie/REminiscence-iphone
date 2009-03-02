@@ -22,32 +22,6 @@
 #import "JoyStick.h"
 #import "debug.h"
 
-@interface FireButtonView : UIView {
-@public
-	CJoyStick							*TheJoyStick;
-	id<InputControllerChangedDelegate>	delegate;
-}
-
-@end
-
-@implementation FireButtonView
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	TheJoyStick->setButtonOneState(FireButtonDown);
-	[delegate fireButton:FireButtonDown];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {	
-	// ignore
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	TheJoyStick->setButtonOneState(FireButtonUp);
-	[delegate fireButton:FireButtonUp];
-}
-
-@end
-
 @interface InputControllerView(PrivateMethods)
 
 - (void)calculateDPadState;
@@ -57,9 +31,6 @@
 @end
 
 @implementation InputControllerView
-
-const int kButtonWidthPortrait			= 110;
-const int kButtonWidthLandscape			= 130;
 
 enum tagFireButtons {
 	FireShift = 1,
@@ -73,7 +44,7 @@ enum tagFireButtons {
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 		
-		const int width = 100;
+		const int width = 70;
 		const int height = 35;
 		int y = 22;
 		int spacing = height + 5;
@@ -81,6 +52,7 @@ enum tagFireButtons {
 		
 		UIButton *fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		fb.frame = CGRectMake(0, 0, width, height);
+		fb.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 		[fb setTitle:@"Shift" forState:UIControlStateNormal];
 		[self addSubview:fb];
 		fb.center = CGPointMake(x, y);
@@ -90,6 +62,7 @@ enum tagFireButtons {
 		y += spacing;
 		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		fb.frame = CGRectMake(0, 0, width, height);		
+		fb.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 		[fb setTitle:@"Space" forState:UIControlStateNormal];
 		[self addSubview:fb];
 		fb.center = CGPointMake(x, y);
@@ -99,6 +72,7 @@ enum tagFireButtons {
 		y += spacing;
 		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		fb.frame = CGRectMake(0, 0, width, height);
+		fb.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 		[fb setTitle:@"Tab" forState:UIControlStateNormal];
 		[self addSubview:fb];
 		fb.center = CGPointMake(x, y);
@@ -108,6 +82,7 @@ enum tagFireButtons {
 		y += spacing;
 		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		fb.frame = CGRectMake(0, 0, width, height);
+		fb.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 		[fb setTitle:@"Enter" forState:UIControlStateNormal];
 		[self addSubview:fb];
 		fb.center = CGPointMake(x, y);
@@ -115,8 +90,6 @@ enum tagFireButtons {
 		[fb addTarget:self action:@selector(onFireButton:) forControlEvents:UIControlEventTouchDown | UIControlEventTouchUpInside];
 		
         // Initialization code
-		//button = [[FireButtonView alloc] initWithFrame:CGRectMake(0, 0, kButtonWidthPortrait, frame.size.height)];
-		//[self addSubview:button];
 		_deadZone = 20.0f;	// radius, in pixels of the dead zone.
 		_trackingStick = NO;
 		_stickVector = new CGVector2D();
@@ -126,12 +99,10 @@ enum tagFireButtons {
 
 - (void)setDelegate:(id<InputControllerChangedDelegate>)theDelegate {
 	delegate = theDelegate;
-	//button->delegate = theDelegate;
 }
 
 - (void)setTheJoyStick:(CJoyStick*)stick {
 	TheJoyStick = stick;
-	//button->TheJoyStick = stick;
 }
 
 - (void)onFireButton:(UIButton*)sender {

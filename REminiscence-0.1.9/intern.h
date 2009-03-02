@@ -27,8 +27,14 @@
 #include "sys.h"
 #include "util.h"
 
-#define MAX(x,y) ((x)>(y)?(x):(y))
-#define MIN(x,y) ((x)<(y)?(x):(y))
+#if !defined(MAX)
+# define MAX(x,y) ((x)>(y)?(x):(y))
+#endif
+
+#if !defined(MIN)
+# define MIN(x,y) ((x)<(y)?(x):(y))
+#endif
+
 #define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
 
 #ifndef M_PI

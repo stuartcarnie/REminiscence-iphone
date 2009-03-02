@@ -38,7 +38,12 @@ enum {
 
 extern uint16 g_debugMask;
 
+#if DEBUG
 extern void debug(uint16 cm, const char *msg, ...);
+#else
+#define		debug(cm, format, ...)
+#endif
+
 extern void error(const char *msg, ...);
 extern void warning(const char *msg, ...);
 

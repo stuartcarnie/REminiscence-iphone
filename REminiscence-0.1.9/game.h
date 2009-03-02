@@ -386,6 +386,10 @@ struct Game {
 	bool loadGameState(uint8 slot);
 	void saveState(File *f);
 	void loadState(File *f);
+
+	bool _autoLoad;
+	void autoLoadDefaultGameState();		// will immediately load a game state, skipping all intro sequences
+	bool hasDefaultGameState();
 };
 
 #endif // __GAME_H__

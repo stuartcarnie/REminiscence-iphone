@@ -23,8 +23,8 @@
 	playerInput->save = true;
 }
 
-- (IBAction)enter {
-	playerInput->enter = true;
+- (IBAction)options {
+	playerInput->escape = true;
 }
 
 - (IBAction)restart {
