@@ -14,6 +14,7 @@
 		055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227720F5BB01600512D4B /* ls-joystick_active.png */; };
 		055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227730F5BB01600512D4B /* ls-joystick_rest.png */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
+		055229590F5BCD9000512D4B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 055229580F5BCD9000512D4B /* icon.png */; };
 		05CF8DE70F1343FB00493EED /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC00F1343FB00493EED /* collision.cpp */; };
 		05CF8DE80F1343FB00493EED /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8DC10F1343FB00493EED /* COPYING */; };
 		05CF8DE90F1343FB00493EED /* cutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC20F1343FB00493EED /* cutscene.cpp */; };
@@ -246,6 +247,7 @@
 		055227720F5BB01600512D4B /* ls-joystick_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_active.png"; sourceTree = "<group>"; };
 		055227730F5BB01600512D4B /* ls-joystick_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_rest.png"; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		055229580F5BCD9000512D4B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		05CF8DC00F1343FB00493EED /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
 		05CF8DC10F1343FB00493EED /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		05CF8DC20F1343FB00493EED /* cutscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cutscene.cpp; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 				05CF900A0F134C9C00493EED /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				0552293B0F5BCBA900512D4B /* Entitlements.plist */,
+				055229580F5BCD9000512D4B /* icon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1169,6 +1172,7 @@
 				055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */,
 				055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */,
 				0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */,
+				055229590F5BCD9000512D4B /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1224,6 +1228,48 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0517E6170F5BCDE70061011E /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Manomio LLC";
+				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_STRICT_ALIASING = YES;
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = (
+					"-finline-functions",
+					"-fno-PIE",
+					"-fomit-frame-pointer",
+					"-falign-loops=16",
+				);
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "779DFF0D-B22A-462F-94D2-073122BF2A94";
+				SDKROOT = iphoneos2.2;
+			};
+			name = Distribution;
+		};
+		0517E6180F5BCDE70061011E /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Flashback_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = Flashback;
+			};
+			name = Distribution;
+		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1307,6 +1353,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				0517E6180F5BCDE70061011E /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1316,6 +1363,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				0517E6170F5BCDE70061011E /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
