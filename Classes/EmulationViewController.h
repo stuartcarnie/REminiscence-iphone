@@ -13,6 +13,7 @@ class iPhoneStub;
 @class	DisplayView;
 @class InputControllerView;
 @class JoystickView;
+@class JoystickViewLandscape;
 
 enum tagEmulatorState {
 	EmulatorNotStarted,
@@ -30,6 +31,7 @@ enum tagEmulatorState {
 	DisplayView					*displayView;
 	JoystickView				*joystickView;
 	InputControllerView			*inputController;
+	JoystickViewLandscape		*landscapeJoystickView;
 
 	// landscape views
 	UIImageView					*fullControlsImage;
@@ -41,6 +43,7 @@ enum tagEmulatorState {
 @property (nonatomic, retain)	DisplayView				*displayView;
 @property (nonatomic, retain)	InputControllerView		*inputController;
 @property (nonatomic, retain)	JoystickView			*joystickView;
+@property (nonatomic, retain)	JoystickViewLandscape	*landscapeJoystickView;
 @property (nonatomic, retain)	UIImageView				*fullControlsImage;
 
 - (void)pause;

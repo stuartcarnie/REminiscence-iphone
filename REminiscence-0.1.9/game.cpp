@@ -33,6 +33,7 @@ Game::Game(SystemStub *stub, const char *dataPath, const char *savePath, Version
 	_inp_demo = 0;
 	_inp_record = false;
 	_inp_replay = false;
+	_autoLoad = false;
 }
 
 void Game::run() {
@@ -51,12 +52,14 @@ void Game::run() {
 
 	_mix.init();
 
-	playCutscene(0x40);
-	playCutscene(0x0D);
-	if (!_cut._interrupted) {
-		playCutscene(0x4A);
+	if (!_autoLoad) {
+		playCutscene(0x40);
+		playCutscene(0x0D);
+		if (!_cut._interrupted) {
+			playCutscene(0x4A);
+		}
 	}
-
+	
 	_res.load("GLOBAL", Resource::OT_ICN);
 	_res.load("PERSO", Resource::OT_SPR);
 	_res.load_SPR_OFF("PERSO", _res._spr1);
@@ -65,7 +68,7 @@ void Game::run() {
 	_skillLevel = 1;
 	_currentLevel = 0;
 
-	while (!_stub->_pi.quit && _menu.handleTitleScreen(_skillLevel, _currentLevel)) {
+	while (!_stub->_pi.quit && (_autoLoad || _menu.handleTitleScreen(_skillLevel, _currentLevel))) {
 		if (_currentLevel == 7) {
 			_vid.fadeOut();
 			_vid.setTextPalette();
@@ -113,7 +116,12 @@ void Game::mainLoop() {
 	_firstBankData = _bankData;
 	_lastBankData = _bankData + sizeof(_bankData);
 	loadLevelData();
-	resetGameState();
+	if (_autoLoad) {
+		_autoLoad = false;
+		loadGameState(99);
+	} else {
+		resetGameState();
+	}
 	while (!_stub->_pi.quit) {
 		playCutscene();
 		if (_cut._id == 0x3D) {
@@ -220,6 +228,17 @@ void Game::inp_handleSpecialKeys() {
 	if (_stub->_pi.dbgMask & PlayerInput::DF_SETLIFE) {
 		_pgeLive[0].life = 0x7FFF;
 	}
+	
+	// Moved by SGC
+	if (_stub->_pi.stateSlot != 0) {
+		int8 slot = _stub->_pi.stateSlot;
+		if (slot >= 1 && slot < 100) {
+			_stateSlot = slot;
+			debug(DBG_INFO, "Current game state slot is %d", _stateSlot);
+		}
+		_stub->_pi.stateSlot = 0;
+	}
+
 	if (_stub->_pi.load) {
 		loadGameState(_stateSlot);
 		_stub->_pi.load = false;
@@ -227,14 +246,6 @@ void Game::inp_handleSpecialKeys() {
 	if (_stub->_pi.save) {
 		saveGameState(_stateSlot);
 		_stub->_pi.save = false;
-	}
-	if (_stub->_pi.stateSlot != 0) {
-		int8 slot = _stateSlot + _stub->_pi.stateSlot;
-		if (slot >= 1 && slot < 100) {
-			_stateSlot = slot;
-			debug(DBG_INFO, "Current game state slot is %d", _stateSlot);
-		}
-		_stub->_pi.stateSlot = 0;
 	}
 	if (_stub->_pi.inpRecord || _stub->_pi.inpReplay) {
 		bool replay = false;
@@ -1418,6 +1429,19 @@ bool Game::saveGameState(uint8 slot) {
 		}
 	}
 	return success;
+}
+
+void Game::autoLoadDefaultGameState() {
+	if (!hasDefaultGameState()) return;
+	
+	_autoLoad = true;
+}
+
+bool Game::hasDefaultGameState() {
+	char stateFile[20];
+	makeGameStateName(99, stateFile);
+	File f(true);
+	return f.open(stateFile, _savePath, "rb");
 }
 
 bool Game::loadGameState(uint8 slot) {

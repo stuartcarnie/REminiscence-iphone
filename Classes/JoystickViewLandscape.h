@@ -18,29 +18,13 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "CGVector.h"
-#import "JoyStick.h"
+#import "InputControllerView.h"
 
-@protocol InputControllerChangedDelegate
-
-- (void)joystickStateChanged:(TouchStickDPadState)state;
-- (void)fireButton:(FireButtonState)state;
-
-@end
-
-@interface InputControllerView : UIView {
-	CGPoint								_stickCenter;
-	CGPoint								_stickLocation;
-	CGVector2D							*_stickVector;
-	BOOL								_trackingStick;
-	CJoyStick							*TheJoyStick;
-	
-	float								_deadZone;		// represents the deadzone radius, where the DPad state will be considered DPadCenter
-	
-	id<InputControllerChangedDelegate>	delegate;
+@interface JoystickViewLandscape : UIView<InputControllerChangedDelegate> {
+	UIImageView					*arrows;
+	UIImageView					*arrowDirection;
+	UIImageView					*stickCentre;
+	BOOL						tracking;
 }
-
-@property (nonatomic, assign)	id<InputControllerChangedDelegate>	delegate;
-@property (nonatomic)			CJoyStick							*TheJoyStick;
 
 @end
