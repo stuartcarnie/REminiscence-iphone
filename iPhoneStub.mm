@@ -172,6 +172,16 @@ void iPhoneStub::processEvents() {
 	
 	_pi.shift = TheJoyStick.buttonOneState() == FireButtonDown;
 	
+	_pi.space = TheJoyStick.button2State() == FireButtonDown;
+	_pi.backspace = TheJoyStick.button3State() == FireButtonDown;
+	_pi.enter = TheJoyStick.button4State() == FireButtonDown;
+	
+	// TODO: Improve this using a message queue
+	// reset the other fire buttons to up state
+	//TheJoyStick.setButton2State(FireButtonUp);
+	TheJoyStick.setButton3State(FireButtonUp);
+	//TheJoyStick.setButton4State(FireButtonUp);
+	
 	// run for 10ms
 	CFRunLoopRunInMode(kCFRunLoopDefaultMode, 10.0/1000.0, false);
 }

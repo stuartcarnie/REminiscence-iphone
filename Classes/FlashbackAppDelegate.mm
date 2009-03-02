@@ -23,7 +23,7 @@
     [window makeKeyAndVisible];
 	
 	OSStatus res = AudioSessionInitialize(NULL, NULL, NULL, NULL);
-	UInt32 sessionCategory = kAudioSessionCategory_LiveAudio;
+	UInt32 sessionCategory = kAudioSessionCategory_AmbientSound;
 	res = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
 	
 	Float32 preferredBufferSize = 2048.0 / (Float32)iPhoneStub::SOUND_SAMPLE_RATE;

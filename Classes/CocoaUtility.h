@@ -39,7 +39,12 @@
 
 @interface NSString(URLEncoding)
 
-- (NSString *) encodeForURL;
-- (NSString *) decodeFromURL;
+- (NSString *)encodeForURL;
+- (NSString *)decodeFromURL;
+
+@end
+
+@interface NSString(CStringUtility)
+
 
 @end

@@ -56,7 +56,7 @@ const int kInputAreaTop						= kPortraitSkinHeight + 1;
 
 // tabbar
 #define kTabBarVisible						CGRectMake(0, 0, 320, 480)
-#define kTabBarNotVisible					CGRectMake(0, 0, 320, 480 + 47)
+#define kTabBarNotVisible					CGRectMake(0, 0, 320, 480 + 48)
 
 // landscape frames
 #define kFullControlsOverlayFrameLandscape	CGRectMake(10, 10, 459, 300)
@@ -92,8 +92,8 @@ static Version detectVersion(const char *dataPath) {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	static char dataPath[512], documentsPath[512];
-	[[[NSBundle mainBundle] bundlePath] getCString:dataPath];
-	[DOCUMENTS_FOLDER getCString:documentsPath];
+	strncpy(dataPath, [[[NSBundle mainBundle] bundlePath] cStringUsingEncoding:[NSString defaultCStringEncoding]], sizeof(dataPath));
+	strncpy(documentsPath, [DOCUMENTS_FOLDER cStringUsingEncoding:[NSString defaultCStringEncoding]], sizeof(documentsPath));
 
 	Version ver = detectVersion(dataPath);
 	g_debugMask = DBG_INFO; // DBG_LOGIC | DBG_BANK | DBG_VIDEO | DBG_SER | DBG_SND
@@ -152,7 +152,7 @@ static Version detectVersion(const char *dataPath) {
 		emulationThread = [[NSThread alloc] initWithTarget:self selector:@selector(runEmulator) object:nil];
 		[emulationThread start];
 		[self.displayView startTimer];
-		[self performSelector:@selector(loadDefaultGame) withObject:nil afterDelay:0.25];
+		//[self performSelector:@selector(loadDefaultGame) withObject:nil afterDelay:0.25];
 	}
 }
 
