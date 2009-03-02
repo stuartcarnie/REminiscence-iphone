@@ -19,6 +19,7 @@
 
 #import "JoystickView.h"
 #import "debug.h"
+#import "CocoaUtility.h"
 
 @interface JoystickView(PrivateMembers)
 
@@ -55,17 +56,19 @@ static char* joystick_files[] = {
 	"left_up.png"
 };
 
+static size_t joystick_files_count = sizeof(joystick_files) / sizeof(joystick_files[0]);
+
 const int kJoystickTop			= 2;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 		self.userInteractionEnabled = NO;
 		
-		background = [self createViewFromImageNamed:@"bg.png"];
+		background = [UIImageView newViewFromImageResource:@"bg.png"];
         [self addSubview:background];
 
-		for (int i = 0; i < sizeof(joystick_files) / sizeof(joystick_files[0]); i++) {
-			joystick_images[i] = [UIImage imageNamed:[NSString stringWithCString:joystick_files[i]]]; 
+		for (int i = 0; i < joystick_files_count; i++) {
+			joystick_images[i] = [[UIImage imageFromResource:[NSString stringWithCString:joystick_files[i]]] retain]; 
 		}
 
 		joystick = [[UIImageView alloc] initWithFrame:CGRectMake(140, kJoystickTop-5, 182, 168)];
@@ -89,6 +92,9 @@ const int kJoystickTop			= 2;
 }
 
 - (void)dealloc {
+	for (int i=0; i < joystick_files_count; i++) {
+		[joystick_images[i] release];
+	}
     [super dealloc];
 }
 

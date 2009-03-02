@@ -35,11 +35,11 @@ struct PlayerInput {
 	};
 
 	uint8 dirMask;
-	bool enter;
-	bool space;
-	bool shift;
-	bool backspace;
-	bool escape;
+	bool enter;					// use object
+	bool space;					// take out / put back gun
+	bool shift;					// Operate / run / take
+	bool backspace;				// Inventory / Exit from cinematic scene
+	bool escape;				// Game Options
 
 	char lastChar;
 

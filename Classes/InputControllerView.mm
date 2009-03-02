@@ -33,7 +33,6 @@
 @implementation FireButtonView
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	DLog([NSString stringWithFormat:@"FireButton down %@", [touches anyObject]]);
 	TheJoyStick->setButtonOneState(FireButtonDown);
 	[delegate fireButton:FireButtonDown];
 }
@@ -43,7 +42,6 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	DLog([NSString stringWithFormat:@"FireButton up %@", [touches anyObject]]);
 	TheJoyStick->setButtonOneState(FireButtonUp);
 	[delegate fireButton:FireButtonUp];
 }
@@ -54,6 +52,7 @@
 
 - (void)calculateDPadState;
 - (void)setDPadState:(TouchStickDPadState)state;
+- (void)onFireButton:(UIButton*)sender;
 
 @end
 
@@ -62,13 +61,62 @@
 const int kButtonWidthPortrait			= 110;
 const int kButtonWidthLandscape			= 130;
 
+enum tagFireButtons {
+	FireShift = 1,
+	FireSpace,
+	FireTab,
+	FireEnter
+};
+
 @synthesize delegate, TheJoyStick;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+		
+		const int width = 100;
+		const int height = 35;
+		int y = 22;
+		int spacing = height + 5;
+		int x = (width / 2) + 10;
+		
+		UIButton *fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		fb.frame = CGRectMake(0, 0, width, height);
+		[fb setTitle:@"Shift" forState:UIControlStateNormal];
+		[self addSubview:fb];
+		fb.center = CGPointMake(x, y);
+		fb.tag = FireShift;
+		[fb addTarget:self action:@selector(onFireButton:) forControlEvents:UIControlEventTouchDown | UIControlEventTouchUpInside];
+		
+		y += spacing;
+		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		fb.frame = CGRectMake(0, 0, width, height);		
+		[fb setTitle:@"Space" forState:UIControlStateNormal];
+		[self addSubview:fb];
+		fb.center = CGPointMake(x, y);
+		fb.tag = FireSpace;
+		[fb addTarget:self action:@selector(onFireButton:) forControlEvents:UIControlEventTouchDown | UIControlEventTouchUpInside];
+
+		y += spacing;
+		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		fb.frame = CGRectMake(0, 0, width, height);
+		[fb setTitle:@"Tab" forState:UIControlStateNormal];
+		[self addSubview:fb];
+		fb.center = CGPointMake(x, y);
+		fb.tag = FireTab;
+		[fb addTarget:self action:@selector(onFireButton:) forControlEvents:UIControlEventTouchDown | UIControlEventTouchUpInside];
+		
+		y += spacing;
+		fb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		fb.frame = CGRectMake(0, 0, width, height);
+		[fb setTitle:@"Enter" forState:UIControlStateNormal];
+		[self addSubview:fb];
+		fb.center = CGPointMake(x, y);
+		fb.tag = FireEnter;
+		[fb addTarget:self action:@selector(onFireButton:) forControlEvents:UIControlEventTouchDown | UIControlEventTouchUpInside];
+		
         // Initialization code
-		button = [[FireButtonView alloc] initWithFrame:CGRectMake(0, 0, kButtonWidthPortrait, frame.size.height)];
-		[self addSubview:button];
+		//button = [[FireButtonView alloc] initWithFrame:CGRectMake(0, 0, kButtonWidthPortrait, frame.size.height)];
+		//[self addSubview:button];
 		_deadZone = 20.0f;	// radius, in pixels of the dead zone.
 		_trackingStick = NO;
 		_stickVector = new CGVector2D();
@@ -78,12 +126,32 @@ const int kButtonWidthLandscape			= 130;
 
 - (void)setDelegate:(id<InputControllerChangedDelegate>)theDelegate {
 	delegate = theDelegate;
-	button->delegate = theDelegate;
+	//button->delegate = theDelegate;
 }
 
 - (void)setTheJoyStick:(CJoyStick*)stick {
 	TheJoyStick = stick;
-	button->TheJoyStick = stick;
+	//button->TheJoyStick = stick;
+}
+
+- (void)onFireButton:(UIButton*)sender {
+	FireButtonState state = (FireButtonState)sender.state;
+	DLog(@"state = %d", state);
+		
+	switch(sender.tag) {
+		case FireShift:
+			TheJoyStick->setButtonOneState(state);
+			break;
+		case FireSpace:
+			TheJoyStick->setButton2State(state);
+			break;
+		case FireTab:
+			TheJoyStick->setButton3State(state);
+			break;
+		case FireEnter:
+			TheJoyStick->setButton4State(state);
+			break;
+	}
 }
 
 - (void)layoutSubviews {
@@ -91,9 +159,9 @@ const int kButtonWidthLandscape			= 130;
 	CGSize size = self.frame.size;
 	UIInterfaceOrientation current = (UIInterfaceOrientation)[[UIDevice currentDevice] orientation];
 	if (UIInterfaceOrientationIsLandscape(current)) {
-		button.frame = CGRectMake(0, 0, kButtonWidthLandscape, self.frame.size.height);
+		//button.frame = CGRectMake(0, 0, kButtonWidthLandscape, self.frame.size.height);
 	} else {
-		button.frame = CGRectMake(0, 0, kButtonWidthPortrait, self.frame.size.height);
+		//button.frame = CGRectMake(0, 0, kButtonWidthPortrait, self.frame.size.height);
 	}
 }
 
