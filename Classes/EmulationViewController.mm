@@ -50,7 +50,7 @@
 
 const double kControlsWidth					= 110;
 // landscape frames
-#define kDisplayFrameLandscapeFullScreen	CGRectMake(kControlsWidth, 0, 320, 320)
+#define kDisplayFrameLandscapeFullScreen	CGRectMake(kControlsWidth, 6, 352, 308)
 #define kGameControlsFrame					CGRectMake(0, 0, kControlsWidth, 320)
 #define kInputFrameLandscape				CGRectMake(kControlsWidth, 0, 480 - kControlsWidth, 320)
 #define kJoystickViewFrameLandscape			CGRectMake(0, 0, 480 - kControlsWidth, 320)
