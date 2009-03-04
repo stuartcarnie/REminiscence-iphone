@@ -24,6 +24,7 @@
 @interface DisplayView() 
 
 - (void)updateScreen;
+
 @end
 
 @implementation DisplayView
