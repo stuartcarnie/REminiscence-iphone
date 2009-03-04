@@ -24,11 +24,9 @@
 @interface FlashbackAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	EmulationViewController		*emulationController;
-	UITabBarController			*mainController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow					*window;
-@property (nonatomic, retain) IBOutlet UITabBarController		*mainController;
 @property (nonatomic, retain) IBOutlet EmulationViewController	*emulationController;
 
 @end
