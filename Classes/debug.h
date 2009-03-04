@@ -1,6 +1,6 @@
-/*
- Frodo, Commodore 64 emulator for the iPhone
- Copyright (C) 2007,2008 Stuart Carnie
+/* 
+ Flashback for iPhone - Flashback interpreter
+ Copyright (C) 2009 Stuart Carnie
  See gpl.txt for license information.
  
  This program is free software: you can redistribute it and/or modify
