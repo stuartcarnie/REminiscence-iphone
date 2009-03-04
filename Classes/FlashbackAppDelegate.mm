@@ -25,12 +25,11 @@
 
 @implementation FlashbackAppDelegate
 
-@synthesize window, mainController, emulationController;
-
+@synthesize window, emulationController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 
-	[window addSubview:mainController.view];
+	[window addSubview:emulationController.view];
     [window makeKeyAndVisible];
 	
 	OSStatus res = AudioSessionInitialize(NULL, NULL, NULL, NULL);
@@ -66,6 +65,7 @@
 
 
 - (void)dealloc {
+	self.emulationController = nil;
     [window release];
     [super dealloc];
 }

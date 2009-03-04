@@ -24,9 +24,8 @@
 
 #import "DisplayView.h"
 #import "InputControllerView.h"
-#import "JoystickView.h"
 #import "JoystickViewLandscape.h"
-#import "GameControlsViewController.h"
+#import "GameControlsView.h"
 
 #import "CocoaUtility.h"
 
@@ -42,39 +41,20 @@
 - (void)runEmulator;
 - (void)loadDefaultState;
 
-- (void)rotateToPortrait;
-- (void)rotateToLandscape;
-- (void)didRotate;
-
-- (void)showControlsOverlay;
-- (void)hideControlsOverlay;
-- (void)displayControlsOverlay:(BOOL)display;
-
 @end
 
 
 @implementation EmulationViewController
 
-@synthesize displayView, inputController, joystickView, fullControlsImage, landscapeJoystickView;
+@synthesize displayView, inputController, landscapeJoystickView, gameControlsView;
 
-const int kHeaderBarHeight					= 16;
-const int kPortraitSkinHeight				= 265;
-
-const int kInputAreaTop						= kPortraitSkinHeight + 1;
-
-#define kDisplayFramePortrait				CGRectMake(32, 0, Video::GAMESCREEN_W, Video::GAMESCREEN_H)
-#define kJoystickViewFramePortrait			CGRectMake(0, kInputAreaTop, 320, 200)
-#define kInputFramePortrait					CGRectMake(0, kInputAreaTop, 320, 480 - kInputAreaTop)
-
-// tabbar
-#define kTabBarVisible						CGRectMake(0, 0, 320, 480)
-#define kTabBarNotVisible					CGRectMake(0, 0, 320, 480 + 48)
-
+const double kControlsWidth					= 110;
 // landscape frames
-#define kFullControlsOverlayFrameLandscape	CGRectMake(10, 10, 459, 300)
-#define kDisplayFrameLandscapeFullScreen	CGRectMake(80, 0, 320, 320);
-#define kInputFrameLandscape				CGRectMake(0, 0, 480, 320)
-#define kJoystickViewFrameLandscape			CGRectMake(120, 0, 360, 320)
+#define kDisplayFrameLandscapeFullScreen	CGRectMake(kControlsWidth, 0, 320, 320)
+#define kGameControlsFrame					CGRectMake(0, 0, kControlsWidth, 320)
+#define kInputFrameLandscape				CGRectMake(kControlsWidth, 0, 480 - kControlsWidth, 320)
+#define kJoystickViewFrameLandscape			CGRectMake(0, 0, 480 - kControlsWidth, 320)
+#define degreesToRadian(x)					(M_PI  * x / 180.0)
 
 // miscellaneous constants
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
@@ -120,44 +100,31 @@ static Version detectVersion(const char *dataPath) {
 	UIView *view = [[UIView alloc] initWithFrame:frame];
 	view.backgroundColor = [UIColor blackColor];
 	
-	self.displayView = [[DisplayView alloc] initWithFrame:kDisplayFramePortrait];
+	displayView = [[DisplayView alloc] initWithFrame:kDisplayFrameLandscapeFullScreen];
 	self.displayView.stub = systemStub;
 	[view addSubview:self.displayView];
 	
-	self.joystickView = [[JoystickView alloc] initWithFrame:kJoystickViewFramePortrait];
-	[view addSubview:self.joystickView];
-	
-	self.inputController = [[InputControllerView alloc] initWithFrame:kInputFramePortrait];
-	self.inputController.delegate = self.joystickView;
+	inputController = [[InputControllerView alloc] initWithFrame:kInputFrameLandscape];
 	self.inputController.TheJoyStick = &systemStub->TheJoyStick;
 	[view addSubview:self.inputController];
 	
-	self.landscapeJoystickView = [[JoystickViewLandscape alloc] initWithFrame:kJoystickViewFrameLandscape];
-	self.landscapeJoystickView.hidden = YES;
+	landscapeJoystickView = [[JoystickViewLandscape alloc] initWithFrame:kJoystickViewFrameLandscape];
 	[self.inputController addSubview:self.landscapeJoystickView];
+	self.inputController.delegate = self.landscapeJoystickView;
 	
-
-	self.fullControlsImage = [[UIImageView alloc] initWithImage:[UIImage imageFromResource:@"fullcontrols_overlay.png"]];
-	self.fullControlsImage.alpha = 0.0;
-	self.fullControlsImage.frame = kFullControlsOverlayFrameLandscape;
-	[view addSubview:self.fullControlsImage];
+	[[NSBundle mainBundle] loadNibNamed:@"GameControlsView" owner:self options:nil];
+	gameControlsView.frame = kGameControlsFrame;
+	gameControlsView.TheJoyStick = &systemStub->TheJoyStick;
+	gameControlsView.playerInput = &systemStub->_pi;
+	[view addSubview:self.gameControlsView];
 	
 	self.view = view;
 	view.isUserInteractionEnabled = YES;
     [view release];	
 	
-	GameControlsViewController *gcs = [self.tabBarController.viewControllers objectAtIndex:1];
-	gcs.playerInput = &systemStub->_pi;
-	
-	
-	// monitor device rotation
-	layoutOrientation				= (UIInterfaceOrientation)[[UIDevice currentDevice] orientation];
-
-	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(didRotate)
-												 name:@"UIDeviceOrientationDidChangeNotification" 
-											   object:nil];
+	self.view.center = CGPointMake(160, 240);
+	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
+	self.view.bounds = CGRectMake(0, 0, 480, 320);	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -175,7 +142,6 @@ static Version detectVersion(const char *dataPath) {
 		emulationThread = [[NSThread alloc] initWithTarget:self selector:@selector(runEmulator) object:nil];
 		[emulationThread start];
 		[self.displayView startTimer];
-		//[self performSelector:@selector(loadDefaultGame) withObject:nil afterDelay:0.25];
 	}
 }
 
@@ -185,105 +151,6 @@ static Version detectVersion(const char *dataPath) {
 	[NSThread setThreadPriority:0.7];
 	engine->run();
 	[pool release];
-}
-
-#pragma mark Rotation handlers
-
-#define degreesToRadian(x) (M_PI  * x / 180.0)
-
-- (void)didRotate {
-	if (self.tabBarController.selectedViewController != self)
-		return;
-	
-	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation) || layoutOrientation == (UIInterfaceOrientation)orientation)
-		return;
-	
-	layoutOrientation = (UIInterfaceOrientation)orientation;
-	
-	[UIView beginAnimations:@"rotate" context:nil];
-	
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-	
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDuration:kDefaultAnimationDuration];
-	
-	self.view.center = CGPointMake(160, 240);
-	
-	if (UIInterfaceOrientationIsLandscape(layoutOrientation)) {
-		self.tabBarController.view.frame = kTabBarNotVisible;
-		
-		if (layoutOrientation == UIInterfaceOrientationLandscapeLeft) {
-			self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(-90));
-		} else {
-			self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
-		}
-		self.view.bounds = CGRectMake(0, 0, 480, 320);
-		
-		[self rotateToLandscape];
-	} else {
-		self.tabBarController.view.frame = kTabBarVisible;
-		self.view.transform = CGAffineTransformIdentity;
-		self.view.bounds = CGRectMake(0, 0, 320, 480);
-		
-		[self rotateToPortrait];
-	}
-	[UIView commitAnimations];
-}
-
-- (void)rotateToPortrait {
-	self.displayView.frame				= kDisplayFramePortrait;
-	[self.displayView setNeedsLayout];
-	
-	self.landscapeJoystickView.hidden	= YES;
-	self.inputController.delegate		= joystickView;
-	
-	self.joystickView.alpha				= 1.0;
-	self.inputController.frame			= kInputFramePortrait;
-}
-
-- (void)rotateToLandscape {
-	self.displayView.frame				= kDisplayFrameLandscapeFullScreen;
-	[self.displayView setNeedsLayout];
-		
-	// hide joystick
-	self.joystickView.alpha				= 0.0;	
-	self.landscapeJoystickView.hidden	= NO;
-	self.inputController.delegate		= landscapeJoystickView;
-	self.inputController.frame			= kInputFrameLandscape;
-}
-
-- (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
-	if (!UIInterfaceOrientationIsLandscape(layoutOrientation))
-		return;
-	
-	if ([animationID isEqual:@"rotate"]) {		
-		[self displayControlsOverlay:YES];
-		
-		// hide overlay after 2 seconds
-		[self performSelector:@selector(hideControlsOverlay) withObject:nil afterDelay:2.0];
-	}
-}
-
-- (void)showControlsOverlay {
-	[self displayControlsOverlay:YES];
-}
-
-- (void)hideControlsOverlay {
-	[self displayControlsOverlay:NO];
-}
-
-- (void)displayControlsOverlay:(BOOL)display {
-	DLog(@"Displaying landscape controller layout");
-	
-	self.fullControlsImage.frame = kFullControlsOverlayFrameLandscape;
-	[UIView beginAnimations:@"overlay-open" context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
-	[UIView setAnimationDuration:kDefaultControlsOverlayAnimationDuration];
-	
-	self.fullControlsImage.alpha = display ? 1.0 : 0.0;
-	[UIView commitAnimations];	
 }
 
 #pragma mark Emulator State

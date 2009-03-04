@@ -30,5 +30,7 @@
 	<true/>
 	<key>UIPrerenderedIcon</key>
 	<true/>
+	<key>UIInterfaceOrientation</key>
+	<string>UIInterfaceOrientationLandscapeRight</string>
 </dict>
 </plist>
