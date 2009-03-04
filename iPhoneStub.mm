@@ -62,19 +62,6 @@ void iPhoneStub::setPalette(const uint8 *pal, uint16 n) {
 	}
 }
 
-const float kGammaCorrectionCurve = 1/1.8f;
-
-inline Color gammaCorrection(const Color *c) {
-	Color result;
-	float r = c->r / 255.0;
-	float g = c->g / 255.0;
-	float b = c->b / 255.0;
-	result.r = MIN(pow(r, kGammaCorrectionCurve), 1.0) * 255.99;
-	result.g = MIN(pow(g, kGammaCorrectionCurve), 1.0) * 255.99;
-	result.b = MIN(pow(b, kGammaCorrectionCurve), 1.0) * 255.99;
-	return result;
-}
-
 void iPhoneStub::setPaletteEntry(uint8 i, const Color *c) {
 	uint8 r = (c->r << 2) | (c->r & 3);
 	uint8 g = (c->g << 2) | (c->g & 3);
@@ -82,11 +69,6 @@ void iPhoneStub::setPaletteEntry(uint8 i, const Color *c) {
 	palette2[i].r = r >> 3;
 	palette2[i].g = g >> 3;
 	palette2[i].b = b >> 3;
-	
-	//Color gammaCorrected = gammaCorrection(c);
-	//palette2[i].r = gammaCorrected.r >> 3;
-	//palette2[i].g = gammaCorrected.g >> 3;
-	//palette2[i].b = gammaCorrected.b >> 3;
 }
 
 void iPhoneStub::getPaletteEntry(uint8 i, Color *c) {
@@ -124,11 +106,57 @@ void iPhoneStub::copyRect(int16 x, int16 y, uint16 w, uint16 h, const uint8 *buf
 	
 	CGRect br = CGRectMake(x, y, w, h);
 	
-	uint16 *p = (uint16 *)imageBuffer + (y + 1) * Video::GAMESCREEN_W + (x + 1);
+	uint16 *p = (uint16 *)imageBuffer + y * Video::GAMESCREEN_W + x;
 	buf += y * pitch + x;
 	
 	uint16* _pal = (uint16*)&palette2;
+
+#if !TARGET_IPHONE_SIMULATOR
+	struct {
+		int pinc;
+		int bufinc;
+	} incs = { (Video::GAMESCREEN_W - w), (pitch - w) };
+
+	asm volatile (
+				  "ldr	r0, [%5]		\n\t"		// pinc
+				  "ldr	r1, [%5, #4]	\n\t"		// bufinc
+				  "pld	[%3]			\n\t"
+
+				  ".align 4		\n\t"
+				  "0:	\n\t"						// outer loop
+				  "mov	r2, %4	\n\t"
+				  
+				  ".align 4		\n\t"
+				  "1:	\n\t"						// inner loop
+				  "ldrb	r3, [%3], #1	\n\t"
+				  "mov r3, r3, LSL #1	\n\t"
+				  "ldrh r3, [%2, r3]	\n\t"
+				  "strh r3, [%1], #2	\n\t"
+				  
+				  "subs r2, r2, #1	\n\t"
+				  "bne 1b	\n\t"					// inner loop end
+				  
+				  "add %1, %1, r0, LSL #1	\n\t"
+				  "add %3, %3, r1	\n\t"
+				  
+				  "subs %0, %0, #1 \n\t"
+				  "bne 0b"							// outer loop end
+				  : 
+				  : "r" (h), "r" (p), "r" (_pal), "r" (buf), "r" (w), "r" (&incs)
+				  : "memory", "r0", "r1", "r2", "r3", "cc"
+	);
+#else
+	uint32 hh = h;
+	while (hh--) {
+		uint32 ww = w;
+		do {
+			*p++ = _pal[*buf++];
+		} while (--ww);
+		p += (Video::GAMESCREEN_W - w);
+		buf += (pitch - w);
+	}
 	
+	/*
 	while (h--) {
 		for (int i = 0; i < w; ++i) {
 			p[i] = _pal[buf[i]];
@@ -136,6 +164,8 @@ void iPhoneStub::copyRect(int16 x, int16 y, uint16 w, uint16 h, const uint8 *buf
 		p += Video::GAMESCREEN_W;
 		buf += pitch;
 	}
+	 */
+#endif
 	if (_pi.dbgMask & PlayerInput::DF_DBLOCKS) {
 		drawRect(&br, 0xE7, (uint16 *)imageBuffer + Video::GAMESCREEN_W + 1, Video::GAMESCREEN_W * 2);
 	}
