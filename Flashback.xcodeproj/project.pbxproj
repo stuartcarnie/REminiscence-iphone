@@ -9,15 +9,10 @@
 /* Begin PBXBuildFile section */
 		055227650F5BAF8200512D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
-		055227740F5BB01600512D4B /* ls-fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227700F5BB01600512D4B /* ls-fire.png */; };
-		055227750F5BB01600512D4B /* ls-bgimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227710F5BB01600512D4B /* ls-bgimage.png */; };
-		055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227720F5BB01600512D4B /* ls-joystick_active.png */; };
-		055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 055227730F5BB01600512D4B /* ls-joystick_rest.png */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
 		055229590F5BCD9000512D4B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 055229580F5BCD9000512D4B /* icon.png */; };
 		05B04C090F5E4B4D0095DE90 /* GameControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05B04C080F5E4B4D0095DE90 /* GameControlsView.xib */; };
 		05B04C110F5E4B8A0095DE90 /* GameControlsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05B04C100F5E4B8A0095DE90 /* GameControlsView.mm */; };
-		05B04C130F5E4CA50095DE90 /* fb-controls.png in Resources */ = {isa = PBXBuildFile; fileRef = 05B04C120F5E4CA50095DE90 /* fb-controls.png */; };
 		05CF8DE70F1343FB00493EED /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC00F1343FB00493EED /* collision.cpp */; };
 		05CF8DE80F1343FB00493EED /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8DC10F1343FB00493EED /* COPYING */; };
 		05CF8DE90F1343FB00493EED /* cutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC20F1343FB00493EED /* cutscene.cpp */; };
@@ -217,23 +212,20 @@
 		05CF8FAD0F134A3E00493EED /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CF8FAC0F134A3E00493EED /* AudioToolbox.framework */; };
 		05CF8FB50F134A5E00493EED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CF8FB40F134A5E00493EED /* CoreAudio.framework */; };
 		05CF8FCE0F134BAC00493EED /* CocoaUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8FCD0F134BAC00493EED /* CocoaUtility.m */; };
-		05CF8FEE0F134BCD00493EED /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE10F134BCC00493EED /* bg.png */; };
-		05CF8FEF0F134BCD00493EED /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE20F134BCC00493EED /* down.png */; };
-		05CF8FF00F134BCD00493EED /* firebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE30F134BCC00493EED /* firebutton.png */; };
-		05CF8FF10F134BCD00493EED /* firebutton_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE40F134BCC00493EED /* firebutton_active.png */; };
-		05CF8FF20F134BCD00493EED /* idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE50F134BCC00493EED /* idle.png */; };
-		05CF8FF30F134BCD00493EED /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE60F134BCC00493EED /* left.png */; };
-		05CF8FF40F134BCD00493EED /* left_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE70F134BCC00493EED /* left_down.png */; };
-		05CF8FF50F134BCD00493EED /* left_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE80F134BCC00493EED /* left_up.png */; };
-		05CF8FF60F134BCD00493EED /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FE90F134BCC00493EED /* right.png */; };
-		05CF8FF70F134BCD00493EED /* right_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FEA0F134BCC00493EED /* right_down.png */; };
-		05CF8FF80F134BCD00493EED /* right_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FEB0F134BCD00493EED /* right_up.png */; };
-		05CF8FF90F134BCD00493EED /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FEC0F134BCD00493EED /* up.png */; };
-		05CF8FFA0F134BCD00493EED /* fullcontrols_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 05CF8FED0F134BCD00493EED /* fullcontrols_overlay.png */; };
 		05CF90050F134C2100493EED /* DisplayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8FFC0F134C2100493EED /* DisplayView.mm */; };
 		05CF90060F134C2100493EED /* EmulationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8FFE0F134C2100493EED /* EmulationViewController.mm */; };
 		05CF90080F134C2100493EED /* InputControllerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF90020F134C2100493EED /* InputControllerView.mm */; };
 		05CF900B0F134C9C00493EED /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CF900A0F134C9C00493EED /* MainWindow.xib */; };
+		05E6691F0F5F9D60009B15FB /* joystick_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669170F5F9D60009B15FB /* joystick_bg.png */; };
+		05E669200F5F9D60009B15FB /* joystick_stick.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669180F5F9D60009B15FB /* joystick_stick.png */; };
+		05E669210F5F9D60009B15FB /* console_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669190F5F9D60009B15FB /* console_bg.png */; };
+		05E669220F5F9D60009B15FB /* btn_items.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6691A0F5F9D60009B15FB /* btn_items.png */; };
+		05E669230F5F9D60009B15FB /* btn_use.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6691B0F5F9D60009B15FB /* btn_use.png */; };
+		05E669240F5F9D60009B15FB /* btn_gun.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6691C0F5F9D60009B15FB /* btn_gun.png */; };
+		05E669250F5F9D60009B15FB /* btn_fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6691D0F5F9D60009B15FB /* btn_fire.png */; };
+		05E669270F5FA48C009B15FB /* joystick_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669260F5FA48C009B15FB /* joystick_rest.png */; };
+		05E669740F5FAD41009B15FB /* overlay_merged.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669720F5FAD41009B15FB /* overlay_merged.png */; };
+		05E669750F5FAD41009B15FB /* btn_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669730F5FAD41009B15FB /* btn_menu.png */; };
 		1D3623260D0F684500981E51 /* FlashbackAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -243,16 +235,11 @@
 /* Begin PBXFileReference section */
 		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
-		055227700F5BB01600512D4B /* ls-fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-fire.png"; sourceTree = "<group>"; };
-		055227710F5BB01600512D4B /* ls-bgimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-bgimage.png"; sourceTree = "<group>"; };
-		055227720F5BB01600512D4B /* ls-joystick_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_active.png"; sourceTree = "<group>"; };
-		055227730F5BB01600512D4B /* ls-joystick_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ls-joystick_rest.png"; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		055229580F5BCD9000512D4B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		05B04C080F5E4B4D0095DE90 /* GameControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameControlsView.xib; sourceTree = "<group>"; };
 		05B04C0F0F5E4B8A0095DE90 /* GameControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControlsView.h; sourceTree = "<group>"; };
 		05B04C100F5E4B8A0095DE90 /* GameControlsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameControlsView.mm; sourceTree = "<group>"; };
-		05B04C120F5E4CA50095DE90 /* fb-controls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-controls.png"; sourceTree = "<group>"; };
 		05CF8DC00F1343FB00493EED /* collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision.cpp; sourceTree = "<group>"; };
 		05CF8DC10F1343FB00493EED /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		05CF8DC20F1343FB00493EED /* cutscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cutscene.cpp; sourceTree = "<group>"; };
@@ -488,19 +475,6 @@
 		05CF8FB40F134A5E00493EED /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		05CF8FCC0F134BAC00493EED /* CocoaUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaUtility.h; sourceTree = "<group>"; };
 		05CF8FCD0F134BAC00493EED /* CocoaUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoaUtility.m; sourceTree = "<group>"; };
-		05CF8FE10F134BCC00493EED /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		05CF8FE20F134BCC00493EED /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
-		05CF8FE30F134BCC00493EED /* firebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firebutton.png; sourceTree = "<group>"; };
-		05CF8FE40F134BCC00493EED /* firebutton_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firebutton_active.png; sourceTree = "<group>"; };
-		05CF8FE50F134BCC00493EED /* idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idle.png; sourceTree = "<group>"; };
-		05CF8FE60F134BCC00493EED /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
-		05CF8FE70F134BCC00493EED /* left_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_down.png; sourceTree = "<group>"; };
-		05CF8FE80F134BCC00493EED /* left_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_up.png; sourceTree = "<group>"; };
-		05CF8FE90F134BCC00493EED /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
-		05CF8FEA0F134BCC00493EED /* right_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_down.png; sourceTree = "<group>"; };
-		05CF8FEB0F134BCD00493EED /* right_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_up.png; sourceTree = "<group>"; };
-		05CF8FEC0F134BCD00493EED /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
-		05CF8FED0F134BCD00493EED /* fullcontrols_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullcontrols_overlay.png; sourceTree = "<group>"; };
 		05CF8FFB0F134C2100493EED /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		05CF8FFC0F134C2100493EED /* DisplayView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
 		05CF8FFD0F134C2100493EED /* EmulationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulationViewController.h; sourceTree = "<group>"; };
@@ -508,6 +482,16 @@
 		05CF90010F134C2100493EED /* InputControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputControllerView.h; sourceTree = "<group>"; };
 		05CF90020F134C2100493EED /* InputControllerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputControllerView.mm; sourceTree = "<group>"; };
 		05CF900A0F134C9C00493EED /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		05E669170F5F9D60009B15FB /* joystick_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_bg.png; sourceTree = "<group>"; };
+		05E669180F5F9D60009B15FB /* joystick_stick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_stick.png; sourceTree = "<group>"; };
+		05E669190F5F9D60009B15FB /* console_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = console_bg.png; sourceTree = "<group>"; };
+		05E6691A0F5F9D60009B15FB /* btn_items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_items.png; sourceTree = "<group>"; };
+		05E6691B0F5F9D60009B15FB /* btn_use.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_use.png; sourceTree = "<group>"; };
+		05E6691C0F5F9D60009B15FB /* btn_gun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_gun.png; sourceTree = "<group>"; };
+		05E6691D0F5F9D60009B15FB /* btn_fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_fire.png; sourceTree = "<group>"; };
+		05E669260F5FA48C009B15FB /* joystick_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_rest.png; sourceTree = "<group>"; };
+		05E669720F5FAD41009B15FB /* overlay_merged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_merged.png; sourceTree = "<group>"; };
+		05E669730F5FAD41009B15FB /* btn_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_menu.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* FlashbackAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashbackAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlashbackAppDelegate.mm; sourceTree = "<group>"; };
@@ -538,20 +522,11 @@
 		0552276F0F5BB01600512D4B /* landscape-joystick */ = {
 			isa = PBXGroup;
 			children = (
-				055227700F5BB01600512D4B /* ls-fire.png */,
-				055227710F5BB01600512D4B /* ls-bgimage.png */,
-				055227720F5BB01600512D4B /* ls-joystick_active.png */,
-				055227730F5BB01600512D4B /* ls-joystick_rest.png */,
+				05E669170F5F9D60009B15FB /* joystick_bg.png */,
+				05E669180F5F9D60009B15FB /* joystick_stick.png */,
+				05E669260F5FA48C009B15FB /* joystick_rest.png */,
 			);
 			name = "landscape-joystick";
-			sourceTree = "<group>";
-		};
-		05B04BEF0F5E4AE20095DE90 /* landscape-skin */ = {
-			isa = PBXGroup;
-			children = (
-				05B04C120F5E4CA50095DE90 /* fb-controls.png */,
-			);
-			name = "landscape-skin";
 			sourceTree = "<group>";
 		};
 		05CF8DB50F1343CA00493EED /* Game Engine */ = {
@@ -860,31 +835,24 @@
 		05CF8FDF0F134BCC00493EED /* images */ = {
 			isa = PBXGroup;
 			children = (
-				05B04BEF0F5E4AE20095DE90 /* landscape-skin */,
-				05CF8FE00F134BCC00493EED /* joystick */,
+				05E669140F5F9B91009B15FB /* skin */,
 				0552276F0F5BB01600512D4B /* landscape-joystick */,
-				05CF8FED0F134BCD00493EED /* fullcontrols_overlay.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
 		};
-		05CF8FE00F134BCC00493EED /* joystick */ = {
+		05E669140F5F9B91009B15FB /* skin */ = {
 			isa = PBXGroup;
 			children = (
-				05CF8FE10F134BCC00493EED /* bg.png */,
-				05CF8FE20F134BCC00493EED /* down.png */,
-				05CF8FE30F134BCC00493EED /* firebutton.png */,
-				05CF8FE40F134BCC00493EED /* firebutton_active.png */,
-				05CF8FE50F134BCC00493EED /* idle.png */,
-				05CF8FE60F134BCC00493EED /* left.png */,
-				05CF8FE70F134BCC00493EED /* left_down.png */,
-				05CF8FE80F134BCC00493EED /* left_up.png */,
-				05CF8FE90F134BCC00493EED /* right.png */,
-				05CF8FEA0F134BCC00493EED /* right_down.png */,
-				05CF8FEB0F134BCD00493EED /* right_up.png */,
-				05CF8FEC0F134BCD00493EED /* up.png */,
+				05E669720F5FAD41009B15FB /* overlay_merged.png */,
+				05E669190F5F9D60009B15FB /* console_bg.png */,
+				05E6691A0F5F9D60009B15FB /* btn_items.png */,
+				05E6691B0F5F9D60009B15FB /* btn_use.png */,
+				05E6691C0F5F9D60009B15FB /* btn_gun.png */,
+				05E669730F5FAD41009B15FB /* btn_menu.png */,
+				05E6691D0F5F9D60009B15FB /* btn_fire.png */,
 			);
-			path = joystick;
+			name = skin;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -1162,28 +1130,20 @@
 				05CF8F8E0F13469100493EED /* teleport.pol in Resources */,
 				05CF8F8F0F13469100493EED /* voyage.cmd in Resources */,
 				05CF8F900F13469100493EED /* voyage.pol in Resources */,
-				05CF8FEE0F134BCD00493EED /* bg.png in Resources */,
-				05CF8FEF0F134BCD00493EED /* down.png in Resources */,
-				05CF8FF00F134BCD00493EED /* firebutton.png in Resources */,
-				05CF8FF10F134BCD00493EED /* firebutton_active.png in Resources */,
-				05CF8FF20F134BCD00493EED /* idle.png in Resources */,
-				05CF8FF30F134BCD00493EED /* left.png in Resources */,
-				05CF8FF40F134BCD00493EED /* left_down.png in Resources */,
-				05CF8FF50F134BCD00493EED /* left_up.png in Resources */,
-				05CF8FF60F134BCD00493EED /* right.png in Resources */,
-				05CF8FF70F134BCD00493EED /* right_down.png in Resources */,
-				05CF8FF80F134BCD00493EED /* right_up.png in Resources */,
-				05CF8FF90F134BCD00493EED /* up.png in Resources */,
-				05CF8FFA0F134BCD00493EED /* fullcontrols_overlay.png in Resources */,
 				05CF900B0F134C9C00493EED /* MainWindow.xib in Resources */,
-				055227740F5BB01600512D4B /* ls-fire.png in Resources */,
-				055227750F5BB01600512D4B /* ls-bgimage.png in Resources */,
-				055227760F5BB01600512D4B /* ls-joystick_active.png in Resources */,
-				055227770F5BB01600512D4B /* ls-joystick_rest.png in Resources */,
 				0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */,
 				055229590F5BCD9000512D4B /* icon.png in Resources */,
 				05B04C090F5E4B4D0095DE90 /* GameControlsView.xib in Resources */,
-				05B04C130F5E4CA50095DE90 /* fb-controls.png in Resources */,
+				05E6691F0F5F9D60009B15FB /* joystick_bg.png in Resources */,
+				05E669200F5F9D60009B15FB /* joystick_stick.png in Resources */,
+				05E669210F5F9D60009B15FB /* console_bg.png in Resources */,
+				05E669220F5F9D60009B15FB /* btn_items.png in Resources */,
+				05E669230F5F9D60009B15FB /* btn_use.png in Resources */,
+				05E669240F5F9D60009B15FB /* btn_gun.png in Resources */,
+				05E669250F5F9D60009B15FB /* btn_fire.png in Resources */,
+				05E669270F5FA48C009B15FB /* joystick_rest.png in Resources */,
+				05E669740F5FAD41009B15FB /* overlay_merged.png in Resources */,
+				05E669750F5FAD41009B15FB /* btn_menu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,6 +40,7 @@ enum tagEmulatorState {
 	tagEmulatorState			emulatorState;
 	
 	DisplayView					*displayView;
+	UIImageView					*overlay;
 	InputControllerView			*inputController;
 	JoystickViewLandscape		*landscapeJoystickView;
 	GameControlsView			*gameControlsView;

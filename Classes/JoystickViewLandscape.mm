@@ -36,15 +36,15 @@ CGFloat kDefaultRotateDuration		= 50.0 / 1000.0;
     if (self = [super initWithFrame:frame]) {
         // Initialization code
 		self.userInteractionEnabled = YES;
-		arrows = [UIImageView newViewFromImageResource:@"ls-bgimage.png"];
+		arrows = [UIImageView newViewFromImageResource:@"joystick_bg.png"];
 		arrows.alpha = 0.0;
 		[self addSubview:arrows];
 		
-		arrowDirection = [UIImageView newViewFromImageResource:@"ls-joystick_active.png"];
+		arrowDirection = [UIImageView newViewFromImageResource:@"joystick_stick.png"];
 		arrowDirection.alpha = 0.0;
 		[self addSubview:arrowDirection];
 		
-		stickCentre = [UIImageView newViewFromImageResource:@"ls-joystick_rest.png"];
+		stickCentre = [UIImageView newViewFromImageResource:@"joystick_rest.png"];
 		stickCentre.alpha = 0.0;
 		[self addSubview:stickCentre];
 		
