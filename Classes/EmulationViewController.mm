@@ -48,9 +48,11 @@
 
 @synthesize displayView, inputController, landscapeJoystickView, gameControlsView;
 
-const double kControlsWidth					= 110;
+const double kControlsWidth					= 95;
+const double kSkinTop						= 6;
+
 // landscape frames
-#define kDisplayFrameLandscapeFullScreen	CGRectMake(kControlsWidth, 6, 352, 308)
+#define kDisplayFrameLandscapeFullScreen	CGRectMake(kControlsWidth, kSkinTop, 352, 308)
 #define kGameControlsFrame					CGRectMake(0, 0, kControlsWidth, 320)
 #define kInputFrameLandscape				CGRectMake(kControlsWidth, 0, 480 - kControlsWidth, 320)
 #define kJoystickViewFrameLandscape			CGRectMake(0, 0, 480 - kControlsWidth, 320)
@@ -103,6 +105,9 @@ static Version detectVersion(const char *dataPath) {
 	displayView = [[DisplayView alloc] initWithFrame:kDisplayFrameLandscapeFullScreen];
 	self.displayView.stub = systemStub;
 	[view addSubview:self.displayView];
+	
+	overlay = [UIImageView newViewFromImageResource:@"overlay_merged.png"];
+	[view addSubview:overlay];
 	
 	inputController = [[InputControllerView alloc] initWithFrame:kInputFrameLandscape];
 	self.inputController.TheJoyStick = &systemStub->TheJoyStick;
@@ -179,6 +184,7 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)dealloc {
+	[overlay release];
     [super dealloc];
 }
 
