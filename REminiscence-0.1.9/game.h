@@ -43,6 +43,10 @@ struct Game {
 		CT_RIGHT_ROOM = 0x80,
 		CT_LEFT_ROOM  = 0xC0
 	};
+	
+	enum {
+		DEFAULT_SAVE_SLOT = 0x79
+	};
 
 	static const Level _gameLevels[];
 	static const uint16 _scoreTable[];
@@ -383,7 +387,7 @@ struct Game {
 	void makeGameDemoName(char *buf);
 	void makeGameStateName(uint8 slot, char *buf);
 	bool saveGameState(uint8 slot);
-	bool loadGameState(uint8 slot);
+	bool loadGameState(uint8 slot, bool loadData = true);
 	void saveState(File *f);
 	void loadState(File *f);
 
