@@ -115,13 +115,20 @@ void Game::mainLoop() {
 	_score = 0;
 	_firstBankData = _bankData;
 	_lastBankData = _bankData + sizeof(_bankData);
+	if (_autoLoad) {
+		// first load _currentLevel, for loadLevelData()
+		loadGameState(DEFAULT_SAVE_SLOT, false);
+	}
+	
 	loadLevelData();
+	
 	if (_autoLoad) {
 		_autoLoad = false;
-		loadGameState(99);
+		loadGameState(DEFAULT_SAVE_SLOT);
 	} else {
 		resetGameState();
 	}
+	
 	while (!_stub->_pi.quit) {
 		playCutscene();
 		if (_cut._id == 0x3D) {
@@ -232,7 +239,7 @@ void Game::inp_handleSpecialKeys() {
 	// Moved by SGC
 	if (_stub->_pi.stateSlot != 0) {
 		int8 slot = _stub->_pi.stateSlot;
-		if (slot >= 1 && slot < 100) {
+		if ((slot >= 1 && slot < 100) || slot == DEFAULT_SAVE_SLOT) {
 			_stateSlot = slot;
 			debug(DBG_INFO, "Current game state slot is %d", _stateSlot);
 		}
@@ -1404,10 +1411,29 @@ void Game::makeGameStateName(uint8 slot, char *buf) {
 	sprintf(buf, "rs-level%d-%02d.state", _currentLevel + 1, slot);
 }
 
+void Game::autoLoadDefaultGameState() {
+	if (!hasDefaultGameState()) return;
+	
+	_autoLoad = true;
+}
+
+const char *kDefaultGameState = "rs-current.state";
+
+bool Game::hasDefaultGameState() {
+	File f(true);
+	return f.open(kDefaultGameState, _savePath, "rb");
+}
+
 bool Game::saveGameState(uint8 slot) {
 	bool success = false;
+	
 	char stateFile[20];
-	makeGameStateName(slot, stateFile);
+	if (DEFAULT_SAVE_SLOT != slot) {
+		makeGameStateName(slot, stateFile);
+	} else {
+		strcpy(stateFile, kDefaultGameState);
+	}
+
 	File f(true);
 	if (!f.open(stateFile, _savePath, "wb")) {
 		warning("Unable to save state file '%s'", stateFile);
@@ -1431,23 +1457,16 @@ bool Game::saveGameState(uint8 slot) {
 	return success;
 }
 
-void Game::autoLoadDefaultGameState() {
-	if (!hasDefaultGameState()) return;
-	
-	_autoLoad = true;
-}
-
-bool Game::hasDefaultGameState() {
-	char stateFile[20];
-	makeGameStateName(99, stateFile);
-	File f(true);
-	return f.open(stateFile, _savePath, "rb");
-}
-
-bool Game::loadGameState(uint8 slot) {
+bool Game::loadGameState(uint8 slot, bool loadData) {
 	bool success = false;
+
 	char stateFile[20];
-	makeGameStateName(slot, stateFile);
+	if (DEFAULT_SAVE_SLOT != slot) {
+		makeGameStateName(slot, stateFile);
+	} else {
+		strcpy(stateFile, kDefaultGameState);
+	}
+	
 	File f(true);
 	if (!f.open(stateFile, _savePath, "rb")) {
 		warning("Unable to open state file '%s'", stateFile);
@@ -1462,13 +1481,21 @@ bool Game::loadGameState(uint8 slot) {
 			} else {
 				char hdrdesc[32];
 				f.read(hdrdesc, sizeof(hdrdesc));
-				// contents
-				loadState(&f);
-				if (f.ioErr()) {
-					warning("I/O error when loading game state");
-				} else {
-					debug(DBG_INFO, "Loaded state from slot %d", slot);
-					success = true;
+				int level = -1, room = -1;
+				
+				if (sscanf(hdrdesc, "level=%d room=%d", &level, &room) == 2) {
+					_currentLevel = level - 1;
+				}
+				
+				if (loadData) {					
+					// contents
+					loadState(&f);
+					if (f.ioErr()) {
+						warning("I/O error when loading game state");
+					} else {
+						debug(DBG_INFO, "Loaded state from slot %d", slot);
+						success = true;
+					}
 				}
 			}
 		}

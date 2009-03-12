@@ -169,7 +169,7 @@ static Version detectVersion(const char *dataPath) {
 #pragma mark State Management
 
 - (void)loadDefaultGame {
-	systemStub->_pi.stateSlot	= 99;
+	systemStub->_pi.stateSlot	= Game::DEFAULT_SAVE_SLOT;
 	systemStub->_pi.load		= true;
 	while (systemStub->_pi.load) {
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 20.0/1000.0, false);	
@@ -177,7 +177,7 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)saveDefaultGame {
-	systemStub->_pi.stateSlot	= 99;
+	systemStub->_pi.stateSlot	= Game::DEFAULT_SAVE_SLOT;
 	systemStub->_pi.save		= true;
 	while (systemStub->_pi.save)
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 20.0/1000.0, false);	
