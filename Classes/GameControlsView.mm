@@ -7,19 +7,61 @@
 //
 
 #import "GameControlsView.h"
-#import "systemstub.h"
 #import "JoyStick.h"
 #import "debug.h"
+#import "iPhoneStub.h"
+#import "GameNotifications.h"
+
+@interface GameControlsView()
+
+- (void)gameUINotification;
+
+@end
 
 @implementation GameControlsView
 
-@synthesize playerInput, TheJoyStick;
+@synthesize playerInput, TheJoyStick, systemStub;
+@synthesize fire=_fire, gun=_gun, items=_items, use=_use, menu=_menu;
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        // Initialization code
-    }
-    return self;
+- (void)awakeFromNib {
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(gameUINotification) 
+												 name:kGameUINotification 
+											   object:nil];
+}
+		
+- (void)gameUINotification {
+	SystemStub::tagUIPhase phase = systemStub->CurrentPhase;
+	BOOL enabled = phase == SystemStub::PHASE_END;
+	double alpha = enabled ? 1.0 : 0.2;
+	
+	SystemStub::tagUINotification	msg = systemStub->CurrentNotification;
+	switch (msg) {
+		case SystemStub::NOTIFY_CUTSCENE:
+		case SystemStub::NOTIFY_INVENTORY:
+			self.fire.alpha = alpha;
+			self.fire.enabled = enabled;
+			self.gun.alpha = alpha;
+			self.gun.enabled = enabled;
+			self.use.alpha = alpha;
+			self.use.enabled = enabled;
+			self.menu.alpha = alpha;
+			self.menu.enabled = enabled;
+			break;
+			
+		case SystemStub::NOTIFY_OPTIONS:
+		case SystemStub::NOTIFY_ABORT_CONTINUE:
+			self.fire.alpha = alpha;
+			self.fire.enabled = enabled;
+			self.gun.alpha = alpha;
+			self.gun.enabled = enabled;
+			self.items.alpha = alpha;
+			self.items.enabled = enabled;
+			self.menu.alpha = alpha;
+			self.menu.enabled = enabled;
+			break;
+						
+	}
 }
 
 enum tagFireButtons {
@@ -58,6 +100,11 @@ enum tagFireButtons {
 }
 
 - (void)dealloc {
+	self.fire = nil;
+	self.gun = nil;
+	self.items = nil;
+	self.use = nil;
+	self.menu = nil;
     [super dealloc];
 }
 

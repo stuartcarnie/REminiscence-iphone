@@ -11,6 +11,8 @@
 		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
 		055229590F5BCD9000512D4B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 055229580F5BCD9000512D4B /* icon.png */; };
+		055D73080F8DC68A0044F5AF /* UINotification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 055D73070F8DC68A0044F5AF /* UINotification.cpp */; };
+		055D744E0F8DDFCA0044F5AF /* NSNotificationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 055D744C0F8DDFCA0044F5AF /* NSNotificationAdditions.m */; };
 		05B04C090F5E4B4D0095DE90 /* GameControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05B04C080F5E4B4D0095DE90 /* GameControlsView.xib */; };
 		05B04C110F5E4B8A0095DE90 /* GameControlsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05B04C100F5E4B8A0095DE90 /* GameControlsView.mm */; };
 		05CF8DE70F1343FB00493EED /* collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8DC00F1343FB00493EED /* collision.cpp */; };
@@ -237,6 +239,11 @@
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		055229580F5BCD9000512D4B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		055D73060F8DC68A0044F5AF /* UINotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UINotification.h; sourceTree = "<group>"; };
+		055D73070F8DC68A0044F5AF /* UINotification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UINotification.cpp; sourceTree = "<group>"; };
+		055D73910F8DD6240044F5AF /* GameNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameNotifications.h; sourceTree = "<group>"; };
+		055D744C0F8DDFCA0044F5AF /* NSNotificationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSNotificationAdditions.m; path = Classes/NSNotificationAdditions.m; sourceTree = "<group>"; };
+		055D744D0F8DDFCA0044F5AF /* NSNotificationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSNotificationAdditions.h; path = Classes/NSNotificationAdditions.h; sourceTree = "<group>"; };
 		05B04C080F5E4B4D0095DE90 /* GameControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameControlsView.xib; sourceTree = "<group>"; };
 		05B04C0F0F5E4B8A0095DE90 /* GameControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControlsView.h; sourceTree = "<group>"; };
 		05B04C100F5E4B8A0095DE90 /* GameControlsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameControlsView.mm; sourceTree = "<group>"; };
@@ -542,6 +549,9 @@
 			isa = PBXGroup;
 			children = (
 				05CF8F930F1347D800493EED /* audio */,
+				055D73910F8DD6240044F5AF /* GameNotifications.h */,
+				055D744D0F8DDFCA0044F5AF /* NSNotificationAdditions.h */,
+				055D744C0F8DDFCA0044F5AF /* NSNotificationAdditions.m */,
 				05CF8F960F1347D800493EED /* iPhoneStub.h */,
 				05CF8F970F1347D800493EED /* iPhoneStub.mm */,
 			);
@@ -579,6 +589,8 @@
 				05CF8DDE0F1343FB00493EED /* sys.h */,
 				05CF8DDF0F1343FB00493EED /* systemstub.h */,
 				05CF8DE00F1343FB00493EED /* systemstub_sdl.cpp */,
+				055D73060F8DC68A0044F5AF /* UINotification.h */,
+				055D73070F8DC68A0044F5AF /* UINotification.cpp */,
 				05CF8DE20F1343FB00493EED /* unpack.h */,
 				05CF8DE10F1343FB00493EED /* unpack.cpp */,
 				05CF8DE40F1343FB00493EED /* util.h */,
@@ -1192,6 +1204,8 @@
 				05CF90080F134C2100493EED /* InputControllerView.mm in Sources */,
 				0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */,
 				05B04C110F5E4B8A0095DE90 /* GameControlsView.mm in Sources */,
+				055D73080F8DC68A0044F5AF /* UINotification.cpp in Sources */,
+				055D744E0F8DDFCA0044F5AF /* NSNotificationAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,6 +57,20 @@ struct PlayerInput {
 };
 
 struct SystemStub {
+	enum tagUINotification {
+		NOTIFY_NONE,
+		NOTIFY_OPTIONS,
+		NOTIFY_ABORT_CONTINUE,
+		NOTIFY_INVENTORY,
+		NOTIFY_CUTSCENE,
+	};
+	
+	enum tagUIPhase {
+		PHASE_NONE,
+		PHASE_START,
+		PHASE_END
+	};
+	
 	typedef void (*AudioCallback)(void *param, uint8 *stream, int len);
 
 	PlayerInput _pi;
@@ -65,6 +79,8 @@ struct SystemStub {
 
 	virtual void init(const char *title, uint16 w, uint16 h) = 0;
 	virtual void destroy() = 0;
+	
+	virtual void uiNotification(tagUINotification msg, tagUIPhase phase) = 0;
 
 	virtual void setPalette(const uint8 *pal, uint16 n) = 0;
 	virtual void setPaletteEntry(uint8 i, const Color *c) = 0;
