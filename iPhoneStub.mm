@@ -24,6 +24,8 @@
 
 #import "iPhoneStub.h"
 #import "video.h"
+#import "GameNotifications.h"
+#import "NSNotificationAdditions.h"
 
 double iPhoneStub::time_start = CFAbsoluteTimeGetCurrent();
 
@@ -47,6 +49,12 @@ void iPhoneStub::init(const char *title, uint16 w, uint16 h) {
 
 void iPhoneStub::destroy() {
 	free(imageBuffer);
+}
+
+void iPhoneStub::uiNotification(tagUINotification msg, tagUIPhase phase) {
+	CurrentNotification = msg;
+	CurrentPhase = phase;
+	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadWithName:kGameUINotification object:nil];
 }
 
 void iPhoneStub::setPalette(const uint8 *pal, uint16 n) {

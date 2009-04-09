@@ -119,8 +119,10 @@ static Version detectVersion(const char *dataPath) {
 	
 	[[NSBundle mainBundle] loadNibNamed:@"GameControlsView" owner:self options:nil];
 	gameControlsView.frame = kGameControlsFrame;
+	gameControlsView.systemStub  = systemStub;
 	gameControlsView.TheJoyStick = &systemStub->TheJoyStick;
 	gameControlsView.playerInput = &systemStub->_pi;
+	
 	[view addSubview:self.gameControlsView];
 	
 	self.view = view;

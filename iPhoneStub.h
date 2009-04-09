@@ -34,9 +34,11 @@ struct iPhoneStub : SystemStub, CallbackHandler {
 #endif
 	};
 	
-	iPhoneStub() {}
+	iPhoneStub():CurrentNotification(NOTIFY_NONE), CurrentPhase(PHASE_NONE) {}
 	virtual void init(const char *title, uint16 w, uint16 h);
 	virtual void destroy();
+	
+	virtual void uiNotification(tagUINotification msg, tagUIPhase phase);
 
 	virtual void setPalette(const uint8 *pal, uint16 n);
 	virtual void setPaletteEntry(uint8 i, const Color *c);
@@ -62,8 +64,11 @@ struct iPhoneStub : SystemStub, CallbackHandler {
 	
 	CGImageRef GetImageBuffer() { return CGBitmapContextCreateImage(context); }
 	
-	BOOL			hasImageChanged;
-	CJoyStick		TheJoyStick;
+	BOOL				hasImageChanged;
+	CJoyStick			TheJoyStick;
+	
+	tagUINotification	CurrentNotification;
+	tagUIPhase			CurrentPhase;
 	
 private:
 	void drawRect(CGRect *rect, uint8 color, uint16 *dst, uint16 dstPitch);

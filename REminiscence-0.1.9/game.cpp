@@ -21,6 +21,7 @@
 #include "systemstub.h"
 #include "unpack.h"
 #include "game.h"
+#import "UINotification.h"
 
 #define BYPASS_PROTECTION
 
@@ -226,6 +227,7 @@ void Game::playCutscene(int id) {
 		_cut._id = id;
 	}
 	if (_cut._id != 0xFFFF) {
+		UINotification notify(_stub, SystemStub::NOTIFY_CUTSCENE);
 		_sfxPly.stop();
 		_cut.play();
 	}
@@ -329,6 +331,8 @@ void Game::showFinalScore() {
 }
 
 bool Game::handleConfigPanel() {
+	UINotification notify(_stub, SystemStub::NOTIFY_OPTIONS);
+	
 	int i, j;
 	const int x = 7;
 	const int y = 10;
@@ -426,6 +430,10 @@ bool Game::handleConfigPanel() {
 
 bool Game::handleContinueAbort() {
 	playCutscene(0x48);
+
+	// TODO: change _stub to have a queue of events
+	//UINotification notify(_stub, SystemStub::NOTIFY_ABORT_CONTINUE);
+
 	char textBuf[50];
 	int timeout = 100;
 	int current_color = 0;
@@ -1247,6 +1255,8 @@ uint16 Game::getLineLength(const uint8 *str) const {
 }
 
 void Game::handleInventory() {
+	UINotification notify(_stub, SystemStub::NOTIFY_INVENTORY);
+	
 	LivePGE *selected_pge = 0;
 	LivePGE *pge = &_pgeLive[0];
 	if (pge->life > 0 && pge->current_inventory_PGE != 0xFF) {
