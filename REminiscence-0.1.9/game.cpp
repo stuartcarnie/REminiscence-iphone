@@ -432,7 +432,7 @@ bool Game::handleContinueAbort() {
 	playCutscene(0x48);
 
 	// TODO: change _stub to have a queue of events
-	//UINotification notify(_stub, SystemStub::NOTIFY_ABORT_CONTINUE);
+	UINotification notify(_stub, SystemStub::NOTIFY_ABORT_CONTINUE);
 
 	char textBuf[50];
 	int timeout = 100;

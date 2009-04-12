@@ -11,6 +11,7 @@
 #import "debug.h"
 #import "iPhoneStub.h"
 #import "GameNotifications.h"
+#import "CocoaUtility.h"
 
 @interface GameControlsView()
 
@@ -28,39 +29,80 @@
 											 selector:@selector(gameUINotification) 
 												 name:kGameUINotification 
 											   object:nil];
+	
+	
+	// load additional buttons
+	_selectImage = [[UIImage imageFromResource:@"btn_select.png"] retain];
+	_scoreImage = [[UIImage imageFromResource:@"btn_score.png"] retain];
+	_skipImage = [[UIImage imageFromResource:@"btn_skip.png"] retain];
+	_itemsImage = [[_items imageForState:UIControlStateNormal] retain];
+	_useImage = [[_use imageForState:UIControlStateNormal] retain];
 }
+
+#define kUIControlStateAll		(UIControlStateNormal | UIControlStateHighlighted | UIControlStateSelected)
 		
 - (void)gameUINotification {
-	SystemStub::tagUIPhase phase = systemStub->CurrentPhase;
-	BOOL enabled = phase == SystemStub::PHASE_END;
-	double alpha = enabled ? 1.0 : 0.2;
+	UIMessage event;
 	
-	SystemStub::tagUINotification	msg = systemStub->CurrentNotification;
-	switch (msg) {
-		case SystemStub::NOTIFY_CUTSCENE:
-		case SystemStub::NOTIFY_INVENTORY:
-			self.fire.alpha = alpha;
-			self.fire.enabled = enabled;
-			self.gun.alpha = alpha;
-			self.gun.enabled = enabled;
-			self.use.alpha = alpha;
-			self.use.enabled = enabled;
-			self.menu.alpha = alpha;
-			self.menu.enabled = enabled;
-			break;
-			
-		case SystemStub::NOTIFY_OPTIONS:
-		case SystemStub::NOTIFY_ABORT_CONTINUE:
-			self.fire.alpha = alpha;
-			self.fire.enabled = enabled;
-			self.gun.alpha = alpha;
-			self.gun.enabled = enabled;
-			self.items.alpha = alpha;
-			self.items.enabled = enabled;
-			self.menu.alpha = alpha;
-			self.menu.enabled = enabled;
-			break;
-						
+	while (systemStub->dequeueMessage(&event)) {
+		SystemStub::tagUIPhase phase = event.phase;
+		BOOL enabled = phase == SystemStub::PHASE_END;
+		double alpha = enabled ? 1.0 : 0.2;
+		
+		SystemStub::tagUINotification msg = event.msg;
+		switch (msg) {
+			case SystemStub::NOTIFY_CUTSCENE:
+			case SystemStub::NOTIFY_INVENTORY:
+				self.fire.alpha = alpha;
+				self.fire.enabled = enabled;
+				self.gun.alpha = alpha;
+				self.gun.enabled = enabled;
+				self.use.alpha = alpha;
+				self.use.enabled = enabled;
+				self.menu.alpha = alpha;
+				self.menu.enabled = enabled;
+				break;
+				
+			case SystemStub::NOTIFY_OPTIONS:
+			case SystemStub::NOTIFY_ABORT_CONTINUE:
+				self.fire.alpha = alpha;
+				self.fire.enabled = enabled;
+				self.gun.alpha = alpha;
+				self.gun.enabled = enabled;
+				self.items.alpha = alpha;
+				self.items.enabled = enabled;
+				self.menu.alpha = alpha;
+				self.menu.enabled = enabled;
+				break;
+							
+		}
+		
+		switch (msg) {
+			case SystemStub::NOTIFY_INVENTORY:
+				if (phase == SystemStub::PHASE_START) {
+					[_items setImage:_selectImage forStates:kUIControlStateAll];
+				} else {
+					[_items setImage:_itemsImage forStates:kUIControlStateAll];
+				}
+				break;
+
+			case SystemStub::NOTIFY_CUTSCENE:
+				if (phase == SystemStub::PHASE_START) {
+					[_items setImage:_skipImage forStates:kUIControlStateAll];
+				} else {
+					[_items setImage:_itemsImage forStates:kUIControlStateAll];
+				}
+				break;
+				
+			case SystemStub::NOTIFY_ABORT_CONTINUE:
+			case SystemStub::NOTIFY_OPTIONS:
+				if (phase == SystemStub::PHASE_START) {
+					[_use setImage:_selectImage forStates:kUIControlStateAll];
+				} else {
+					[_use setImage:_useImage forStates:kUIControlStateAll];
+				}
+				break;
+		}
 	}
 }
 
@@ -105,6 +147,12 @@ enum tagFireButtons {
 	self.items = nil;
 	self.use = nil;
 	self.menu = nil;
+	
+	[_selectImage release];
+	[_scoreImage release];
+	[_skipImage release];
+	[_itemsImage release];
+	[_useImage release];
     [super dealloc];
 }
 

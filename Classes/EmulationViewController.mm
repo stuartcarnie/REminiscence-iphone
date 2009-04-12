@@ -26,6 +26,7 @@
 #import "InputControllerView.h"
 #import "JoystickViewLandscape.h"
 #import "GameControlsView.h"
+#import "ControlPanelViewController.h"
 
 #import "CocoaUtility.h"
 
@@ -47,6 +48,7 @@
 @implementation EmulationViewController
 
 @synthesize displayView, inputController, landscapeJoystickView, gameControlsView;
+@synthesize controlPanel = _controlPanel;
 
 const double kControlsWidth					= 95;
 const double kSkinTop						= 6;
@@ -124,6 +126,9 @@ static Version detectVersion(const char *dataPath) {
 	gameControlsView.playerInput = &systemStub->_pi;
 	
 	[view addSubview:self.gameControlsView];
+	
+	_controlPanel.view.frame = kControlPanelFrame;
+	[view addSubview:_controlPanel.view];
 	
 	self.view = view;
 	view.isUserInteractionEnabled = YES;

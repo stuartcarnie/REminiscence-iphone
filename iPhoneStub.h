@@ -21,8 +21,14 @@
 #import <Foundation/Foundation.h>
 #import "JoyStick.h"
 #import "AudioUnitQueueManager.h"
+#include <queue>
 
 @class	TimerHandler;
+
+struct UIMessage {
+	SystemStub::tagUINotification	msg;
+	SystemStub::tagUIPhase			phase;
+};
 
 struct iPhoneStub : SystemStub, CallbackHandler {
 	enum {
@@ -34,11 +40,12 @@ struct iPhoneStub : SystemStub, CallbackHandler {
 #endif
 	};
 	
-	iPhoneStub():CurrentNotification(NOTIFY_NONE), CurrentPhase(PHASE_NONE) {}
+	iPhoneStub() {};
 	virtual void init(const char *title, uint16 w, uint16 h);
 	virtual void destroy();
 	
 	virtual void uiNotification(tagUINotification msg, tagUIPhase phase);
+			bool dequeueMessage(UIMessage *event);
 
 	virtual void setPalette(const uint8 *pal, uint16 n);
 	virtual void setPaletteEntry(uint8 i, const Color *c);
@@ -66,10 +73,7 @@ struct iPhoneStub : SystemStub, CallbackHandler {
 	
 	BOOL				hasImageChanged;
 	CJoyStick			TheJoyStick;
-	
-	tagUINotification	CurrentNotification;
-	tagUIPhase			CurrentPhase;
-	
+		
 private:
 	void drawRect(CGRect *rect, uint8 color, uint16 *dst, uint16 dstPitch);
 	
@@ -81,6 +85,8 @@ private:
 	AudioCallback			audioCallback;
 	void*					audioCallbackParam;
 	uint8*					audioCallbackBuffer;
+	std::queue<UIMessage>	_events;
+	NSRecursiveLock			*_lock;
 
 #pragma pack(push,1)
 	struct ColorPalette2 {

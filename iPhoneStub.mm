@@ -26,6 +26,7 @@
 #import "video.h"
 #import "GameNotifications.h"
 #import "NSNotificationAdditions.h"
+#import "CNSRecursiveLock.h"
 
 double iPhoneStub::time_start = CFAbsoluteTimeGetCurrent();
 
@@ -45,16 +46,34 @@ void iPhoneStub::init(const char *title, uint16 w, uint16 h) {
 									Video::GAMESCREEN_W * kBytesPerPixel, rgbColorSpace, kFormat);
 	
 	CFRelease(rgbColorSpace);
+	
+	_lock = [NSRecursiveLock new];
 }
 
 void iPhoneStub::destroy() {
 	free(imageBuffer);
+	imageBuffer = NULL;
+	[_lock release];
+	_lock = nil;
 }
 
 void iPhoneStub::uiNotification(tagUINotification msg, tagUIPhase phase) {
-	CurrentNotification = msg;
-	CurrentPhase = phase;
+	CNSRecursiveLock autolock(_lock);
+	
+	UIMessage event = { msg, phase };
+	_events.push(event);
 	[[NSNotificationCenter defaultCenter] postNotificationOnMainThreadWithName:kGameUINotification object:nil];
+}
+
+bool iPhoneStub::dequeueMessage(UIMessage *event) {
+	CNSRecursiveLock autolock(_lock);
+	if (_events.size()) {
+		*event = _events.front();
+		_events.pop();
+		return true;
+	}
+	
+	return false;
 }
 
 void iPhoneStub::setPalette(const uint8 *pal, uint16 n) {
@@ -163,16 +182,6 @@ void iPhoneStub::copyRect(int16 x, int16 y, uint16 w, uint16 h, const uint8 *buf
 		p += (Video::GAMESCREEN_W - w);
 		buf += (pitch - w);
 	}
-	
-	/*
-	while (h--) {
-		for (int i = 0; i < w; ++i) {
-			p[i] = _pal[buf[i]];
-		}
-		p += Video::GAMESCREEN_W;
-		buf += pitch;
-	}
-	 */
 #endif
 	if (_pi.dbgMask & PlayerInput::DF_DBLOCKS) {
 		drawRect(&br, 0xE7, (uint16 *)imageBuffer + Video::GAMESCREEN_W + 1, Video::GAMESCREEN_W * 2);

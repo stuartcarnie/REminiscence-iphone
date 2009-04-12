@@ -22,6 +22,12 @@ class iPhoneStub;
 	UIButton							*_items;
 	UIButton							*_use;
 	UIButton							*_menu;
+	
+	UIImage								*_selectImage;
+	UIImage								*_scoreImage;
+	UIImage								*_skipImage;
+	UIImage								*_itemsImage;
+	UIImage								*_useImage;
 }
 
 @property (nonatomic, assign)			PlayerInput		*playerInput;
