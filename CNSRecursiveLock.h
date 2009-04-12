@@ -26,35 +26,18 @@
  */
 
 
-@interface UIImage(Loading)
+#import <CoreFoundation/CoreFoundation.h>
 
-+ (UIImage*)imageFromResource:(NSString*)name;
-
-@end
-
-@interface UIImageView(UIImageHelpers)
-
-+ (UIImageView*)newViewFromImageResource:(NSString*)resourceName;
-
-@end
-
-@interface UIButton(ButtonHelpers)
-
-//! Creates a new UIButton with the specified imageName and selectedImageName.  If selectedImageName is
-//  nil, it is not used.
-+ (UIButton*)newButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName;
-- (void)setImage:(UIImage*)image forStates:(UIControlState)states;
-
-@end
-
-@interface NSString(URLEncoding)
-
-- (NSString *)encodeForURL;
-- (NSString *)decodeFromURL;
-
-@end
-
-@interface NSString(CStringUtility)
-
-
-@end
+class CNSRecursiveLock {
+public:
+	CNSRecursiveLock(NSRecursiveLock *lock) : _lock(lock) {
+		[_lock lock];
+	}
+	
+	~CNSRecursiveLock() {
+		[_lock unlock];
+	}
+	
+private:
+	NSRecursiveLock *_lock;
+};

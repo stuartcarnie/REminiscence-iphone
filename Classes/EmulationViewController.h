@@ -25,6 +25,7 @@ class iPhoneStub;
 @class InputControllerView;
 @class JoystickViewLandscape;
 @class GameControlsView;
+@class ControlPanelViewController;
 
 enum tagEmulatorState {
 	EmulatorNotStarted,
@@ -44,16 +45,18 @@ enum tagEmulatorState {
 	InputControllerView			*inputController;
 	JoystickViewLandscape		*landscapeJoystickView;
 	GameControlsView			*gameControlsView;
+	ControlPanelViewController	*_controlPanel;
 
 
 	// Layout state information
 	UIInterfaceOrientation		layoutOrientation;		// The orientation of the current layout
 }
 
-@property (nonatomic, retain)	DisplayView						*displayView;
-@property (nonatomic, retain)	InputControllerView				*inputController;
-@property (nonatomic, retain)	JoystickViewLandscape			*landscapeJoystickView;
-@property (nonatomic, retain)	IBOutlet GameControlsView		*gameControlsView;
+@property (nonatomic, retain)	DisplayView							*displayView;
+@property (nonatomic, retain)	InputControllerView					*inputController;
+@property (nonatomic, retain)	JoystickViewLandscape				*landscapeJoystickView;
+@property (nonatomic, retain)	IBOutlet GameControlsView			*gameControlsView;
+@property (nonatomic, retain)	IBOutlet ControlPanelViewController	*controlPanel;
 
 - (void)pause;
 - (void)resume;
