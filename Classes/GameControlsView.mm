@@ -51,8 +51,16 @@
 		
 		SystemStub::tagUINotification msg = event.msg;
 		switch (msg) {
-			case SystemStub::NOTIFY_CUTSCENE:
 			case SystemStub::NOTIFY_INVENTORY:
+				self.fire.alpha = alpha;
+				self.fire.enabled = enabled;
+				self.gun.alpha = alpha;
+				self.gun.enabled = enabled;
+				self.menu.alpha = alpha;
+				self.menu.enabled = enabled;
+				break;
+				
+			case SystemStub::NOTIFY_CUTSCENE:
 				self.fire.alpha = alpha;
 				self.fire.enabled = enabled;
 				self.gun.alpha = alpha;
@@ -81,8 +89,10 @@
 			case SystemStub::NOTIFY_INVENTORY:
 				if (phase == SystemStub::PHASE_START) {
 					[_items setImage:_selectImage forStates:kUIControlStateAll];
+					[_use setImage:_scoreImage forStates:kUIControlStateAll];
 				} else {
 					[_items setImage:_itemsImage forStates:kUIControlStateAll];
+					[_use setImage:_useImage forStates:kUIControlStateAll];
 				}
 				break;
 

@@ -18,12 +18,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "InstallView.h"
 
 @class EmulationViewController;
 
-@interface FlashbackAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-	EmulationViewController		*emulationController;
+@interface FlashbackAppDelegate : NSObject <UIApplicationDelegate, InstallViewDelegate> {
+    UIWindow							*window;
+	EmulationViewController				*emulationController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow					*window;
