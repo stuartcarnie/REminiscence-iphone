@@ -23,14 +23,25 @@
 #import "debug.h"
 #import "iPhoneStub.h"
 
+
 @implementation FlashbackAppDelegate
 
 @synthesize window, emulationController;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
 
-	[window addSubview:emulationController.view];
-    [window makeKeyAndVisible];
+	FlashbackDataLoader *loader = [FlashbackDataLoader new];
+	if ([loader checkStatus]) {
+		[window addSubview:emulationController.view];
+		[window makeKeyAndVisible];
+	} else {
+		InstallView *view = [[InstallView alloc] initWithFrame:[window frame]];
+		[window addSubview:view];
+		[window makeKeyAndVisible];
+		[view startWithDelegate:self andLoader:loader];
+		[loader release];
+		[view release];
+	}
 	
 	OSStatus res = AudioSessionInitialize(NULL, NULL, NULL, NULL);
 	UInt32 sessionCategory = kAudioSessionCategory_AmbientSound;
@@ -44,7 +55,11 @@
 	else
 		DLog(@"successfully set audio buffer duration");
 	
-	res = AudioSessionSetActive(true);
+	res = AudioSessionSetActive(true);	
+}
+
+-(void)didFinishInstallView {
+	[window addSubview:emulationController.view];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

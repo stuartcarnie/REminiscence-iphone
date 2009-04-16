@@ -18,9 +18,10 @@
  */
 
 #import "EmulationViewController.h"
-#include "game.h"
-#include "iPhoneStub.h"
-#include "util.h"
+#import "FlashbackConfig.h"
+#import "game.h"
+#import "iPhoneStub.h"
+#import "util.h"
 
 #import "DisplayView.h"
 #import "InputControllerView.h"
@@ -64,7 +65,6 @@ const double kSkinTop						= 6;
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 const double kDefaultControlsOverlayAnimationDuration	= 100.0 / 1000.0;	// 100 ms
 
-#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 static Version detectVersion(const char *dataPath) {
 	static struct {
@@ -83,17 +83,21 @@ static Version detectVersion(const char *dataPath) {
 		}
 	}
 	error("Unable to find data files, check that all required files are present");
-	return VER_EN;
+	return (Version)-1;
 }
 
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	static char dataPath[512], documentsPath[512];
-	strncpy(dataPath, [[[NSBundle mainBundle] bundlePath] cStringUsingEncoding:[NSString defaultCStringEncoding]], sizeof(dataPath));
+	[DATA_FOLDER getCString:dataPath maxLength:sizeof(dataPath) encoding:[NSString defaultCStringEncoding]];
 	strncpy(documentsPath, [DOCUMENTS_FOLDER cStringUsingEncoding:[NSString defaultCStringEncoding]], sizeof(documentsPath));
 
 	Version ver = detectVersion(dataPath);
+	if (ver == -1) {
+		return;
+	}
+	
 	g_debugMask = DBG_INFO; // DBG_LOGIC | DBG_BANK | DBG_VIDEO | DBG_SER | DBG_SND
 	systemStub = static_cast<iPhoneStub*> (SystemStub_create());
 	engine = new Game(systemStub, dataPath, documentsPath, ver);
@@ -184,6 +188,9 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)saveDefaultGame {
+	if (emulatorState == EmulatorNotStarted)
+		return;
+	
 	systemStub->_pi.stateSlot	= Game::DEFAULT_SAVE_SLOT;
 	systemStub->_pi.save		= true;
 	while (systemStub->_pi.save)
