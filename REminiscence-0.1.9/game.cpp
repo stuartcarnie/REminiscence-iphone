@@ -1442,7 +1442,7 @@ void Game::saveGame(uint8 slot) {
 bool Game::saveGameState(uint8 slot) {
 	bool success = false;
 	
-	char stateFile[20];
+	char stateFile[25];
 	if (DEFAULT_SAVE_SLOT != slot) {
 		makeGameStateName(slot, stateFile);
 	} else {
