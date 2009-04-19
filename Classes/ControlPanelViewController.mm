@@ -13,6 +13,8 @@
 #import "iPhoneStub.h"
 
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
+const NSString *kSaveGameCaption						= @"Select a slot to SAVE game";
+const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 
 // text color: #33cc00
 
@@ -43,7 +45,7 @@ const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 	_gameList.delegate = self;
 	[self.view addSubview:_gameList.view];
 	
-	self.caption.text = @"Select a slot to save game";
+	self.caption.text = kSaveGameCaption;
 	
 	_credits.view.frame = kSaveGameViewFrame;
 	_credits.view.hidden = YES;
@@ -91,10 +93,10 @@ const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 	
 	switch (sender.selectedSegmentIndex) {
 		case 0:	// save
-			self.caption.text = @"Select a slot to SAVE game";
+			self.caption.text = kSaveGameCaption;
 			break;
 		case 1:	// load
-			self.caption.text = @"Select a slot to LOAD game";
+			self.caption.text = kLoadGameCaption;
 			break;
 		case 2:	// info
 			hideCredits = NO;

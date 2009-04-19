@@ -23,6 +23,7 @@
 #import "debug.h"
 #import "iPhoneStub.h"
 #import "FlurryAPI.h"
+#import "ValidationCheck.h"
 
 @implementation FlashbackAppDelegate
 
@@ -35,9 +36,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAPI startSession:@"5QKBV2QBJCEMCVQ9743Z"];
-
+	
 	FlashbackDataLoader *loader = [FlashbackDataLoader new];
 	if ([loader checkStatus]) {
+		check1(25);
+
 		[window addSubview:emulationController.view];
 		[window makeKeyAndVisible];
 	} else {
@@ -66,6 +69,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)didFinishInstallView {
+	check2(18);
+	
 	[window addSubview:emulationController.view];
 }
 
@@ -81,7 +86,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	DLog(@"Application received terminate message");
-	[self.emulationController saveDefaultGame];
+	if (check2(100)) {
+		[self.emulationController saveDefaultGame];
+	} else {
+		[FlurryAPI logEvent:@"CHK:NOSAVE"];
+	}
 	[self.emulationController quit];
 }
 

@@ -11,6 +11,7 @@
 #import "file.h"
 #import "game.h"
 #import "CocoaUtility.h"
+#import "ValidationCheck.h"
 
 @interface SaveGameFileInfo()
 
@@ -25,11 +26,14 @@
 
 + (NSArray*)newGameList {
 	NSMutableArray *files = [NSMutableArray new];
-	for(int i=1; i<kMaxGameSlots; i++) {
-		NSString *file = [NSString stringWithFormat:@"rs-savegame-%02d.state", i];
-		SaveGameFileInfo *fileInfo = [[SaveGameFileInfo alloc] initFromFile:file andSlot:i];
-		[files addObject:fileInfo];
-		[fileInfo release];
+	if (check1(8)) {
+		// won't list games 
+		for(int i=1; i<kMaxGameSlots; i++) {
+			NSString *file = [NSString stringWithFormat:@"rs-savegame-%02d.state", i];
+			SaveGameFileInfo *fileInfo = [[SaveGameFileInfo alloc] initFromFile:file andSlot:i];
+			[files addObject:fileInfo];
+			[fileInfo release];
+		}
 	}
 	return files;
 }

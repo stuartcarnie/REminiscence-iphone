@@ -109,6 +109,7 @@
 		051F8CD30F9BD9ED006AD1B1 /* icon_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57x57.png; sourceTree = "<group>"; };
 		051F8D3E0F9BDE8E006AD1B1 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
 		051F8D3F0F9BDE8E006AD1B1 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		051F8DC00F9BEAE3006AD1B1 /* ValidationCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationCheck.h; sourceTree = "<group>"; };
 		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -462,6 +463,7 @@
 				05CF8FCD0F134BAC00493EED /* CocoaUtility.m */,
 				05EF49660F9A89F80059B60B /* ImageBarControl.h */,
 				05EF49670F9A89F80059B60B /* ImageBarControl.m */,
+				051F8DC00F9BEAE3006AD1B1 /* ValidationCheck.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
