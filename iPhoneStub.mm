@@ -27,6 +27,7 @@
 #import "GameNotifications.h"
 #import "NSNotificationAdditions.h"
 #import "CNSRecursiveLock.h"
+#import "FlashbackConfig.h"
 
 double iPhoneStub::time_start = CFAbsoluteTimeGetCurrent();
 
@@ -204,6 +205,15 @@ void iPhoneStub::drawRect(CGRect *rect, uint8 color, uint16 *dst, uint16 dstPitc
 	}
 }
 
+void iPhoneStub::saveScreenShot(uint8 slot) {
+	NSString *fileName = [DOCUMENTS_FOLDER stringByAppendingPathComponent:[NSString stringWithFormat:@"rs-savegame-%02d.png", slot]];
+	CGImageRef img = GetImageBuffer();
+	
+	NSData *data = UIImagePNGRepresentation([UIImage imageWithCGImage:img]);
+	[data writeToFile:fileName atomically:NO];
+	
+	CFRelease(img);
+}
 
 void iPhoneStub::updateScreen(uint8 shakeOffset) {
 	hasImageChanged = YES;

@@ -28,11 +28,13 @@ class iPhoneStub;
 	UIImage								*_skipImage;
 	UIImage								*_itemsImage;
 	UIImage								*_useImage;
+	id									_delegate;
 }
 
 @property (nonatomic, assign)			PlayerInput		*playerInput;
 @property (nonatomic, assign)			CJoyStick		*TheJoyStick;
 @property (nonatomic, assign)			iPhoneStub		*systemStub;
+@property (nonatomic, assign)			id				delegate;
 
 @property (nonatomic, assign) IBOutlet	UIButton		*fire;
 @property (nonatomic, assign) IBOutlet	UIButton		*gun;
@@ -40,8 +42,17 @@ class iPhoneStub;
 @property (nonatomic, assign) IBOutlet	UIButton		*use;
 @property (nonatomic, assign) IBOutlet	UIButton		*menu;
 
--(IBAction)fireButton:(UIButton*)sender;
--(IBAction)itemsButton:(id)sender;
--(IBAction)optionsButton:(id)sender;
+- (IBAction)fireButton:(UIButton*)sender;
+- (IBAction)itemsButton:(id)sender;
+- (IBAction)optionsButton:(id)sender;
 
 @end
+
+@protocol GameControlsDelegate <NSObject>
+
+@optional
+
+- (void)didSelectMenuButton;
+
+@end
+

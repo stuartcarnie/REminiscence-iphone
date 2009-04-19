@@ -95,9 +95,11 @@ static Version detectVersion(const char *dataPath) {
 
 	Version ver = detectVersion(dataPath);
 	if (ver == -1) {
+		
 		return;
 	}
 	
+	_dontSave = NO;
 	g_debugMask = DBG_INFO; // DBG_LOGIC | DBG_BANK | DBG_VIDEO | DBG_SER | DBG_SND
 	systemStub = static_cast<iPhoneStub*> (SystemStub_create());
 	engine = new Game(systemStub, dataPath, documentsPath, ver);
@@ -128,10 +130,12 @@ static Version detectVersion(const char *dataPath) {
 	gameControlsView.systemStub  = systemStub;
 	gameControlsView.TheJoyStick = &systemStub->TheJoyStick;
 	gameControlsView.playerInput = &systemStub->_pi;
+	gameControlsView.delegate = self;
 	
 	[view addSubview:self.gameControlsView];
 	
 	_controlPanel.view.frame = kControlPanelFrame;
+	_controlPanel.stub = systemStub;
 	[view addSubview:_controlPanel.view];
 	
 	self.view = view;
@@ -143,13 +147,17 @@ static Version detectVersion(const char *dataPath) {
 	self.view.bounds = CGRectMake(0, 0, 480, 320);	
 }
 
+- (void)didSelectMenuButton {
+	[_controlPanel hideShowControlPanel:self]; 
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	[self startEmulator];
 }
 
 - (void)startEmulator {
 	if (emulatorState == EmulatorPaused) {
-		return;//[self resumeEmulator];
+		return;
 	} else if (emulatorState == EmulatorNotStarted) {
 		if (engine->hasDefaultGameState()) {
 			engine->autoLoadDefaultGameState();
@@ -166,6 +174,11 @@ static Version detectVersion(const char *dataPath) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[NSThread setThreadPriority:0.7];
 	engine->run();
+	if (!systemStub->_pi.quit) {
+		// user chose quit from main menu
+		_dontSave = YES;
+		[[UIApplication sharedApplication] performSelector:@selector(terminate)];
+	}
 	[pool release];
 }
 
@@ -188,13 +201,17 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)saveDefaultGame {
-	if (emulatorState == EmulatorNotStarted)
+	if (emulatorState == EmulatorNotStarted || _dontSave)
 		return;
 	
 	systemStub->_pi.stateSlot	= Game::DEFAULT_SAVE_SLOT;
 	systemStub->_pi.save		= true;
 	while (systemStub->_pi.save)
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 20.0/1000.0, false);	
+}
+
+- (void)quit {
+	systemStub->_pi.quit		= true;
 }
 
 - (void)dealloc {

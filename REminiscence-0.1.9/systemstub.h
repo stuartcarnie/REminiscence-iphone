@@ -63,6 +63,7 @@ struct SystemStub {
 		NOTIFY_ABORT_CONTINUE,
 		NOTIFY_INVENTORY,
 		NOTIFY_CUTSCENE,
+		NOTIFY_MAINMENU,
 	};
 	
 	enum tagUIPhase {
@@ -101,6 +102,8 @@ struct SystemStub {
 	virtual void destroyMutex(void *mutex) = 0;
 	virtual void lockMutex(void *mutex) = 0;
 	virtual void unlockMutex(void *mutex) = 0;
+	
+	virtual void saveScreenShot(uint8 slot) = 0;
 };
 
 struct MutexStack {

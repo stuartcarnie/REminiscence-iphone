@@ -241,7 +241,7 @@ void Game::inp_handleSpecialKeys() {
 	// Moved by SGC
 	if (_stub->_pi.stateSlot != 0) {
 		int8 slot = _stub->_pi.stateSlot;
-		if ((slot >= 1 && slot < 100) || slot == DEFAULT_SAVE_SLOT) {
+		if ((slot >= 1 && slot < kMaxGameSlots) || slot == DEFAULT_SAVE_SLOT) {
 			_stateSlot = slot;
 			debug(DBG_INFO, "Current game state slot is %d", _stateSlot);
 		}
@@ -249,11 +249,11 @@ void Game::inp_handleSpecialKeys() {
 	}
 
 	if (_stub->_pi.load) {
-		loadGameState(_stateSlot);
+		loadGame(_stateSlot);
 		_stub->_pi.load = false;
 	}
 	if (_stub->_pi.save) {
-		saveGameState(_stateSlot);
+		saveGame(_stateSlot);
 		_stub->_pi.save = false;
 	}
 	if (_stub->_pi.inpRecord || _stub->_pi.inpReplay) {
@@ -431,7 +431,6 @@ bool Game::handleConfigPanel() {
 bool Game::handleContinueAbort() {
 	playCutscene(0x48);
 
-	// TODO: change _stub to have a queue of events
 	UINotification notify(_stub, SystemStub::NOTIFY_ABORT_CONTINUE);
 
 	char textBuf[50];
@@ -1418,7 +1417,7 @@ void Game::makeGameDemoName(char *buf) {
 }
 
 void Game::makeGameStateName(uint8 slot, char *buf) {
-	sprintf(buf, "rs-level%d-%02d.state", _currentLevel + 1, slot);
+	sprintf(buf, "rs-savegame-%02d.state", slot);
 }
 
 void Game::autoLoadDefaultGameState() {
@@ -1432,6 +1431,12 @@ const char *kDefaultGameState = "rs-current.state";
 bool Game::hasDefaultGameState() {
 	File f(true);
 	return f.open(kDefaultGameState, _savePath, "rb");
+}
+
+void Game::saveGame(uint8 slot) {
+	saveGameState(slot);
+	if (DEFAULT_SAVE_SLOT != slot)
+		_stub->saveScreenShot(slot);
 }
 
 bool Game::saveGameState(uint8 slot) {
@@ -1465,6 +1470,15 @@ bool Game::saveGameState(uint8 slot) {
 		}
 	}
 	return success;
+}
+
+void Game::loadGame(uint8 slot) {
+	uint8 currentLevel = _currentLevel;
+	loadGameState(slot, false);
+	if (currentLevel != _currentLevel)
+		loadLevelData();
+	
+	loadGameState(slot);
 }
 
 bool Game::loadGameState(uint8 slot, bool loadData) {
