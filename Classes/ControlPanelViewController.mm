@@ -9,6 +9,7 @@
 #import "ControlPanelViewController.h"
 #import "ImageBarControl.h"
 #import "SaveGameBrowserController.h"
+#import "CreditsViewController.h"
 #import "iPhoneStub.h"
 
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
@@ -23,7 +24,7 @@ const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 
 @implementation ControlPanelViewController
 
-@synthesize stub=_stub;
+@synthesize stub=_stub, credits=_credits, gameList=_gameList, caption=_caption;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,11 +39,15 @@ const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 	[_imageBar addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 	[_imageBar release];
 	
-	_gameList = [[SaveGameBrowserController alloc] initWithNibName:@"SaveGameBrowser" bundle:nil];
 	_gameList.view.frame = kSaveGameViewFrame;
 	_gameList.delegate = self;
-	
 	[self.view addSubview:_gameList.view];
+	
+	self.caption.text = @"Select a slot to save game";
+	
+	_credits.view.frame = kSaveGameViewFrame;
+	_credits.view.hidden = YES;
+	[self.view addSubview:_credits.view];
 }
 
 - (void)didSelectSaveGame:(SaveGameFileInfo*)info {
@@ -82,18 +87,30 @@ const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 }
 
 - (void)valueChanged:(ImageBarControl*)sender {
+	BOOL hideCredits = YES;
+	
 	switch (sender.selectedSegmentIndex) {
 		case 0:	// save
+			self.caption.text = @"Select a slot to SAVE game";
 			break;
 		case 1:	// load
+			self.caption.text = @"Select a slot to LOAD game";
 			break;
 		case 2:	// info
+			hideCredits = NO;
+			[self.credits.textView scrollRangeToVisible:NSMakeRange(210, 1)];
 			break;
 	}
+	
+	// TODO: these should be in their own parent views, so that it's easier to toggle
+	self.credits.view.hidden = hideCredits;
+	self.gameList.view.hidden = !hideCredits;
+	self.caption.hidden = !hideCredits;
 }
 
 - (void)dealloc {
-		[_gameList release];
+	self.gameList = nil;
+	self.credits = nil;
     [super dealloc];
 }
 

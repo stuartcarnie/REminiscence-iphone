@@ -11,16 +11,23 @@
 @class SaveGameBrowserController;
 struct iPhoneStub;
 @class ImageBarControl;
+@class CreditsViewController;
 
 @interface ControlPanelViewController : UIViewController {
 	BOOL							_isOpen;
 	ImageBarControl					*_imageBar;
 	SaveGameBrowserController		*_gameList;
+	CreditsViewController			*_credits;
 	iPhoneStub						*_stub;
 	BOOL							_reloadTable;
+	
+	UILabel							*_caption;
 }
 
-@property(nonatomic, assign)		iPhoneStub *stub;
+@property(nonatomic, assign)			iPhoneStub					*stub;
+@property(nonatomic, retain) IBOutlet	CreditsViewController		*credits;
+@property(nonatomic, retain) IBOutlet	SaveGameBrowserController	*gameList;
+@property(nonatomic, retain) IBOutlet	UILabel						*caption;
 
 - (IBAction)hideShowControlPanel:(id)sender;
 

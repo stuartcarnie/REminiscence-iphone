@@ -22,17 +22,19 @@
 #import <AudioToolbox/AudioServices.h>
 #import "debug.h"
 #import "iPhoneStub.h"
-
-// TODO: This should be removed after a round of distribution builds
-#import "SaveGameMigration.h"
+#import "FlurryAPI.h"
 
 @implementation FlashbackAppDelegate
 
 @synthesize window, emulationController;
 
+void uncaughtExceptionHandler(NSException *exception) {
+    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
-	[SaveGameMigration migrateSaveGames];
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	[FlurryAPI startSession:@"5QKBV2QBJCEMCVQ9743Z"];
 
 	FlashbackDataLoader *loader = [FlashbackDataLoader new];
 	if ([loader checkStatus]) {

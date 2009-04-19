@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */; };
 		050C9AF20F91BB6200A8EC38 /* ControlPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */; };
+		051F8C190F9BC9A5006AD1B1 /* CreditsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 051F8C180F9BC9A5006AD1B1 /* CreditsView.xib */; };
+		051F8C1F0F9BCC5B006AD1B1 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 051F8C1E0F9BCC5B006AD1B1 /* CreditsViewController.m */; };
+		051F8CD40F9BD9ED006AD1B1 /* icon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 051F8CD30F9BD9ED006AD1B1 /* icon_57x57.png */; };
+		051F8D400F9BDE8E006AD1B1 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 051F8D3F0F9BDE8E006AD1B1 /* libFlurry.a */; };
 		055227650F5BAF8200512D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
@@ -22,7 +26,6 @@
 		0553B5C30F9A859F007329CB /* btn_load_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BD0F9A859F007329CB /* btn_load_active.png */; };
 		0553B5C40F9A859F007329CB /* btn_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BE0F9A859F007329CB /* btn_info.png */; };
 		0553B5C50F9A859F007329CB /* btn_info_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BF0F9A859F007329CB /* btn_info_active.png */; };
-		055CE1E60F916D790055F163 /* icon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E50F916D790055F163 /* icon_57x57.png */; };
 		055CE1F10F916F2A0055F163 /* overlay_merged.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E70F916F2A0055F163 /* overlay_merged.png */; };
 		055CE1F20F916F2A0055F163 /* console_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E80F916F2A0055F163 /* console_bg.png */; };
 		055CE1F30F916F2A0055F163 /* btn_use.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E90F916F2A0055F163 /* btn_use.png */; };
@@ -87,7 +90,6 @@
 		05EF4B4B0F9AEA4D0059B60B /* SaveGameBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B4A0F9AEA4D0059B60B /* SaveGameBrowserController.m */; };
 		05EF4B630F9AEC730059B60B /* SaveGameFileInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */; };
 		05EF4C480F9AF9980059B60B /* SaveGameBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4C470F9AF9980059B60B /* SaveGameBrowser.xib */; };
-		05EF4CA90F9B021E0059B60B /* SaveGameMigration.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */; };
 		05FC765B0F959C440022C458 /* FlashbackDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FC765A0F959C440022C458 /* FlashbackDataLoader.m */; };
 		05FC76C40F95AF6C0022C458 /* InstallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FC76C30F95AF6C0022C458 /* InstallView.m */; };
 		1D3623260D0F684500981E51 /* FlashbackAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */; };
@@ -101,6 +103,12 @@
 		050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelViewController.h; sourceTree = "<group>"; };
 		050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ControlPanelViewController.mm; sourceTree = "<group>"; };
 		050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlPanelView.xib; sourceTree = "<group>"; };
+		051F8C180F9BC9A5006AD1B1 /* CreditsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditsView.xib; sourceTree = "<group>"; };
+		051F8C1D0F9BCC5B006AD1B1 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		051F8C1E0F9BCC5B006AD1B1 /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
+		051F8CD30F9BD9ED006AD1B1 /* icon_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57x57.png; sourceTree = "<group>"; };
+		051F8D3E0F9BDE8E006AD1B1 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
+		051F8D3F0F9BDE8E006AD1B1 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -114,7 +122,6 @@
 		0553B5BD0F9A859F007329CB /* btn_load_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_load_active.png; sourceTree = "<group>"; };
 		0553B5BE0F9A859F007329CB /* btn_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_info.png; sourceTree = "<group>"; };
 		0553B5BF0F9A859F007329CB /* btn_info_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_info_active.png; sourceTree = "<group>"; };
-		055CE1E50F916D790055F163 /* icon_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57x57.png; sourceTree = "<group>"; };
 		055CE1E70F916F2A0055F163 /* overlay_merged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay_merged.png; path = images/skin/overlay_merged.png; sourceTree = "<group>"; };
 		055CE1E80F916F2A0055F163 /* console_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_bg.png; path = images/skin/console_bg.png; sourceTree = "<group>"; };
 		055CE1E90F916F2A0055F163 /* btn_use.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_use.png; path = images/skin/btn_use.png; sourceTree = "<group>"; };
@@ -228,8 +235,6 @@
 		05EF4B610F9AEC730059B60B /* SaveGameFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameFileInfo.h; sourceTree = "<group>"; };
 		05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SaveGameFileInfo.mm; sourceTree = "<group>"; };
 		05EF4C470F9AF9980059B60B /* SaveGameBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaveGameBrowser.xib; sourceTree = "<group>"; };
-		05EF4CA70F9B021E0059B60B /* SaveGameMigration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameMigration.h; sourceTree = "<group>"; };
-		05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveGameMigration.m; sourceTree = "<group>"; };
 		05FC76590F959C440022C458 /* FlashbackDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashbackDataLoader.h; sourceTree = "<group>"; };
 		05FC765A0F959C440022C458 /* FlashbackDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashbackDataLoader.m; sourceTree = "<group>"; };
 		05FC76C20F95AF6C0022C458 /* InstallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallView.h; sourceTree = "<group>"; };
@@ -255,6 +260,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				05CF8FAD0F134A3E00493EED /* AudioToolbox.framework in Frameworks */,
 				05CF8FB50F134A5E00493EED /* CoreAudio.framework in Frameworks */,
+				051F8D400F9BDE8E006AD1B1 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +270,7 @@
 		050C9AED0F91BB1E00A8EC38 /* Control Panel */ = {
 			isa = PBXGroup;
 			children = (
+				051F8C160F9BC990006AD1B1 /* Credits */,
 				05EF49650F9A89B30059B60B /* SaveGameBrowser */,
 				050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */,
 				050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */,
@@ -272,6 +279,25 @@
 				05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */,
 			);
 			name = "Control Panel";
+			sourceTree = "<group>";
+		};
+		051F8C160F9BC990006AD1B1 /* Credits */ = {
+			isa = PBXGroup;
+			children = (
+				051F8C1D0F9BCC5B006AD1B1 /* CreditsViewController.h */,
+				051F8C1E0F9BCC5B006AD1B1 /* CreditsViewController.m */,
+				051F8C180F9BC9A5006AD1B1 /* CreditsView.xib */,
+			);
+			name = Credits;
+			sourceTree = "<group>";
+		};
+		051F8D3D0F9BDE8E006AD1B1 /* FlurryLib */ = {
+			isa = PBXGroup;
+			children = (
+				051F8D3E0F9BDE8E006AD1B1 /* FlurryAPI.h */,
+				051F8D3F0F9BDE8E006AD1B1 /* libFlurry.a */,
+			);
+			path = FlurryLib;
 			sourceTree = "<group>";
 		};
 		0552276F0F5BB01600512D4B /* landscape-joystick */ = {
@@ -488,15 +514,6 @@
 			name = SaveGameBrowser;
 			sourceTree = "<group>";
 		};
-		05EF4C8F0F9AFEF20059B60B /* SaveGameMigration */ = {
-			isa = PBXGroup;
-			children = (
-				05EF4CA70F9B021E0059B60B /* SaveGameMigration.h */,
-				05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */,
-			);
-			name = SaveGameMigration;
-			sourceTree = "<group>";
-		};
 		05FC76570F959C300022C458 /* Data Loader */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,7 +548,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				05EF4C8F0F9AFEF20059B60B /* SaveGameMigration */,
 				05FC76C10F95AF0F0022C458 /* Install */,
 				05FC76570F959C300022C458 /* Data Loader */,
 				050C9AED0F91BB1E00A8EC38 /* Control Panel */,
@@ -567,6 +583,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				051F8D3D0F9BDE8E006AD1B1 /* FlurryLib */,
 				32CA4F630368D1EE00C91783 /* Flashback_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -581,7 +598,7 @@
 				05B04C080F5E4B4D0095DE90 /* GameControlsView.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				0552293B0F5BCBA900512D4B /* Entitlements.plist */,
-				055CE1E50F916D790055F163 /* icon_57x57.png */,
+				051F8CD30F9BD9ED006AD1B1 /* icon_57x57.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -649,7 +666,6 @@
 				05E6691F0F5F9D60009B15FB /* joystick_bg.png in Resources */,
 				05E669200F5F9D60009B15FB /* joystick_stick.png in Resources */,
 				05E669270F5FA48C009B15FB /* joystick_rest.png in Resources */,
-				055CE1E60F916D790055F163 /* icon_57x57.png in Resources */,
 				055CE1F10F916F2A0055F163 /* overlay_merged.png in Resources */,
 				055CE1F20F916F2A0055F163 /* console_bg.png in Resources */,
 				055CE1F30F916F2A0055F163 /* btn_use.png in Resources */,
@@ -673,6 +689,8 @@
 				0553B5C50F9A859F007329CB /* btn_info_active.png in Resources */,
 				05EF4B1A0F9AE83B0059B60B /* SaveGameCell.xib in Resources */,
 				05EF4C480F9AF9980059B60B /* SaveGameBrowser.xib in Resources */,
+				051F8C190F9BC9A5006AD1B1 /* CreditsView.xib in Resources */,
+				051F8CD40F9BD9ED006AD1B1 /* icon_57x57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,7 +749,7 @@
 				05EF4B310F9AE8A80059B60B /* SaveGameCell.m in Sources */,
 				05EF4B4B0F9AEA4D0059B60B /* SaveGameBrowserController.m in Sources */,
 				05EF4B630F9AEC730059B60B /* SaveGameFileInfo.mm in Sources */,
-				05EF4CA90F9B021E0059B60B /* SaveGameMigration.m in Sources */,
+				051F8C1F0F9BCC5B006AD1B1 /* CreditsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +797,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Flashback_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FlurryLib\"",
+				);
 				PRODUCT_NAME = Flashback;
 			};
 			name = Distribution;
@@ -793,6 +815,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Flashback_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FlurryLib\"",
+				);
 				PRODUCT_NAME = Flashback;
 			};
 			name = Debug;
@@ -805,6 +831,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Flashback_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/FlurryLib\"",
+				);
 				PRODUCT_NAME = Flashback;
 			};
 			name = Release;

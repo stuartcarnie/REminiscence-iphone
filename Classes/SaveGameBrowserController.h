@@ -22,7 +22,7 @@
 
 @end
 
-#define kSaveGameViewFrame					CGRectMake(52, 45, 316, 196)
+#define kSaveGameViewFrame					CGRectMake(52, 67, 316, 174)
 
 /////////////////////////////////////////////////////
 
