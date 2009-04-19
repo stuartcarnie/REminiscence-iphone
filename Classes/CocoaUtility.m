@@ -71,6 +71,22 @@
 
 @end
 
+@implementation NSString(StuartsExtra)
+
+- (NSString *)reversed {
+	int len = [self length];
+	char buf[len + 1];
+	buf[len] = '\0';
+	const char* src = [self cStringUsingEncoding:[NSString defaultCStringEncoding]];
+	char* dst = &buf[len-1];
+	while (len--) {
+		*dst-- = *src++;
+	}
+	return [NSString stringWithCString:buf length:[self length]];
+}
+
+@end
+
 @implementation UIButton(ButtonHelpers)
 
 + (UIButton*)newButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName {

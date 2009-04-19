@@ -261,13 +261,14 @@ errorExit:
 	[_dataFile open];
 
 	NSURLRequest *req = [NSURLRequest requestWithURL:url];
-	NSURLConnection *cn = [NSURLConnection connectionWithRequest:req delegate:self];
-	[cn start];
+	NSURLConnection *cn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 
 	_dataDone = NO;
 	while(!_dataDone) {
 		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1, NO);
 	}
+
+	[cn release];
 
 	[_dataFile close];
 	[_dataFile release];

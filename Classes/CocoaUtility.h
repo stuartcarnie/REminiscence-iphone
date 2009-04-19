@@ -55,7 +55,6 @@
 
 @end
 
-@interface NSString(CStringUtility)
-
-
+@interface NSString(StuartsExtra)
+- (NSString *) reversed;
 @end
