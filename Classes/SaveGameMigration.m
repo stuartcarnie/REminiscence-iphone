@@ -22,7 +22,7 @@
 	for(NSString *file in fileNames) {
 		if ([file hasPrefix:@"rs-level"]) {
 			NSString *newFile = [DOCUMENTS_FOLDER stringByAppendingPathComponent:[NSString stringWithFormat:@"rs-savegame-%02d.state", i++]];
-			[mgr movePath:[DOCUMENTS_FOLDER stringByAppendingPathComponent:file] toPath:newFile handler:nil];
+			[mgr moveItemAtPath:[DOCUMENTS_FOLDER stringByAppendingPathComponent:file] toPath:newFile error:nil];
 		}
 	}
 }

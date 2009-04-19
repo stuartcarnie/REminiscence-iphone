@@ -15,6 +15,7 @@
 	
 	NSArray							*_files;
 	id								_delegate;
+	NSDateFormatter					*_dateFormat;
 }
 
 @property(nonatomic, assign)		id		delegate;

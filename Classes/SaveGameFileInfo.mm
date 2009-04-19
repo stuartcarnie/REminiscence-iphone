@@ -103,6 +103,9 @@
 }
 
 - (UIImage*)screenShot {
+	if (_reload) [self reloadInfo];
+	if (_empty) return nil;
+	
 	if (!_screenShot) {
 		_screenShot = [UIImage imageFromFile:[DOCUMENTS_FOLDER stringByAppendingPathComponent:[NSString stringWithFormat:@"rs-savegame-%02d.png", _slot]]];
 	}
