@@ -23,6 +23,8 @@
     [super viewDidLoad];
 
 	_files = [SaveGameFileInfo newGameList];
+	_dateFormat = [NSDateFormatter new];
+	[_dateFormat setDateFormat:@"hh:mm a, MM-dd"];
 }
 
 - (SaveGameCell*)getNewCell {
@@ -65,7 +67,7 @@
 	SaveGameFileInfo *info = [_files objectAtIndex:[indexPath row]];
 	cell.title.text = info.title;
 	if (info.saveDate)
-		cell.saveDate.text = [info.saveDate descriptionWithCalendarFormat:@"%I:%M %p, %b-%d" timeZone:nil locale:nil];
+		cell.saveDate.text = [_dateFormat stringFromDate:info.saveDate];
 	else
 		cell.saveDate.text = [NSString string];
 	
