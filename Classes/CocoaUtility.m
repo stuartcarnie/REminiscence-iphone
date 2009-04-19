@@ -37,6 +37,13 @@
 	return image;
 }
 
++ (UIImage*)imageFromFile:(NSString*)fileName {
+	NSData *imageData = [[NSData alloc] initWithContentsOfFile:fileName];
+	UIImage *image = [UIImage imageWithData:imageData];
+	[imageData release];
+	return image;
+}
+
 @end
 
 @implementation UIImageView(UIImageHelpers)

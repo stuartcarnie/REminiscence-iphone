@@ -21,8 +21,8 @@
 	FlashbackDataLoader	*_loader;
 }
 
--(id)initWithLoader:(FlashbackDataLoader*)loader;
--(NSArray*)getURLs;
+- (id)initWithLoader:(FlashbackDataLoader*)loader;
+- (NSArray*)getURLs;
 
 @end
 
@@ -37,26 +37,26 @@
 	long long			_downloadedBytes;
 }
 
--(id)initWithLoader:(FlashbackDataLoader*)loader;
--(BOOL)getDataFromURL:(NSURL*)url;
+- (id)initWithLoader:(FlashbackDataLoader*)loader;
+- (BOOL)getDataFromURL:(NSURL*)url;
 
 @end
 
 @interface FlashbackDataLoader()
 
--(NSURL*)findURL;
--(void)doDownloadFromURL:(NSURL*)url;
--(BOOL)extractDataFile;
+- (NSURL*)findURL;
+- (void)doDownloadFromURL:(NSURL*)url;
+- (BOOL)extractDataFile;
 
--(void)doSetProgress:(NSNumber*)current;
--(void)doSetMessage:(NSString*)message;
--(void)doDidFinish:(NSNumber*)status;
+- (void)doSetProgress:(NSNumber*)current;
+- (void)doSetMessage:(NSString*)message;
+- (void)doDidFinish:(NSNumber*)status;
 
 @end
 
 @implementation FlashbackDataLoader
 
--(BOOL)checkStatus {
+- (BOOL)checkStatus {
 	NSFileManager *mgr = [NSFileManager defaultManager];
 	
 	if (![mgr fileExistsAtPath:DATA_FOLDER])
@@ -65,7 +65,7 @@
 	return YES;
 }
 
--(BOOL)downloadFromURL:(NSURL*)url progressDelegate:(id<MMProgressReport>)theDelegate inBackground:(BOOL)inBackground {
+- (BOOL)downloadFromURL:(NSURL*)url progressDelegate:(id<MMProgressReport>)theDelegate inBackground:(BOOL)inBackground {
 	delegate = theDelegate;
 	
 	NSFileManager *mgr = [NSFileManager defaultManager];
@@ -93,12 +93,12 @@
 	[delegate setMessage:message];
 }
 
--(void)doDidFinish:(NSNumber*)status {
+- (void)doDidFinish:(NSNumber*)status {
 	[delegate didFinish:[status boolValue]];
 }
 
 
--(void)doDownloadFromURL:(NSURL*)url {
+- (void)doDownloadFromURL:(NSURL*)url {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	if (url == nil)
 		url = [self findURL];
@@ -122,7 +122,7 @@
 #define cStringToNSStringNoCopy(x)	[[NSString alloc] initWithBytesNoCopy:x length:strlen(x) encoding:NSASCIIStringEncoding freeWhenDone:NO]
 #define cStringToNSString(x)		[[NSString alloc] initWithBytes:x length:strlen(x) encoding:NSASCIIStringEncoding]
 
--(BOOL)extractDataFile {
+- (BOOL)extractDataFile {
 	[self performSelectorOnMainThread:@selector(doSetProgress:) withObject:[NSNumber numberWithFloat:0.0] waitUntilDone:NO];
 	[self performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Extracting Data" waitUntilDone:NO];
 
@@ -169,14 +169,14 @@ errorExit:
 
 #define kFlashbackDataURLs	@"http://flashback.manomio.com/index.php/iphone/url_plist/"
 
--(NSURL*)findURL {
+- (NSURL*)findURL {
 	MMURLList *list  = [[MMURLList alloc] initWithLoader:self];
 	_urls = [[list getURLs] retain];
 	[list release];
 	return [NSURL URLWithString:[_urls objectAtIndex:0]];
 }
 
--(void)dealloc {
+- (void)dealloc {
 	[_urls release];
 	[super dealloc];
 }
@@ -188,13 +188,13 @@ errorExit:
 
 @implementation MMURLList
 
--(id)initWithLoader:(FlashbackDataLoader*)loader {
+- (id)initWithLoader:(FlashbackDataLoader*)loader {
 	self = [super init];
 	_loader = loader;
 	return self;
 }
 
--(NSArray*)getURLs {
+- (NSArray*)getURLs {
 	[_loader performSelectorOnMainThread:@selector(doSetProgress:) withObject:[NSNumber numberWithFloat:0.0] waitUntilDone:NO];
 	[_loader performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Downloading URLs" waitUntilDone:NO];
 	
@@ -204,7 +204,7 @@ errorExit:
 	NSURLConnection *cn = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
 	_dataDone = NO;
 	while(!_dataDone) {
-		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.5, YES);
+		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.5, NO);
 	}
 	
 	[cn release];
@@ -243,13 +243,13 @@ errorExit:
 
 @implementation MMDownloadDataFile
 
--(id)initWithLoader:(FlashbackDataLoader*)loader {
+- (id)initWithLoader:(FlashbackDataLoader*)loader {
 	self = [super init];
 	_loader = loader;
 	return self;
 }
 
--(BOOL)getDataFromURL:(NSURL*)url {
+- (BOOL)getDataFromURL:(NSURL*)url {
 	_downloadedBytes = 0;
 	_expectedBytes = 0;
 	_usingEstimatedBytes = NO;
@@ -266,7 +266,7 @@ errorExit:
 
 	_dataDone = NO;
 	while(!_dataDone) {
-		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, YES);
+		CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1, NO);
 	}
 
 	[_dataFile close];
@@ -285,6 +285,11 @@ errorExit:
 #pragma mark -
 #pragma mark NSURLConnection methods
 
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+	// no caching
+	return nil;
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	NSUInteger len = [data length];
 	_downloadedBytes += len;
@@ -293,7 +298,7 @@ errorExit:
 	float pct = (float)_downloadedBytes / _expectedBytes;
 	[_loader performSelectorOnMainThread:@selector(doSetProgress:) withObject:[NSNumber numberWithFloat:pct] waitUntilDone:NO];
 	
-	//[_dataFile write:[data bytes] maxLength:len];
+	[_dataFile write:[data bytes] maxLength:len];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

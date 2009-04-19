@@ -23,12 +23,16 @@
 #import "debug.h"
 #import "iPhoneStub.h"
 
+// TODO: This should be removed after a round of distribution builds
+#import "SaveGameMigration.h"
 
 @implementation FlashbackAppDelegate
 
 @synthesize window, emulationController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	
+	[SaveGameMigration migrateSaveGames];
 
 	FlashbackDataLoader *loader = [FlashbackDataLoader new];
 	if ([loader checkStatus]) {
@@ -39,9 +43,10 @@
 		[window addSubview:view];
 		[window makeKeyAndVisible];
 		[view startWithDelegate:self andLoader:loader];
-		[loader release];
 		[view release];
 	}
+
+	[loader release];
 	
 	OSStatus res = AudioSessionInitialize(NULL, NULL, NULL, NULL);
 	UInt32 sessionCategory = kAudioSessionCategory_AmbientSound;
@@ -58,7 +63,7 @@
 	res = AudioSessionSetActive(true);	
 }
 
--(void)didFinishInstallView {
+- (void)didFinishInstallView {
 	[window addSubview:emulationController.view];
 }
 
@@ -75,9 +80,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 	DLog(@"Application received terminate message");
 	[self.emulationController saveDefaultGame];
+	[self.emulationController quit];
 }
-
-
 
 - (void)dealloc {
 	self.emulationController = nil;

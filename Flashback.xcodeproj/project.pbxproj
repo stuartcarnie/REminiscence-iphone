@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.m */; };
+		050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */; };
 		050C9AF20F91BB6200A8EC38 /* ControlPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */; };
 		055227650F5BAF8200512D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
+		0553B3FA0F99B73B007329CB /* splash04.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B3F60F99B73B007329CB /* splash04.png */; };
+		0553B3FB0F99B73B007329CB /* splash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B3F70F99B73B007329CB /* splash01.png */; };
+		0553B3FC0F99B73B007329CB /* splash03.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B3F80F99B73B007329CB /* splash03.png */; };
+		0553B3FD0F99B73B007329CB /* splash02.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B3F90F99B73B007329CB /* splash02.png */; };
+		0553B5C00F9A859F007329CB /* btn_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BA0F9A859F007329CB /* btn_save.png */; };
+		0553B5C10F9A859F007329CB /* btn_save_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BB0F9A859F007329CB /* btn_save_active.png */; };
+		0553B5C20F9A859F007329CB /* btn_load.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BC0F9A859F007329CB /* btn_load.png */; };
+		0553B5C30F9A859F007329CB /* btn_load_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BD0F9A859F007329CB /* btn_load_active.png */; };
+		0553B5C40F9A859F007329CB /* btn_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BE0F9A859F007329CB /* btn_info.png */; };
+		0553B5C50F9A859F007329CB /* btn_info_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0553B5BF0F9A859F007329CB /* btn_info_active.png */; };
 		055CE1E60F916D790055F163 /* icon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E50F916D790055F163 /* icon_57x57.png */; };
 		055CE1F10F916F2A0055F163 /* overlay_merged.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E70F916F2A0055F163 /* overlay_merged.png */; };
 		055CE1F20F916F2A0055F163 /* console_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 055CE1E80F916F2A0055F163 /* console_bg.png */; };
@@ -68,14 +78,17 @@
 		05CF90060F134C2100493EED /* EmulationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF8FFE0F134C2100493EED /* EmulationViewController.mm */; };
 		05CF90080F134C2100493EED /* InputControllerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05CF90020F134C2100493EED /* InputControllerView.mm */; };
 		05CF900B0F134C9C00493EED /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CF900A0F134C9C00493EED /* MainWindow.xib */; };
-		05D7C6640F92A56900204A3E /* OptionsPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D7C6620F92A56900204A3E /* OptionsPanelViewController.m */; };
-		05D7C6650F92A56900204A3E /* OptionsPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05D7C6630F92A56900204A3E /* OptionsPanelViewController.xib */; };
 		05E6691F0F5F9D60009B15FB /* joystick_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669170F5F9D60009B15FB /* joystick_bg.png */; };
 		05E669200F5F9D60009B15FB /* joystick_stick.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669180F5F9D60009B15FB /* joystick_stick.png */; };
 		05E669270F5FA48C009B15FB /* joystick_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E669260F5FA48C009B15FB /* joystick_rest.png */; };
+		05EF49680F9A89F80059B60B /* ImageBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF49670F9A89F80059B60B /* ImageBarControl.m */; };
+		05EF4B1A0F9AE83B0059B60B /* SaveGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B190F9AE83B0059B60B /* SaveGameCell.xib */; };
+		05EF4B310F9AE8A80059B60B /* SaveGameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B300F9AE8A80059B60B /* SaveGameCell.m */; };
+		05EF4B4B0F9AEA4D0059B60B /* SaveGameBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B4A0F9AEA4D0059B60B /* SaveGameBrowserController.m */; };
+		05EF4B630F9AEC730059B60B /* SaveGameFileInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */; };
+		05EF4C480F9AF9980059B60B /* SaveGameBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4C470F9AF9980059B60B /* SaveGameBrowser.xib */; };
+		05EF4CA90F9B021E0059B60B /* SaveGameMigration.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */; };
 		05FC765B0F959C440022C458 /* FlashbackDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FC765A0F959C440022C458 /* FlashbackDataLoader.m */; };
-		05FC76BF0F95AEB80022C458 /* splash01.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FC76BD0F95AEB80022C458 /* splash01.png */; };
-		05FC76C00F95AEB80022C458 /* splash02.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FC76BE0F95AEB80022C458 /* splash02.png */; };
 		05FC76C40F95AF6C0022C458 /* InstallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FC76C30F95AF6C0022C458 /* InstallView.m */; };
 		1D3623260D0F684500981E51 /* FlashbackAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -86,11 +99,21 @@
 /* Begin PBXFileReference section */
 		050C9A780F91A05100A8EC38 /* CNSRecursiveLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CNSRecursiveLock.h; sourceTree = "<group>"; };
 		050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelViewController.h; sourceTree = "<group>"; };
-		050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPanelViewController.m; sourceTree = "<group>"; };
+		050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ControlPanelViewController.mm; sourceTree = "<group>"; };
 		050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlPanelView.xib; sourceTree = "<group>"; };
 		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		0553B3F60F99B73B007329CB /* splash04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash04.png; sourceTree = "<group>"; };
+		0553B3F70F99B73B007329CB /* splash01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash01.png; sourceTree = "<group>"; };
+		0553B3F80F99B73B007329CB /* splash03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash03.png; sourceTree = "<group>"; };
+		0553B3F90F99B73B007329CB /* splash02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash02.png; sourceTree = "<group>"; };
+		0553B5BA0F9A859F007329CB /* btn_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_save.png; sourceTree = "<group>"; };
+		0553B5BB0F9A859F007329CB /* btn_save_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_save_active.png; sourceTree = "<group>"; };
+		0553B5BC0F9A859F007329CB /* btn_load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_load.png; sourceTree = "<group>"; };
+		0553B5BD0F9A859F007329CB /* btn_load_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_load_active.png; sourceTree = "<group>"; };
+		0553B5BE0F9A859F007329CB /* btn_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_info.png; sourceTree = "<group>"; };
+		0553B5BF0F9A859F007329CB /* btn_info_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_info_active.png; sourceTree = "<group>"; };
 		055CE1E50F916D790055F163 /* icon_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57x57.png; sourceTree = "<group>"; };
 		055CE1E70F916F2A0055F163 /* overlay_merged.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay_merged.png; path = images/skin/overlay_merged.png; sourceTree = "<group>"; };
 		055CE1E80F916F2A0055F163 /* console_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_bg.png; path = images/skin/console_bg.png; sourceTree = "<group>"; };
@@ -192,16 +215,23 @@
 		05CF90010F134C2100493EED /* InputControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputControllerView.h; sourceTree = "<group>"; };
 		05CF90020F134C2100493EED /* InputControllerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputControllerView.mm; sourceTree = "<group>"; };
 		05CF900A0F134C9C00493EED /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		05D7C6610F92A56900204A3E /* OptionsPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsPanelViewController.h; sourceTree = "<group>"; };
-		05D7C6620F92A56900204A3E /* OptionsPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsPanelViewController.m; sourceTree = "<group>"; };
-		05D7C6630F92A56900204A3E /* OptionsPanelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsPanelViewController.xib; sourceTree = "<group>"; };
 		05E669170F5F9D60009B15FB /* joystick_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_bg.png; sourceTree = "<group>"; };
 		05E669180F5F9D60009B15FB /* joystick_stick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_stick.png; sourceTree = "<group>"; };
 		05E669260F5FA48C009B15FB /* joystick_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick_rest.png; sourceTree = "<group>"; };
+		05EF49660F9A89F80059B60B /* ImageBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBarControl.h; sourceTree = "<group>"; };
+		05EF49670F9A89F80059B60B /* ImageBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBarControl.m; sourceTree = "<group>"; };
+		05EF4B190F9AE83B0059B60B /* SaveGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaveGameCell.xib; sourceTree = "<group>"; };
+		05EF4B2F0F9AE8A80059B60B /* SaveGameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameCell.h; sourceTree = "<group>"; };
+		05EF4B300F9AE8A80059B60B /* SaveGameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveGameCell.m; sourceTree = "<group>"; };
+		05EF4B490F9AEA4D0059B60B /* SaveGameBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameBrowserController.h; sourceTree = "<group>"; };
+		05EF4B4A0F9AEA4D0059B60B /* SaveGameBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveGameBrowserController.m; sourceTree = "<group>"; };
+		05EF4B610F9AEC730059B60B /* SaveGameFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameFileInfo.h; sourceTree = "<group>"; };
+		05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SaveGameFileInfo.mm; sourceTree = "<group>"; };
+		05EF4C470F9AF9980059B60B /* SaveGameBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaveGameBrowser.xib; sourceTree = "<group>"; };
+		05EF4CA70F9B021E0059B60B /* SaveGameMigration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveGameMigration.h; sourceTree = "<group>"; };
+		05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveGameMigration.m; sourceTree = "<group>"; };
 		05FC76590F959C440022C458 /* FlashbackDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashbackDataLoader.h; sourceTree = "<group>"; };
 		05FC765A0F959C440022C458 /* FlashbackDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashbackDataLoader.m; sourceTree = "<group>"; };
-		05FC76BD0F95AEB80022C458 /* splash01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash01.png; sourceTree = "<group>"; };
-		05FC76BE0F95AEB80022C458 /* splash02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash02.png; sourceTree = "<group>"; };
 		05FC76C20F95AF6C0022C458 /* InstallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallView.h; sourceTree = "<group>"; };
 		05FC76C30F95AF6C0022C458 /* InstallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallView.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -234,9 +264,12 @@
 		050C9AED0F91BB1E00A8EC38 /* Control Panel */ = {
 			isa = PBXGroup;
 			children = (
+				05EF49650F9A89B30059B60B /* SaveGameBrowser */,
 				050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */,
-				050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.m */,
+				050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */,
 				050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */,
+				05EF4B610F9AEC730059B60B /* SaveGameFileInfo.h */,
+				05EF4B620F9AEC730059B60B /* SaveGameFileInfo.mm */,
 			);
 			name = "Control Panel";
 			sourceTree = "<group>";
@@ -249,6 +282,20 @@
 				05E669260F5FA48C009B15FB /* joystick_rest.png */,
 			);
 			name = "landscape-joystick";
+			sourceTree = "<group>";
+		};
+		0553B5AF0F9A8585007329CB /* control-panel */ = {
+			isa = PBXGroup;
+			children = (
+				055CE1E80F916F2A0055F163 /* console_bg.png */,
+				0553B5BA0F9A859F007329CB /* btn_save.png */,
+				0553B5BB0F9A859F007329CB /* btn_save_active.png */,
+				0553B5BC0F9A859F007329CB /* btn_load.png */,
+				0553B5BD0F9A859F007329CB /* btn_load_active.png */,
+				0553B5BE0F9A859F007329CB /* btn_info.png */,
+				0553B5BF0F9A859F007329CB /* btn_info_active.png */,
+			);
+			name = "control-panel";
 			sourceTree = "<group>";
 		};
 		05CF8DB50F1343CA00493EED /* Game Engine */ = {
@@ -289,8 +336,8 @@
 				05CF8DC80F1343FB00493EED /* graphics.cpp */,
 				05CF8DCA0F1343FB00493EED /* intern.h */,
 				05CF8DCD0F1343FB00493EED /* main.cpp */,
-				05CF8DCF0F1343FB00493EED /* menu.cpp */,
 				05CF8DD00F1343FB00493EED /* menu.h */,
+				05CF8DCF0F1343FB00493EED /* menu.cpp */,
 				05CF8DD20F1343FB00493EED /* mixer.h */,
 				05CF8DD10F1343FB00493EED /* mixer.cpp */,
 				05CF8DD40F1343FB00493EED /* mod_player.h */,
@@ -387,6 +434,8 @@
 			children = (
 				05CF8FCC0F134BAC00493EED /* CocoaUtility.h */,
 				05CF8FCD0F134BAC00493EED /* CocoaUtility.m */,
+				05EF49660F9A89F80059B60B /* ImageBarControl.h */,
+				05EF49670F9A89F80059B60B /* ImageBarControl.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -400,22 +449,20 @@
 			name = images;
 			sourceTree = "<group>";
 		};
-		05D7C6500F929DF000204A3E /* Options Panel */ = {
-			isa = PBXGroup;
-			children = (
-				05D7C6610F92A56900204A3E /* OptionsPanelViewController.h */,
-				05D7C6620F92A56900204A3E /* OptionsPanelViewController.m */,
-				05D7C6630F92A56900204A3E /* OptionsPanelViewController.xib */,
-			);
-			name = "Options Panel";
-			sourceTree = "<group>";
-		};
 		05E669140F5F9B91009B15FB /* skin */ = {
 			isa = PBXGroup;
 			children = (
+				0553B5AF0F9A8585007329CB /* control-panel */,
+				05EF492B0F9A86370059B60B /* game-controls */,
 				05FC769D0F95AEA70022C458 /* splash */,
 				055CE1E70F916F2A0055F163 /* overlay_merged.png */,
-				055CE1E80F916F2A0055F163 /* console_bg.png */,
+			);
+			name = skin;
+			sourceTree = "<group>";
+		};
+		05EF492B0F9A86370059B60B /* game-controls */ = {
+			isa = PBXGroup;
+			children = (
 				055CE1E90F916F2A0055F163 /* btn_use.png */,
 				055CE1EA0F916F2A0055F163 /* btn_skip.png */,
 				055CE1EB0F916F2A0055F163 /* btn_select.png */,
@@ -425,7 +472,29 @@
 				055CE1EF0F916F2A0055F163 /* btn_gun.png */,
 				055CE1F00F916F2A0055F163 /* btn_fire.png */,
 			);
-			name = skin;
+			name = "game-controls";
+			sourceTree = "<group>";
+		};
+		05EF49650F9A89B30059B60B /* SaveGameBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				05EF4B2F0F9AE8A80059B60B /* SaveGameCell.h */,
+				05EF4B300F9AE8A80059B60B /* SaveGameCell.m */,
+				05EF4B190F9AE83B0059B60B /* SaveGameCell.xib */,
+				05EF4B490F9AEA4D0059B60B /* SaveGameBrowserController.h */,
+				05EF4B4A0F9AEA4D0059B60B /* SaveGameBrowserController.m */,
+				05EF4C470F9AF9980059B60B /* SaveGameBrowser.xib */,
+			);
+			name = SaveGameBrowser;
+			sourceTree = "<group>";
+		};
+		05EF4C8F0F9AFEF20059B60B /* SaveGameMigration */ = {
+			isa = PBXGroup;
+			children = (
+				05EF4CA70F9B021E0059B60B /* SaveGameMigration.h */,
+				05EF4CA80F9B021E0059B60B /* SaveGameMigration.m */,
+			);
+			name = SaveGameMigration;
 			sourceTree = "<group>";
 		};
 		05FC76570F959C300022C458 /* Data Loader */ = {
@@ -442,8 +511,10 @@
 		05FC769D0F95AEA70022C458 /* splash */ = {
 			isa = PBXGroup;
 			children = (
-				05FC76BD0F95AEB80022C458 /* splash01.png */,
-				05FC76BE0F95AEB80022C458 /* splash02.png */,
+				0553B3F70F99B73B007329CB /* splash01.png */,
+				0553B3F90F99B73B007329CB /* splash02.png */,
+				0553B3F80F99B73B007329CB /* splash03.png */,
+				0553B3F60F99B73B007329CB /* splash04.png */,
 			);
 			name = splash;
 			sourceTree = "<group>";
@@ -460,10 +531,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				05EF4C8F0F9AFEF20059B60B /* SaveGameMigration */,
 				05FC76C10F95AF0F0022C458 /* Install */,
 				05FC76570F959C300022C458 /* Data Loader */,
 				050C9AED0F91BB1E00A8EC38 /* Control Panel */,
-				05D7C6500F929DF000204A3E /* Options Panel */,
 				05CF8F9D0F1347F700493EED /* Emulator */,
 				1D3623240D0F684500981E51 /* FlashbackAppDelegate.h */,
 				1D3623250D0F684500981E51 /* FlashbackAppDelegate.mm */,
@@ -590,9 +661,18 @@
 				055CE1F90F916F2A0055F163 /* btn_gun.png in Resources */,
 				055CE1FA0F916F2A0055F163 /* btn_fire.png in Resources */,
 				050C9AF20F91BB6200A8EC38 /* ControlPanelView.xib in Resources */,
-				05D7C6650F92A56900204A3E /* OptionsPanelViewController.xib in Resources */,
-				05FC76BF0F95AEB80022C458 /* splash01.png in Resources */,
-				05FC76C00F95AEB80022C458 /* splash02.png in Resources */,
+				0553B3FA0F99B73B007329CB /* splash04.png in Resources */,
+				0553B3FB0F99B73B007329CB /* splash01.png in Resources */,
+				0553B3FC0F99B73B007329CB /* splash03.png in Resources */,
+				0553B3FD0F99B73B007329CB /* splash02.png in Resources */,
+				0553B5C00F9A859F007329CB /* btn_save.png in Resources */,
+				0553B5C10F9A859F007329CB /* btn_save_active.png in Resources */,
+				0553B5C20F9A859F007329CB /* btn_load.png in Resources */,
+				0553B5C30F9A859F007329CB /* btn_load_active.png in Resources */,
+				0553B5C40F9A859F007329CB /* btn_info.png in Resources */,
+				0553B5C50F9A859F007329CB /* btn_info_active.png in Resources */,
+				05EF4B1A0F9AE83B0059B60B /* SaveGameCell.xib in Resources */,
+				05EF4C480F9AF9980059B60B /* SaveGameBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,11 +723,15 @@
 				05B04C110F5E4B8A0095DE90 /* GameControlsView.mm in Sources */,
 				055D73080F8DC68A0044F5AF /* UINotification.cpp in Sources */,
 				055D744E0F8DDFCA0044F5AF /* NSNotificationAdditions.m in Sources */,
-				050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.m in Sources */,
-				05D7C6640F92A56900204A3E /* OptionsPanelViewController.m in Sources */,
+				050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.mm in Sources */,
 				05FC765B0F959C440022C458 /* FlashbackDataLoader.m in Sources */,
 				05FC76C40F95AF6C0022C458 /* InstallView.m in Sources */,
 				058FD7270F971A6A00B6698C /* LiteUnzip.c in Sources */,
+				05EF49680F9A89F80059B60B /* ImageBarControl.m in Sources */,
+				05EF4B310F9AE8A80059B60B /* SaveGameCell.m in Sources */,
+				05EF4B4B0F9AEA4D0059B60B /* SaveGameBrowserController.m in Sources */,
+				05EF4B630F9AEC730059B60B /* SaveGameFileInfo.mm in Sources */,
+				05EF4CA90F9B021E0059B60B /* SaveGameMigration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +749,7 @@
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_STRICT_ALIASING = YES;
@@ -672,6 +757,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = (
 					"-finline-functions",
@@ -731,11 +817,13 @@
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_FAST_MATH = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_STRICT_ALIASING = YES;
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
@@ -753,6 +841,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_FAST_MATH = YES;
+				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_STRICT_ALIASING = YES;
@@ -760,6 +849,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = (
 					"-finline-functions",

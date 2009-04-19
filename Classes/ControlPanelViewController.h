@@ -8,15 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+@class SaveGameBrowserController;
+struct iPhoneStub;
+@class ImageBarControl;
 
 @interface ControlPanelViewController : UIViewController {
-	BOOL			_isOpen;
+	BOOL							_isOpen;
+	ImageBarControl					*_imageBar;
+	SaveGameBrowserController		*_gameList;
+	iPhoneStub						*_stub;
+	BOOL							_reloadTable;
 }
 
--(IBAction)hideShowControlPanel:(id)sender;
+@property(nonatomic, assign)		iPhoneStub *stub;
+
+- (IBAction)hideShowControlPanel:(id)sender;
 
 @end
 
-#define kControlPanelFrame					CGRectMake(453, 0, 406, 320)
-#define kControlPanelOpenFrame				CGRectMake(73, 0, 406, 320)
+#define kControlPanelWidth					406
+#define kControlPanelFrame					CGRectMake(453, 0, kControlPanelWidth, 320)
+#define kControlPanelOpenFrame				CGRectMake(73, 0, kControlPanelWidth, 320)
 

@@ -18,17 +18,17 @@
 
 /*! Check if the Flashback data exists in Documents/data and is valid
  */
--(BOOL)checkStatus;
+- (BOOL)checkStatus;
 
 /*! Download game data file from specified URL
  */
--(BOOL)downloadFromURL:(NSURL*)url progressDelegate:(id<MMProgressReport>)delegate inBackground:(BOOL)inBackground;
+- (BOOL)downloadFromURL:(NSURL*)url progressDelegate:(id<MMProgressReport>)delegate inBackground:(BOOL)inBackground;
 
 @end
 
 @protocol MMProgressReport
 
-- (void)setProgress:(float)current;
+- (void)setProgress:(float)value;
 - (void)setMessage:(NSString*)message;
 - (void)didFinish:(BOOL)status;
 

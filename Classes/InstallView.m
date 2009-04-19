@@ -9,14 +9,14 @@
 #import "InstallView.h"
 #import "CocoaUtility.h"
 
-const double kAnimationDuration = 500.0 / 1000.0;
+const double kAnimationDuration		= 500.0 / 1000.0;
+const double kImageDisplayTime		= 1.5;
 
 @interface InstallView()
 
--(void)step1;
--(void)step2;
--(void)step3;
--(void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context;
+- (void)showImageNamed:(NSString*)image;
+- (void)beginDownload;
+- (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context;
 
 - (void)createInstallSheet;
 
@@ -27,80 +27,70 @@ const double kAnimationDuration = 500.0 / 1000.0;
 #define degreesToRadian(x) (M_PI  * x / 180.0)
 #define kLandscapeTransform CGAffineTransformRotate(CGAffineTransformIdentity, degreesToRadian(90.0))
 
--(void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader {
+- (void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader {
 	self.transform = kLandscapeTransform;
 	delegate = theDelegate;
 	loader = [theLoader retain];
-	[self step1];
+	[self showImageNamed:@"splash01.png"];
 }
 
--(void)step1 {
-	UIView *view = [UIImageView newViewFromImageResource:@"splash01.png"];
-	//view.transform = kLandscapeTransform;
-	view.alpha = 0.0;
-	view.center = CGPointMake(160, 240);
-	[self addSubview:view];
+- (void)showImageNamed:(NSString*)image {
+	if (previous) {
+		[previous removeFromSuperview];
+		previous = current;
+	}
 	
-	[UIView beginAnimations:@"splash.step1" context:nil];
+	current = [UIImageView newViewFromImageResource:image];
+	current.alpha = 0.0;
+	current.center = CGPointMake(160, 240);
+	[self addSubview:current];
+	
+	[UIView beginAnimations:image context:nil];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	[UIView setAnimationDuration:kAnimationDuration];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	view.alpha = 1.0;
+	current.alpha = 1.0;
+	previous.alpha = 0.0;
 	
 	[UIView commitAnimations];
 }
 
--(void)step2 {
-	UIView *view = [UIImageView newViewFromImageResource:@"splash02.png"];
-	//view.transform = kLandscapeTransform;
-	view.alpha = 0.0;
-	view.center = CGPointMake(160, 240);
-	[self addSubview:view];
-	
-	[UIView beginAnimations:@"splash.step2" context:nil];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDuration:kAnimationDuration];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-	
-	view.alpha = 1.0;
-	[[[self subviews] objectAtIndex:0] setAlpha:0.0];
-	
-	[UIView commitAnimations];
-}
-
--(void)step3 {
+- (void)beginDownload {
 	// begin checking / downloading
 	[self createInstallSheet];
 	[loader downloadFromURL:nil progressDelegate:self inBackground:YES];
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
-	if ([animationID isEqual:@"splash.step1"]) {
-		[self performSelector:@selector(step2) withObject:nil afterDelay:3.0];
+	if ([animationID isEqual:@"splash01.png"]) {
+		[self performSelector:@selector(showImageNamed:) withObject:@"splash02.png" afterDelay:kImageDisplayTime];
+	} else if ([animationID isEqual:@"splash02.png"]) {
+		[self performSelector:@selector(showImageNamed:) withObject:@"splash03.png" afterDelay:kImageDisplayTime];
+	} else if ([animationID isEqual:@"splash03.png"]) {
+		[self performSelector:@selector(showImageNamed:) withObject:@"splash04.png" afterDelay:kImageDisplayTime];
 	} else {
-		[self step3];
+		[self beginDownload];
 	}
 }
 
 - (void)createInstallSheet {
-	label = [[UILabel alloc] initWithFrame:CGRectMake(0, 270, 300, 20)];
+	label = [[UILabel alloc] initWithFrame:CGRectMake(0, 300, 330, 20)];
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor whiteColor];
 	label.opaque = NO;	
 	[self addSubview:label];
 	[label release];
 	
-	progbar = [[UIProgressView alloc] initWithFrame:CGRectMake(0.0f, 300.0f, 320.0f, 20.0f)];
+	progbar = [[UIProgressView alloc] initWithFrame:CGRectMake(0.0f, 330.0f, 320.0f, 20.0f)];
 	[progbar setProgressViewStyle: UIProgressViewStyleDefault]; 
 	[self addSubview:progbar];
 	[progbar release];
 }
 
-- (void)setProgress:(float)current {
-	[progbar setProgress:current];
+- (void)setProgress:(float)value {
+	[progbar setProgress:value];
 }
 
 - (void)setMessage:(NSString*)message {
@@ -108,7 +98,6 @@ const double kAnimationDuration = 500.0 / 1000.0;
 }
 
 - (void)didFinish:(BOOL)status {
-	//[installSheet dismissWithClickedButtonIndex:0 animated:NO];
 	[self removeFromSuperview];
 	[delegate didFinishInstallView];
 }

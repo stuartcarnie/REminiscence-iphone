@@ -31,6 +31,8 @@
 struct File;
 struct SystemStub;
 
+#define kMaxGameSlots	21
+
 struct Game {
 	typedef int (Game::*pge_OpcodeProc)(ObjectOpcodeArgs *args);
 	typedef int (Game::*pge_ZOrderCallback)(LivePGE *, LivePGE *, uint8, uint8);
@@ -386,6 +388,10 @@ struct Game {
 
 	void makeGameDemoName(char *buf);
 	void makeGameStateName(uint8 slot, char *buf);
+	
+	void loadGame(uint8 slot);
+	void saveGame(uint8 slot);
+	
 	bool saveGameState(uint8 slot);
 	bool loadGameState(uint8 slot, bool loadData = true);
 	void saveState(File *f);

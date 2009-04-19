@@ -25,37 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
+#import <UIKit/UIKit.h>
 
-@interface UIImage(Loading)
+@interface ImageBarControl : UIControl {
+	NSMutableArray						*_segments;
+	NSInteger							_selectedSegment;
+	UIButton							*_selectedButton;
+}
 
-+ (UIImage*)imageFromResource:(NSString*)name;
-+ (UIImage*)imageFromFile:(NSString*)fileName;
+/*! Initialize a set of items, which should be strings representing the image resources
+ */
+- (id)initWithItems:(NSArray*)items;
 
-@end
-
-@interface UIImageView(UIImageHelpers)
-
-+ (UIImageView*)newViewFromImageResource:(NSString*)resourceName;
-
-@end
-
-@interface UIButton(ButtonHelpers)
-
-//! Creates a new UIButton with the specified imageName and selectedImageName.  If selectedImageName is
-//  nil, it is not used.
-+ (UIButton*)newButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName;
-- (void)setImage:(UIImage*)image forStates:(UIControlState)states;
-
-@end
-
-@interface NSString(URLEncoding)
-
-- (NSString *)encodeForURL;
-- (NSString *)decodeFromURL;
-
-@end
-
-@interface NSString(CStringUtility)
-
+@property(nonatomic,readonly)	NSUInteger numberOfSegments;
+@property(nonatomic)			NSInteger selectedSegmentIndex;
 
 @end

@@ -50,6 +50,7 @@ enum tagEmulatorState {
 
 	// Layout state information
 	UIInterfaceOrientation		layoutOrientation;		// The orientation of the current layout
+	BOOL						_dontSave;
 }
 
 @property (nonatomic, retain)	DisplayView							*displayView;
@@ -60,6 +61,7 @@ enum tagEmulatorState {
 
 - (void)pause;
 - (void)resume;
+- (void)quit;
 
 - (void)loadDefaultGame;
 - (void)saveDefaultGame;

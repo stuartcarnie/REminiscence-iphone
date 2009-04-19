@@ -23,6 +23,7 @@
 
 @synthesize playerInput, TheJoyStick, systemStub;
 @synthesize fire=_fire, gun=_gun, items=_items, use=_use, menu=_menu;
+@synthesize delegate=_delegate;
 
 - (void)awakeFromNib {
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -72,6 +73,7 @@
 				break;
 				
 			case SystemStub::NOTIFY_OPTIONS:
+			case SystemStub::NOTIFY_MAINMENU:
 			case SystemStub::NOTIFY_ABORT_CONTINUE:
 				self.fire.alpha = alpha;
 				self.fire.enabled = enabled;
@@ -106,6 +108,7 @@
 				
 			case SystemStub::NOTIFY_ABORT_CONTINUE:
 			case SystemStub::NOTIFY_OPTIONS:
+			case SystemStub::NOTIFY_MAINMENU:
 				if (phase == SystemStub::PHASE_START) {
 					[_use setImage:_selectImage forStates:kUIControlStateAll];
 				} else {
@@ -124,9 +127,8 @@ enum tagFireButtons {
 	FireOptions
 };
 
--(IBAction)fireButton:(UIButton*)sender {
+- (IBAction)fireButton:(UIButton*)sender {
 	FireButtonState state = (FireButtonState)sender.state;
-	DLog(@"state = %d", state);
 	
 	switch(sender.tag) {
 		case FireShift:
@@ -141,14 +143,14 @@ enum tagFireButtons {
 	}
 }
 
--(IBAction)itemsButton:(id)sender {
-	DLog(@"items button");
+- (IBAction)itemsButton:(id)sender {
 	playerInput->backspace = true;
 }
 
--(IBAction)optionsButton:(id)sender {
-	playerInput->escape = true;
-	
+- (IBAction)optionsButton:(id)sender {
+	//playerInput->escape = true;
+	if ([_delegate respondsToSelector:@selector(didSelectMenuButton)])
+		[_delegate didSelectMenuButton];
 }
 
 - (void)dealloc {

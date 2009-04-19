@@ -11,19 +11,22 @@
 
 @protocol InstallViewDelegate
 
--(void)didFinishInstallView;
+- (void)didFinishInstallView;
 
 @end
 
 @class FlashbackDataLoader;
 
 @interface InstallView : UIView<MMProgressReport> {
+	UIView								*previous;
+	UIView								*current;
+	
 	UILabel								*label;
 	UIProgressView						*progbar;
 	id<InstallViewDelegate>				delegate;
 	FlashbackDataLoader					*loader;
 }
 
--(void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader;
+- (void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader;
 
 @end

@@ -70,6 +70,7 @@ struct iPhoneStub : SystemStub, CallbackHandler {
 	virtual void AudioCallbackHandler(uint8 *buf, uint32 *size);
 	
 	CGImageRef GetImageBuffer() { return CGBitmapContextCreateImage(context); }
+	virtual void saveScreenShot(uint8 slot);
 	
 	BOOL				hasImageChanged;
 	CJoyStick			TheJoyStick;
