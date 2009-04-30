@@ -16,8 +16,9 @@
 /*! Handles downloading the url list
  */
 @interface MMURLList : NSObject {
-	BOOL		_dataDone;
-	NSArray		*_urls;
+	BOOL				_dataDone;
+	BOOL				_hasError;
+	NSArray				*_urls;
 	FlashbackDataLoader	*_loader;
 }
 
@@ -30,6 +31,7 @@
  */
 @interface MMDownloadDataFile : NSObject {
 	BOOL				_dataDone;
+	BOOL				_hasError;
 	NSOutputStream		*_dataFile;
 	FlashbackDataLoader	*_loader;
 	long long			_expectedBytes;
@@ -103,17 +105,22 @@
 	if (url == nil)
 		url = [self findURL];
 	
-	NSLog(@"Getting data from %@", url);
+	BOOL res = NO;
 	
-	MMDownloadDataFile *down = [[MMDownloadDataFile alloc] initWithLoader:self];
-	BOOL res = [down getDataFromURL:url];
-	[down release];
-	
-	if (res) {
-		// successful download, extract data
-		res = [self extractDataFile];
+	if (url == nil) {
+		res = NO;
+	} else {
+		NSLog(@"Getting data from %@", url);
+		
+		MMDownloadDataFile *down = [[MMDownloadDataFile alloc] initWithLoader:self];
+		res = [down getDataFromURL:url];
+		[down release];
+		
+		if (res) {
+			// successful download, extract data
+			res = [self extractDataFile];
+		}
 	}
-	
 	[pool release];
 	
 	[self performSelectorOnMainThread:@selector(doDidFinish:) withObject:[NSNumber numberWithBool:res] waitUntilDone:NO];
@@ -173,6 +180,10 @@ errorExit:
 	MMURLList *list  = [[MMURLList alloc] initWithLoader:self];
 	_urls = [[list getURLs] retain];
 	[list release];
+	
+	if (!_urls || [_urls count] == 0)
+		return nil;
+	
 	return [NSURL URLWithString:[_urls objectAtIndex:0]];
 }
 
@@ -210,7 +221,11 @@ errorExit:
 	[cn release];
 	
 	[_loader performSelectorOnMainThread:@selector(doSetProgress:) withObject:[NSNumber numberWithFloat:1.0] waitUntilDone:NO];
-	[_loader performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Done" waitUntilDone:NO];
+	if (_hasError) {
+		[_loader performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Failed to get URLs" waitUntilDone:NO];
+	} else {
+		[_loader performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Done" waitUntilDone:NO];
+	}
 
 	return _urls;
 }
@@ -227,8 +242,15 @@ errorExit:
 																errorDescription:&errorDesc] retain];
 }
 
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	NSLog(@"Failed to retrieve URL list");
+	_dataDone = YES;
+	_hasError = YES;
+}
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	_dataDone = YES;
+	_hasError = NO;
 }
 
 - (void)dealloc {
@@ -274,7 +296,7 @@ errorExit:
 	[_dataFile release];
 	_dataFile = nil;
 
-	if (_downloadedBytes == _expectedBytes || _usingEstimatedBytes) {
+	if (!_hasError && (_downloadedBytes == _expectedBytes || _usingEstimatedBytes)) {
 		[_loader performSelectorOnMainThread:@selector(doSetMessage:) withObject:@"Update complete" waitUntilDone:NO];
 		return YES;
 	}
@@ -304,6 +326,8 @@ errorExit:
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	NSLog(@"Failed to retrieve data");
+	_dataDone = YES;
+	_hasError = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
@@ -318,6 +342,7 @@ errorExit:
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	NSLog(@"Completed transfer of %d bytes, expected %d", _downloadedBytes, _expectedBytes);
 	_dataDone = YES;
+	_hasError = NO;
 }
 
 - (void)dealloc {

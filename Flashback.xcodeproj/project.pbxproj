@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		050C9AF00F91BB3900A8EC38 /* ControlPanelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */; };
 		050C9AF20F91BB6200A8EC38 /* ControlPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */; };
+		0519DDDC0FA93A1900504033 /* UIApplication-Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 0519DDDB0FA93A1900504033 /* UIApplication-Network.m */; };
+		0519DDE90FA93A5700504033 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0519DDE80FA93A5700504033 /* SystemConfiguration.framework */; };
 		051F8C190F9BC9A5006AD1B1 /* CreditsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 051F8C180F9BC9A5006AD1B1 /* CreditsView.xib */; };
 		051F8C1F0F9BCC5B006AD1B1 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 051F8C1E0F9BCC5B006AD1B1 /* CreditsViewController.m */; };
 		051F8CD40F9BD9ED006AD1B1 /* icon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 051F8CD30F9BD9ED006AD1B1 /* icon_57x57.png */; };
@@ -103,6 +105,9 @@
 		050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPanelViewController.h; sourceTree = "<group>"; };
 		050C9AEF0F91BB3900A8EC38 /* ControlPanelViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ControlPanelViewController.mm; sourceTree = "<group>"; };
 		050C9AF10F91BB6200A8EC38 /* ControlPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlPanelView.xib; sourceTree = "<group>"; };
+		0519DDDA0FA93A1900504033 /* UIApplication-Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication-Network.h"; sourceTree = "<group>"; };
+		0519DDDB0FA93A1900504033 /* UIApplication-Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication-Network.m"; sourceTree = "<group>"; };
+		0519DDE80FA93A5700504033 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		051F8C180F9BC9A5006AD1B1 /* CreditsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditsView.xib; sourceTree = "<group>"; };
 		051F8C1D0F9BCC5B006AD1B1 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		051F8C1E0F9BCC5B006AD1B1 /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
@@ -262,6 +267,7 @@
 				05CF8FAD0F134A3E00493EED /* AudioToolbox.framework in Frameworks */,
 				05CF8FB50F134A5E00493EED /* CoreAudio.framework in Frameworks */,
 				051F8D400F9BDE8E006AD1B1 /* libFlurry.a in Frameworks */,
+				0519DDE90FA93A5700504033 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +470,8 @@
 				05EF49660F9A89F80059B60B /* ImageBarControl.h */,
 				05EF49670F9A89F80059B60B /* ImageBarControl.m */,
 				051F8DC00F9BEAE3006AD1B1 /* ValidationCheck.h */,
+				0519DDDA0FA93A1900504033 /* UIApplication-Network.h */,
+				0519DDDB0FA93A1900504033 /* UIApplication-Network.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -578,6 +586,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				0519DDE80FA93A5700504033 /* SystemConfiguration.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -752,6 +761,7 @@
 				05EF4B4B0F9AEA4D0059B60B /* SaveGameBrowserController.m in Sources */,
 				05EF4B630F9AEC730059B60B /* SaveGameFileInfo.mm in Sources */,
 				051F8C1F0F9BCC5B006AD1B1 /* CreditsViewController.m in Sources */,
+				0519DDDC0FA93A1900504033 /* UIApplication-Network.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,7 +796,7 @@
 					"-falign-loops=16",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "779DFF0D-B22A-462F-94D2-073122BF2A94";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DEBB624F-3ED9-49EE-ABBA-732C17E210E2";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Distribution;

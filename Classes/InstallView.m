@@ -8,6 +8,7 @@
 
 #import "InstallView.h"
 #import "CocoaUtility.h"
+#import "UIApplication-Network.h"
 
 const double kAnimationDuration		= 500.0 / 1000.0;
 const double kImageDisplayTime		= 1.5;
@@ -28,6 +29,7 @@ const double kImageDisplayTime		= 1.5;
 #define kLandscapeTransform CGAffineTransformRotate(CGAffineTransformIdentity, degreesToRadian(90.0))
 
 - (void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader {
+	_animating = YES;
 	self.transform = kLandscapeTransform;
 	delegate = theDelegate;
 	loader = [theLoader retain];
@@ -58,12 +60,26 @@ const double kImageDisplayTime		= 1.5;
 }
 
 - (void)beginDownload {
+	_animating = NO;
+	if (![UIApplication hasNetworkConnection]) {
+		[[[[UIAlertView alloc] initWithTitle:@"No Network" 
+									 message:@"You'll need an active network connection to download the game data." 
+									delegate:nil 
+						   cancelButtonTitle:@"OK" 
+						   otherButtonTitles:nil] autorelease] show];
+
+		[self showImageNamed:@"splash01.png"];
+		return;
+	}
 	// begin checking / downloading
 	[self createInstallSheet];
 	[loader downloadFromURL:nil progressDelegate:self inBackground:YES];
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
+	if (!_animating)
+		return;
+	
 	if ([animationID isEqual:@"splash01.png"]) {
 		[self performSelector:@selector(showImageNamed:) withObject:@"splash02.png" afterDelay:kImageDisplayTime];
 	} else if ([animationID isEqual:@"splash02.png"]) {
@@ -98,8 +114,17 @@ const double kImageDisplayTime		= 1.5;
 }
 
 - (void)didFinish:(BOOL)status {
-	[self removeFromSuperview];
-	[delegate didFinishInstallView];
+	if (!status) {
+		[[[[UIAlertView alloc] initWithTitle:@"Error" 
+									 message:@"Unable to download game data.\nPlease try again later." 
+									delegate:nil 
+						   cancelButtonTitle:@"OK" 
+						   otherButtonTitles:nil] autorelease] show];
+		[self showImageNamed:@"splash01.png"];
+	} else {
+		[self removeFromSuperview];
+		[delegate didFinishInstallView];
+	}
 }
 
 - (void)dealloc {
