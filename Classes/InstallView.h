@@ -25,6 +25,8 @@
 	UIProgressView						*progbar;
 	id<InstallViewDelegate>				delegate;
 	FlashbackDataLoader					*loader;
+	
+	BOOL								_animating;
 }
 
 - (void)startWithDelegate:(id<InstallViewDelegate>)theDelegate andLoader:(FlashbackDataLoader*)theLoader;

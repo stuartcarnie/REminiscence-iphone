@@ -211,7 +211,8 @@ static Version detectVersion(const char *dataPath) {
 }
 
 - (void)quit {
-	systemStub->_pi.quit		= true;
+	if (systemStub)
+		systemStub->_pi.quit		= true;
 }
 
 - (void)dealloc {

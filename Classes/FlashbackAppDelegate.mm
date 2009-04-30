@@ -37,6 +37,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	[FlurryAPI startSession:@"5QKBV2QBJCEMCVQ9743Z"];
 	
+	[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
+	
 	FlashbackDataLoader *loader = [FlashbackDataLoader new];
 	if ([loader checkStatus]) {
 		check1(25);
