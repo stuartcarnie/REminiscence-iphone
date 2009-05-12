@@ -20,5 +20,6 @@
 + (void)setUserID:(NSString *)userID;
 + (void)setEventLoggingEnabled:(BOOL)value;
 + (void)setServerURL:(NSString *)url;
++ (void)setSessionReportsOnCloseEnabled:(BOOL)sendSessionReportsOnClose;
 
 @end

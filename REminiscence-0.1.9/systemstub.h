@@ -40,6 +40,7 @@ struct PlayerInput {
 	bool shift;					// Operate / run / take
 	bool backspace;				// Inventory / Exit from cinematic scene
 	bool escape;				// Game Options
+	bool abort;
 
 	char lastChar;
 

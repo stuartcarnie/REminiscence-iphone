@@ -24,8 +24,9 @@ class iPhoneStub;
 @class DisplayView;
 @class InputControllerView;
 @class JoystickViewLandscape;
-@class GameControlsView;
 @class ControlPanelViewController;
+@class GameControlsController;
+@class SideMenuController;
 
 enum tagEmulatorState {
 	EmulatorNotStarted,
@@ -34,19 +35,30 @@ enum tagEmulatorState {
 };
 
 @interface EmulationViewController : UIViewController {
+	BOOL						_isFullScreen;
+	
 	// Emulator
 	Game						*engine;
 	iPhoneStub					*systemStub;
 	NSThread					*emulationThread;
 	tagEmulatorState			emulatorState;
 	
+	// control panel views
+	ControlPanelViewController	*_controlPanel;
+	SideMenuController			*_sideMenuPanel;
+	
+	// normal / fullscreen views
 	DisplayView					*displayView;
-	UIImageView					*overlay;
 	InputControllerView			*inputController;
 	JoystickViewLandscape		*landscapeJoystickView;
-	GameControlsView			*gameControlsView;
-	ControlPanelViewController	*_controlPanel;
-
+	UIImageView					*overlayFullScreen;
+	
+	// normal views
+	UIImageView					*overlayNormal;
+	GameControlsController		*normalControls;
+	
+	// fullscreen views
+	GameControlsController		*fullScreenControls;
 
 	// Layout state information
 	UIInterfaceOrientation		layoutOrientation;		// The orientation of the current layout
@@ -56,8 +68,10 @@ enum tagEmulatorState {
 @property (nonatomic, retain)	DisplayView							*displayView;
 @property (nonatomic, retain)	InputControllerView					*inputController;
 @property (nonatomic, retain)	JoystickViewLandscape				*landscapeJoystickView;
-@property (nonatomic, retain)	IBOutlet GameControlsView			*gameControlsView;
 @property (nonatomic, retain)	IBOutlet ControlPanelViewController	*controlPanel;
+@property (nonatomic, retain)	IBOutlet SideMenuController			*sideMenuPanel;
+@property (nonatomic, retain)	IBOutlet GameControlsController		*fullScreenControls;
+@property (nonatomic, retain)	IBOutlet GameControlsController		*normalControls;
 
 - (void)pause;
 - (void)resume;
