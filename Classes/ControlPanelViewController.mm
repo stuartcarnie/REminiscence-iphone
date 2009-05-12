@@ -11,6 +11,9 @@
 #import "SaveGameBrowserController.h"
 #import "CreditsViewController.h"
 #import "iPhoneStub.h"
+#import "EmulationViewController.h"
+#import "SideMenuController.h"
+#import "UserDefaults.h"
 
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 const NSString *kSaveGameCaption						= @"Select a slot to SAVE game";
@@ -27,14 +30,18 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 @implementation ControlPanelViewController
 
 @synthesize stub=_stub, credits=_credits, gameList=_gameList, caption=_caption;
+@synthesize emulationController=_emulationController, sidePanel=_sidePanel;
+@synthesize itemsVisible=_itemsVisible;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	NSArray *items = [NSArray arrayWithObjects:
-					  @"btn_save.png", @"btn_save_active.png", 
-					  @"btn_load.png", @"btn_load_active.png",
-					  @"btn_info.png", @"btn_info_active.png", nil];
+					  @"console_save_off.png", @"console_save_on.png", 
+					  @"console_load_off.png", @"console_load_on.png",
+					  @"console_help_off.png", @"console_help_on.png", 
+					  @"console_settings_off.png", @"console_settings_on.png",
+					  @"console_info_off.png", @"console_info_on.png", nil];
 	_imageBar = [[ImageBarControl alloc] initWithItems:items];
 	[self.view addSubview:_imageBar];
 	_imageBar.center = CGPointMake(kControlPanelWidth/2, 285);
@@ -75,9 +82,24 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 	[UIView setAnimationDuration:kDefaultAnimationDuration];
 	
 	if (_isOpen) {
-		self.view.frame = kControlPanelFrame;
-	} else {		
+		[self.sidePanel viewWillDisappear:YES];
+		
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen]) {
+			if (_itemsVisible) {
+				self.sidePanel.view.frame = kSidePanelFramePartial;
+				self.view.frame = kControlPanelFrameNormal;
+			} else {
+				self.sidePanel.view.frame = kSidePanelFrameHidden;
+				self.view.frame = kControlPanelFrameFullScreen;
+			}
+		} else {
+			self.view.frame = kControlPanelFrameNormal;
+			self.sidePanel.view.frame = kSidePanelFrameHidden;
+		}
+	} else {
+		[self.sidePanel viewWillAppear:YES];
 		self.view.frame = kControlPanelOpenFrame;
+		self.sidePanel.view.frame = kSidePanelFrameVisible;
 		if (_reloadTable) {
 			[_gameList.tableView reloadData];
 			_reloadTable = NO;
@@ -98,7 +120,11 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 		case 1:	// load
 			self.caption.text = kLoadGameCaption;
 			break;
-		case 2:	// info
+		case 2: // help
+			break;
+		case 3: // settings
+			break;
+		case 4:	// info
 			hideCredits = NO;
 			[self.credits.textView scrollRangeToVisible:NSMakeRange(210, 1)];
 			break;

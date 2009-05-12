@@ -22,8 +22,6 @@
 #include "systemstub.h"
 #include "video.h"
 #include "menu.h"
-#include "UINotification.h"
-
 
 Menu::Menu(ModPlayer *ply, Resource *res, SystemStub *stub, Video *vid)
 	: _ply(ply), _res(res), _stub(stub), _vid(vid) {
@@ -227,8 +225,6 @@ bool Menu::handlePasswordScreen(uint8 &new_skill, uint8 &new_level) {
 }
 
 bool Menu::handleTitleScreen(uint8 &new_skill, uint8 &new_level) {
-	UINotification notify(_stub, SystemStub::NOTIFY_MAINMENU);
-	
 	debug(DBG_MENU, "Menu::handleTitleScreen()");
 	bool quit_loop = false;
 	int menu_entry = 0;

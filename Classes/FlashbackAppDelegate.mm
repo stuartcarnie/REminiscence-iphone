@@ -24,6 +24,7 @@
 #import "iPhoneStub.h"
 #import "FlurryAPI.h"
 #import "ValidationCheck.h"
+#import "UserDefaults.h"
 
 @implementation FlashbackAppDelegate
 
@@ -31,6 +32,27 @@
 
 void uncaughtExceptionHandler(NSException *exception) {
     [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
+
++ (void)initialize {
+	if(self == [FlashbackAppDelegate class]) {
+		
+		// Attempt to select appropriate language
+		NSLocale *current = [NSLocale currentLocale];
+		NSString* lang = [current objectForKey:NSLocaleLanguageCode];
+		if (![lang compare:@"en"] && ![lang compare:@"fr"])
+			lang = @"en";
+		NSLog(@"Default language: %@", lang);
+		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		
+		NSMutableDictionary *resourceDict = [NSMutableDictionary new];
+		[resourceDict setObject:[NSNumber numberWithBool:YES] forKey:kSettingFullScreen];
+		[resourceDict setObject:[NSNumber numberWithBool:YES] forKey:KSettingLayoutIsLeft];
+		[resourceDict setObject:[NSNumber numberWithDouble:0.25] forKey:kSettingControlsTransparency];
+		[resourceDict setObject:lang forKey:kSettingLanguage];
+		[defaults registerDefaults:resourceDict];
+	}
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {

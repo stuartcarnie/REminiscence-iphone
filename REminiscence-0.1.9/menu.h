@@ -36,7 +36,7 @@ struct Menu {
 	};
 
 	enum {
-		EVENTS_DELAY = 80
+		EVENTS_DELAY = 250
 	};
 
 	static const char *_passwords[8][3];

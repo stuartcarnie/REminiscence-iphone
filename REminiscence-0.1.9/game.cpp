@@ -207,6 +207,10 @@ void Game::mainLoop() {
 				break;
 			}
 		}
+		if (_stub->_pi.abort) {
+			_stub->_pi.abort = false;
+			break;
+		}
 		inp_handleSpecialKeys();
 	}
 }
@@ -227,7 +231,6 @@ void Game::playCutscene(int id) {
 		_cut._id = id;
 	}
 	if (_cut._id != 0xFFFF) {
-		UINotification notify(_stub, SystemStub::NOTIFY_CUTSCENE);
 		_sfxPly.stop();
 		_cut.play();
 	}
@@ -314,7 +317,7 @@ void Game::drawCurrentInventoryItem() {
 void Game::showFinalScore() {
 	playCutscene(0x49);
 	char textBuf[50];
-	sprintf(textBuf, "SCORE %08lu", _score);
+	sprintf(textBuf, "SCORE %08u", _score);
 	_vid.drawString(textBuf, (256 - strlen(textBuf) * 8) / 2, 40, 0xE5);
 	strcpy(textBuf, _menu._passwords[7][_skillLevel]);
 	_vid.drawString(textBuf, (256 - strlen(textBuf) * 8) / 2, 16, 0xE7);
@@ -331,8 +334,6 @@ void Game::showFinalScore() {
 }
 
 bool Game::handleConfigPanel() {
-	UINotification notify(_stub, SystemStub::NOTIFY_OPTIONS);
-	
 	int i, j;
 	const int x = 7;
 	const int y = 10;
@@ -431,8 +432,6 @@ bool Game::handleConfigPanel() {
 bool Game::handleContinueAbort() {
 	playCutscene(0x48);
 
-	UINotification notify(_stub, SystemStub::NOTIFY_ABORT_CONTINUE);
-
 	char textBuf[50];
 	int timeout = 100;
 	int current_color = 0;
@@ -452,7 +451,7 @@ bool Game::handleContinueAbort() {
 		_vid.drawString(str, (256 - strlen(str) * 8) / 2, 104, colors[0]);
 		str = _res.getMenuString(LocaleData::LI_04_ABORT);
 		_vid.drawString(str, (256 - strlen(str) * 8) / 2, 112, colors[1]);
-		sprintf(textBuf, "SCORE  %08lu", _score);
+		sprintf(textBuf, "SCORE  %08u", _score);
 		_vid.drawString(textBuf, 64, 154, 0xE3);
 		if (_stub->_pi.dirMask & PlayerInput::DIR_UP) {
 			_stub->_pi.dirMask &= ~PlayerInput::DIR_UP;
@@ -1321,7 +1320,7 @@ void Game::handleInventory() {
 				}
 			} else {
 				char textBuf[50];
-				sprintf(textBuf, "SCORE %08lu", _score);
+				sprintf(textBuf, "SCORE %08u", _score);
 				_vid.drawString(textBuf, (114 - strlen(textBuf) * 8) / 2 + 72, 158, 0xE5);
 				sprintf(textBuf, "%s:%s", _res.getMenuString(LocaleData::LI_06_LEVEL), _res.getMenuString(LocaleData::LI_13_EASY + _skillLevel));
 				_vid.drawString(textBuf, (114 - strlen(textBuf) * 8) / 2 + 72, 166, 0xE5);
