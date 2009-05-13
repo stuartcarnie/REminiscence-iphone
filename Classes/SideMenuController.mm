@@ -49,6 +49,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	BOOL newValue = _fullScreen.selected;
 	[[NSUserDefaults standardUserDefaults] setBool:newValue forKey:kSettingFullScreen];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (IBAction)toggleFullScreen:(UIButton*)sender {
