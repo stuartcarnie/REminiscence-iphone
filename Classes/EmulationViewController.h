@@ -52,17 +52,25 @@ enum tagEmulatorState {
 	InputControllerView			*inputController;
 	JoystickViewLandscape		*landscapeJoystickView;
 	UIImageView					*overlayFullScreen;
-	
+	UIButton					*helpButton;
+		
 	// normal views
 	UIImageView					*overlayNormal;
 	GameControlsController		*normalControls;
+	UIImageView					*_normalHelpOverlay;
+	UIButton					*_normalItemsButton;
 	
 	// fullscreen views
 	GameControlsController		*fullScreenControls;
+	UIImageView					*_fullScreenHelpOverlay;
+	UIButton					*_fullScreenItemsButton;
 
 	// Layout state information
 	UIInterfaceOrientation		layoutOrientation;		// The orientation of the current layout
 	BOOL						_dontSave;
+	
+	UIImageView					*currentHelpOverlay;
+	double						_controlsAlpha;
 }
 
 @property (nonatomic, retain)	DisplayView							*displayView;
@@ -72,6 +80,11 @@ enum tagEmulatorState {
 @property (nonatomic, retain)	IBOutlet SideMenuController			*sideMenuPanel;
 @property (nonatomic, retain)	IBOutlet GameControlsController		*fullScreenControls;
 @property (nonatomic, retain)	IBOutlet GameControlsController		*normalControls;
+
+// lazy loaded views
+@property (nonatomic, readonly)	UIImageView							*normalHelpOverlay;
+@property (nonatomic, readonly)	UIImageView							*fullScreenHelpOverlay;
+
 
 - (void)pause;
 - (void)resume;

@@ -51,6 +51,14 @@
 
 - (void)gameUINotification;
 - (void)userDefaultsDidChange;
+- (void)doHelpOverlay:(id)sender;
+
+// lazy loading methods
+- (UIButton*)fullScreenItemsButton;
+- (UIButton*)normalItemsButton;
+
+- (void)readUserDefaults;
+
 @end
 
 
@@ -62,18 +70,26 @@
 const double kControlsWidth					= 95;
 const double kSkinTop						= 6;
 
+// frames for either view
+
 // landscape frames for normal view
 #define kDisplayFrameLandscapeNormal			CGRectMake(kControlsWidth, kSkinTop, 352, 308)
 #define kInputFrameLandscapeNormal				CGRectMake(kControlsWidth, 0, 480 - kControlsWidth, 320)
 #define kJoystickViewFrameLandscapeNormal		CGRectMake(0, 0, 480 - kControlsWidth, 320)
+#define kHelpButtonCentreNormal					CGPointMake(400, 285)
+#define kItemsButtonCentreNormal				CGPointMake(386, 30)
 
 // landscape frames for full screen view
 #define kControlsWidthFullScreen				95
 #define kDisplayFrameLandscapeFullScreen		CGRectMake(0, 0, 480, 320)
 #define kInputFrameLandscapeFullScreen			CGRectMake(kControlsWidthFullScreen, 0, 480 - kControlsWidthFullScreen, 320)
 #define kJoystickViewFrameLandscapeFullScreen	CGRectMake(0, 0, 480 - kControlsWidthFullScreen, 320)
+#define kHelpButtonCentreFullScreen				CGPointMake(420, 290)
+#define kItemsButtonCentreFullScreen			CGPointMake(404, 24)
 
 #define degreesToRadian(x)						(M_PI  * x / 180.0)
+
+#define kDefaultControlsAlpha					0.25
 
 // miscellaneous constants
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
@@ -92,15 +108,16 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 		{ "es", "SPACINE.BIN", VER_SP }
 	};
 	
+	// FIXME: French version not working
 	// first attempt to find the chosen language
-	for (uint8 i=0; i<ARRAYSIZE(checkTable); i++) {
+	/*for (uint8 i=0; i<ARRAYSIZE(checkTable); i++) {
 		if (strcmp(lang, checkTable[i].lang) == 0) {
 			File f;
 			if (f.open(checkTable[i].filename, dataPath, "rb")) {
 				return checkTable[i].ver;
 			}
 		}
-	}
+	}*/
 	
 	// otherwise find the first language
 	for (uint8 i = 0; i < ARRAYSIZE(checkTable); ++i) {
@@ -130,6 +147,9 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	systemStub = static_cast<iPhoneStub*> (SystemStub_create());
 	engine = new Game(systemStub, dataPath, documentsPath, ver);
 	emulatorState = EmulatorNotStarted;
+	
+	// read user defaults
+	[self readUserDefaults];
 	
 	// create all the views
 	CGRect frame = [UIScreen mainScreen].applicationFrame;
@@ -171,23 +191,29 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	_sideMenuPanel.stub = systemStub;
 	[view addSubview:_sideMenuPanel.view];
 	
+	// create buttons
+	helpButton = [[UIButton newButtonWithImage:@"fullscreen_btn_help.png" andSelectedImage:nil] retain];
+	[helpButton addTarget:self action:@selector(doHelpOverlay:) forControlEvents:UIControlEventTouchUpInside];
+	helpButton.alpha = 0.0;
+	[view addSubview:helpButton];
+	
 	_controlPanel.stub = systemStub;
 	_controlPanel.emulationController = self;
 	_controlPanel.sidePanel = _sideMenuPanel;
 	[view addSubview:_controlPanel.view];
-	
+		
 	_isFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
 	
+	self.view = view;
+	view.isUserInteractionEnabled = YES;
+    [view release];	
+
 	if (_isFullScreen) {
 		[self configureFullScreen];
 	} else {
 		[self configureNormal];
 	}
-	
-	self.view = view;
-	view.isUserInteractionEnabled = YES;
-    [view release];	
-	
+		
 	self.view.center = CGPointMake(160, 240);
 	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
 	self.view.bounds = CGRectMake(0, 0, 480, 320);
@@ -203,6 +229,20 @@ static Version detectVersion(const char *lang, const char *dataPath) {
                                                object:nil];
 }
 
+- (void)readUserDefaults {
+	_controlsAlpha = [[NSUserDefaults standardUserDefaults] doubleForKey:kSettingControlsTransparency];
+}
+	
+- (void)doHelpOverlay:(id)sender {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:kDefaultAnimationDuration];
+
+	currentHelpOverlay.alpha = !currentHelpOverlay.alpha;
+	
+	[UIView commitAnimations];
+}
+
 - (void)userDefaultsDidChange {
 	BOOL newFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
 	if (newFullScreen != _isFullScreen) {
@@ -212,23 +252,32 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 		else
 			[self configureNormal];
 	}
+	
+	[self readUserDefaults];
 }
 
 - (void)gameUINotification {
 	UIMessage event;
    
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:kDefaultAnimationDuration];
+
 	while (systemStub->dequeueMessage(&event)) {
 		SystemStub::tagUIPhase phase = event.phase;
 		BOOL itemsVisible = phase == SystemStub::PHASE_START;
 		_controlPanel.itemsVisible = itemsVisible;
 
+		if (itemsVisible) {
+			// show help
+			helpButton.alpha = 0.5;
+		} else {
+			helpButton.alpha = 0.0;
+		}
+
 		// ignored if not full screen
 		if (!_isFullScreen) continue;
-		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[UIView setAnimationDuration:kDefaultAnimationDuration];
-		
+				
 		if (itemsVisible) {
 			_controlPanel.view.frame = kControlPanelFrameNormal;
 			_sideMenuPanel.view.frame = kSidePanelFramePartial;
@@ -236,9 +285,9 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 			_controlPanel.view.frame = kControlPanelFrameFullScreen;
 			_sideMenuPanel.view.frame = kSidePanelFrameHidden;
 		}
-		
-		[UIView commitAnimations];
 	}
+
+	[UIView commitAnimations];
 }
 
 - (void)configureFullScreen {
@@ -246,13 +295,17 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	overlayFullScreen.hidden = NO;
 	normalControls.view.hidden = YES;
 	fullScreenControls.view.hidden = NO;
+	[self normalItemsButton].hidden = YES;
+	[self fullScreenItemsButton].hidden = NO;
 	
 	displayView.frame = kDisplayFrameLandscapeFullScreen;
 	inputController.frame = kInputFrameLandscapeFullScreen;
 	landscapeJoystickView.frame = kJoystickViewFrameLandscapeFullScreen;
-	_controlPanel.view.frame = kControlPanelFrameFullScreen;
+	_controlPanel.view.frame = kControlPanelFrameFullScreen;	
+	helpButton.center = kHelpButtonCentreFullScreen;
 	
-	fullScreenControls.view.alpha = [[NSUserDefaults standardUserDefaults] doubleForKey:kSettingControlsTransparency];
+	fullScreenControls.view.alpha = _controlsAlpha;
+	currentHelpOverlay = [self fullScreenHelpOverlay];
 }
 
 - (void)configureNormal {
@@ -260,13 +313,59 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	overlayFullScreen.hidden = YES;
 	normalControls.view.hidden = NO;
 	fullScreenControls.view.hidden = YES;
+	[self normalItemsButton].hidden = NO;
+	[self fullScreenItemsButton].hidden = YES;
 
 	displayView.frame = kDisplayFrameLandscapeNormal;
 	inputController.frame = kInputFrameLandscapeNormal;
 	landscapeJoystickView.frame = kJoystickViewFrameLandscapeNormal;
 	_controlPanel.view.frame = kControlPanelFrameNormal;
 	_sideMenuPanel.view.frame = kSidePanelFrameHidden;
+
+	helpButton.center = kHelpButtonCentreNormal;
+	currentHelpOverlay = [self normalHelpOverlay];
 }
+
+- (UIImageView*)normalHelpOverlay {
+	if (!_normalHelpOverlay) {
+		_normalHelpOverlay = [UIImageView newViewFromImageResource:@"help_overlay_normal.png"];
+		_normalHelpOverlay.alpha = 0;
+		[self.view addSubview:_normalHelpOverlay];
+	}
+	return _normalHelpOverlay;
+}
+
+- (UIImageView*)fullScreenHelpOverlay {
+	if (!_fullScreenHelpOverlay) {
+		_fullScreenHelpOverlay = [UIImageView newViewFromImageResource:@"help_overlay_fullscreen.png"];
+		_fullScreenHelpOverlay.alpha = 0;
+		[self.view addSubview:_fullScreenHelpOverlay];
+	}
+	return _fullScreenHelpOverlay;
+}
+
+- (UIButton*)fullScreenItemsButton {
+	if (!_fullScreenItemsButton) {
+		_fullScreenItemsButton = [[UIButton newButtonWithImage:@"fullscreen_btn_items.png" andSelectedImage:nil] retain];
+		_fullScreenItemsButton.center = kItemsButtonCentreFullScreen;
+		_fullScreenItemsButton.alpha = _controlsAlpha;
+		[_fullScreenItemsButton addTarget:fullScreenControls action:@selector(itemsButton:) forControlEvents:UIControlEventTouchUpInside];
+		[self.view insertSubview:_fullScreenItemsButton aboveSubview:fullScreenControls.view];		
+	}
+	return _fullScreenItemsButton;
+}
+
+- (UIButton*)normalItemsButton {
+	if (!_normalItemsButton) {
+		_normalItemsButton = [[UIButton newButtonWithImage:@"fullscreen_btn_items.png" andSelectedImage:nil] retain];
+		_normalItemsButton.center = kItemsButtonCentreNormal;
+		_normalItemsButton.alpha = _controlsAlpha;
+		[_normalItemsButton addTarget:normalControls action:@selector(itemsButton:) forControlEvents:UIControlEventTouchUpInside];
+		[self.view insertSubview:_normalItemsButton aboveSubview:fullScreenControls.view];		
+	}
+	return _normalItemsButton;
+}
+
 
 - (void)didSelectMenuButton {
 	[_controlPanel hideShowControlPanel:self]; 

@@ -36,6 +36,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 + (void)initialize {
 	if(self == [FlashbackAppDelegate class]) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+		NSString *testValue = [defaults stringForKey:kSettingLanguage];
+		if (testValue) return;
 		
 		// Attempt to select appropriate language
 		NSLocale *current = [NSLocale currentLocale];
@@ -43,15 +47,14 @@ void uncaughtExceptionHandler(NSException *exception) {
 		if (![lang compare:@"en"] && ![lang compare:@"fr"])
 			lang = @"en";
 		NSLog(@"Default language: %@", lang);
-		
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		
+				
 		NSMutableDictionary *resourceDict = [NSMutableDictionary new];
 		[resourceDict setObject:[NSNumber numberWithBool:YES] forKey:kSettingFullScreen];
 		[resourceDict setObject:[NSNumber numberWithBool:YES] forKey:KSettingLayoutIsLeft];
 		[resourceDict setObject:[NSNumber numberWithDouble:0.25] forKey:kSettingControlsTransparency];
 		[resourceDict setObject:lang forKey:kSettingLanguage];
 		[defaults registerDefaults:resourceDict];
+		[defaults synchronize];
 	}
 }
 

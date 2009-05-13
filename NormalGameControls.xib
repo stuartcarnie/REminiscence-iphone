@@ -39,7 +39,7 @@
 					<object class="IBUIButton" id="311426798">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 109}, {87, 98}}</string>
+						<string key="NSFrame">{{8, 110}, {87, 102}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -75,7 +75,7 @@
 					<object class="IBUIButton" id="940766945">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 259}, {87, 61}}</string>
+						<string key="NSFrame">{{8, 242}, {87, 72}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -98,36 +98,10 @@
 							<string key="NSResourceName">normalview_btn_gun_off.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="872038917">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 2}, {87, 34}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUITag">3</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="684250857"/>
-						<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
-						<reference key="IBUIHighlightedTitleColor" ref="396239515"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="594173800"/>
-						<object class="NSCustomResource" key="IBUIDisabledImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">btn_items.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">normalview_btn_items_off.png</string>
-						</object>
-					</object>
 					<object class="IBUIButton" id="432749691">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 44}, {87, 41}}</string>
+						<string key="NSFrame">{{8, 20}, {87, 67}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -229,15 +203,6 @@
 					<int key="connectionID">15</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">itemsButton:</string>
-						<reference key="source" ref="872038917"/>
-						<reference key="destination" ref="852397632"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">16</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">normalControls</string>
 						<reference key="source" ref="372490531"/>
@@ -264,7 +229,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="311426798"/>
 							<reference ref="940766945"/>
-							<reference ref="872038917"/>
 							<reference ref="432749691"/>
 						</object>
 						<reference key="parent" ref="678963351"/>
@@ -293,12 +257,6 @@
 						<string key="objectName">Gun</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="872038917"/>
-						<reference key="parent" ref="191373211"/>
-						<string key="objectName">Items</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
 						<reference key="object" ref="432749691"/>
 						<reference key="parent" ref="191373211"/>
@@ -321,7 +279,6 @@
 					<string>1.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
-					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>8.CustomClassName</string>
 					<string>8.IBEditorWindowLastContentRect</string>
@@ -331,8 +288,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>EmulationViewController</string>
 					<string>UIResponder</string>
-					<string>{{282, 221}, {95, 320}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{632, 533}, {95, 320}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
