@@ -20,6 +20,7 @@ struct iPhoneStub;
 	ImageBarControl					*_imageBar;
 	SaveGameBrowserController		*_gameList;
 	CreditsViewController			*_credits;
+	BOOL							_isCreditsInitialized;
 	iPhoneStub						*_stub;
 	BOOL							_reloadTable;
 	

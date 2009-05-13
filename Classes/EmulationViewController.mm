@@ -59,6 +59,9 @@
 
 - (void)readUserDefaults;
 
+- (void)setNormalControlsHidden:(BOOL)hidden;
+- (void)setFullScreenControlsHidden:(BOOL)hidden;
+
 @end
 
 
@@ -71,6 +74,7 @@ const double kControlsWidth					= 95;
 const double kSkinTop						= 6;
 
 // frames for either view
+#define kItemsButtonFrame						CGRectMake(0, 0, 110, 50)
 
 // landscape frames for normal view
 #define kDisplayFrameLandscapeNormal			CGRectMake(kControlsWidth, kSkinTop, 352, 308)
@@ -161,9 +165,11 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	[view addSubview:self.displayView];
 	
 	overlayFullScreen = [UIImageView newViewFromImageResource:@"fullscreen_border.png"];
+	overlayFullScreen.hidden = YES;
 	[view addSubview:overlayFullScreen];
 	
 	overlayNormal = [UIImageView newViewFromImageResource:@"overlay_merged.png"];
+	overlayNormal.hidden = YES;
 	[view addSubview:overlayNormal];
 	
 	inputController = [[InputControllerView alloc] initWithFrame:CGRectZero];
@@ -179,41 +185,42 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	fullScreenControls.systemStub  = systemStub;
 	fullScreenControls.TheJoyStick = &systemStub->TheJoyStick;
 	fullScreenControls.playerInput = &systemStub->_pi;
+	fullScreenControls.view.hidden = YES;
 	[view addSubview:fullScreenControls.view];
 	
 	[[NSBundle mainBundle] loadNibNamed:@"NormalGameControls" owner:self options:nil];
 	normalControls.systemStub  = systemStub;
 	normalControls.TheJoyStick = &systemStub->TheJoyStick;
 	normalControls.playerInput = &systemStub->_pi;
+	normalControls.view.hidden = YES;
 	[view addSubview:normalControls.view];
-	
-	_sideMenuPanel.view.frame = kSidePanelFrameHidden;
-	_sideMenuPanel.stub = systemStub;
-	[view addSubview:_sideMenuPanel.view];
-	
+			
 	// create buttons
 	helpButton = [[UIButton newButtonWithImage:@"fullscreen_btn_help.png" andSelectedImage:nil] retain];
 	[helpButton addTarget:self action:@selector(doHelpOverlay:) forControlEvents:UIControlEventTouchUpInside];
 	helpButton.alpha = 0.0;
 	[view addSubview:helpButton];
-	
+
+	_sideMenuPanel.view.frame = kSidePanelFrameHidden;
+	_sideMenuPanel.stub = systemStub;
+	[view addSubview:_sideMenuPanel.view];
+
 	_controlPanel.stub = systemStub;
 	_controlPanel.emulationController = self;
 	_controlPanel.sidePanel = _sideMenuPanel;
 	[view addSubview:_controlPanel.view];
-		
-	_isFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
-	
+			
 	self.view = view;
 	view.isUserInteractionEnabled = YES;
     [view release];	
 
+	_isFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
 	if (_isFullScreen) {
 		[self configureFullScreen];
 	} else {
 		[self configureNormal];
 	}
-		
+	
 	self.view.center = CGPointMake(160, 240);
 	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
 	self.view.bounds = CGRectMake(0, 0, 480, 320);
@@ -247,10 +254,15 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	BOOL newFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
 	if (newFullScreen != _isFullScreen) {
 		_isFullScreen = newFullScreen;
-		if (_isFullScreen)
+		currentHelpOverlay.alpha = 0;
+		if (_isFullScreen) {			
+			[self setNormalControlsHidden:YES];
 			[self configureFullScreen];
-		else
+		}
+		else {
+			[self setFullScreenControlsHidden:YES];
 			[self configureNormal];
+		}
 	}
 	
 	[self readUserDefaults];
@@ -290,13 +302,20 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	[UIView commitAnimations];
 }
 
+- (void)setNormalControlsHidden:(BOOL)hidden {
+	overlayNormal.hidden = hidden;
+	normalControls.view.hidden = hidden;
+	[self normalItemsButton].hidden = hidden;	
+}
+
+- (void)setFullScreenControlsHidden:(BOOL)hidden {
+	overlayFullScreen.hidden = hidden;
+	fullScreenControls.view.hidden = hidden;
+	[self fullScreenItemsButton].hidden = hidden;
+}
+
 - (void)configureFullScreen {
-	overlayNormal.hidden = YES;
-	overlayFullScreen.hidden = NO;
-	normalControls.view.hidden = YES;
-	fullScreenControls.view.hidden = NO;
-	[self normalItemsButton].hidden = YES;
-	[self fullScreenItemsButton].hidden = NO;
+	[self setFullScreenControlsHidden:NO];
 	
 	displayView.frame = kDisplayFrameLandscapeFullScreen;
 	inputController.frame = kInputFrameLandscapeFullScreen;
@@ -309,12 +328,7 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 }
 
 - (void)configureNormal {
-	overlayNormal.hidden = NO;
-	overlayFullScreen.hidden = YES;
-	normalControls.view.hidden = NO;
-	fullScreenControls.view.hidden = YES;
-	[self normalItemsButton].hidden = NO;
-	[self fullScreenItemsButton].hidden = YES;
+	[self setNormalControlsHidden:NO];
 
 	displayView.frame = kDisplayFrameLandscapeNormal;
 	inputController.frame = kInputFrameLandscapeNormal;
@@ -330,7 +344,8 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	if (!_normalHelpOverlay) {
 		_normalHelpOverlay = [UIImageView newViewFromImageResource:@"help_overlay_normal.png"];
 		_normalHelpOverlay.alpha = 0;
-		[self.view addSubview:_normalHelpOverlay];
+		_normalHelpOverlay.userInteractionEnabled = YES;
+		[self.view insertSubview:_normalHelpOverlay belowSubview:helpButton];
 	}
 	return _normalHelpOverlay;
 }
@@ -339,7 +354,8 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	if (!_fullScreenHelpOverlay) {
 		_fullScreenHelpOverlay = [UIImageView newViewFromImageResource:@"help_overlay_fullscreen.png"];
 		_fullScreenHelpOverlay.alpha = 0;
-		[self.view addSubview:_fullScreenHelpOverlay];
+		_fullScreenHelpOverlay.userInteractionEnabled = YES;
+		[self.view insertSubview:_fullScreenHelpOverlay belowSubview:helpButton];
 	}
 	return _fullScreenHelpOverlay;
 }
@@ -347,8 +363,9 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 - (UIButton*)fullScreenItemsButton {
 	if (!_fullScreenItemsButton) {
 		_fullScreenItemsButton = [[UIButton newButtonWithImage:@"fullscreen_btn_items.png" andSelectedImage:nil] retain];
+		_fullScreenItemsButton.frame = kItemsButtonFrame;
 		_fullScreenItemsButton.center = kItemsButtonCentreFullScreen;
-		_fullScreenItemsButton.alpha = _controlsAlpha;
+		_fullScreenItemsButton.alpha = _controlsAlpha + _controlsAlpha * 0.3f;
 		[_fullScreenItemsButton addTarget:fullScreenControls action:@selector(itemsButton:) forControlEvents:UIControlEventTouchUpInside];
 		[self.view insertSubview:_fullScreenItemsButton aboveSubview:fullScreenControls.view];		
 	}
@@ -358,8 +375,9 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 - (UIButton*)normalItemsButton {
 	if (!_normalItemsButton) {
 		_normalItemsButton = [[UIButton newButtonWithImage:@"fullscreen_btn_items.png" andSelectedImage:nil] retain];
+		_normalItemsButton.frame = kItemsButtonFrame;
 		_normalItemsButton.center = kItemsButtonCentreNormal;
-		_normalItemsButton.alpha = _controlsAlpha;
+		_normalItemsButton.alpha = _controlsAlpha + _controlsAlpha * 0.3f;
 		[_normalItemsButton addTarget:normalControls action:@selector(itemsButton:) forControlEvents:UIControlEventTouchUpInside];
 		[self.view insertSubview:_normalItemsButton aboveSubview:fullScreenControls.view];		
 	}
