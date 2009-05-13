@@ -20,6 +20,8 @@
 		054B528F0FBA5DA5000A1147 /* fullscreen_btn_help.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B528E0FBA5DA5000A1147 /* fullscreen_btn_help.png */; };
 		054B52910FBA5DFB000A1147 /* help_overlay_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B52900FBA5DFB000A1147 /* help_overlay_fullscreen.png */; };
 		054B52930FBA5E02000A1147 /* help_overlay_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B52920FBA5E02000A1147 /* help_overlay_normal.png */; };
+		054B55640FBB1124000A1147 /* InGameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054B55620FBB1124000A1147 /* InGameHelpController.m */; };
+		054B55650FBB1124000A1147 /* InGameHelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054B55630FBB1124000A1147 /* InGameHelpView.xib */; };
 		055227650F5BAF8200512D4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		0552276E0F5BAFE900512D4B /* JoystickViewLandscape.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */; };
 		0552293C0F5BCBA900512D4B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0552293B0F5BCBA900512D4B /* Entitlements.plist */; };
@@ -141,6 +143,9 @@
 		054B528E0FBA5DA5000A1147 /* fullscreen_btn_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_btn_help.png; sourceTree = "<group>"; };
 		054B52900FBA5DFB000A1147 /* help_overlay_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help_overlay_fullscreen.png; sourceTree = "<group>"; };
 		054B52920FBA5E02000A1147 /* help_overlay_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help_overlay_normal.png; sourceTree = "<group>"; };
+		054B55610FBB1124000A1147 /* InGameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InGameHelpController.h; sourceTree = "<group>"; };
+		054B55620FBB1124000A1147 /* InGameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InGameHelpController.m; sourceTree = "<group>"; };
+		054B55630FBB1124000A1147 /* InGameHelpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InGameHelpView.xib; sourceTree = "<group>"; };
 		0552276C0F5BAFE900512D4B /* JoystickViewLandscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickViewLandscape.h; sourceTree = "<group>"; };
 		0552276D0F5BAFE900512D4B /* JoystickViewLandscape.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickViewLandscape.mm; sourceTree = "<group>"; };
 		0552293B0F5BCBA900512D4B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -321,6 +326,7 @@
 		050C9AED0F91BB1E00A8EC38 /* Control Panel */ = {
 			isa = PBXGroup;
 			children = (
+				054B55600FBB10F9000A1147 /* InGameHelp */,
 				051F8C160F9BC990006AD1B1 /* Credits */,
 				05EF49650F9A89B30059B60B /* SaveGameBrowser */,
 				050C9AEE0F91BB3900A8EC38 /* ControlPanelViewController.h */,
@@ -352,6 +358,16 @@
 				051F8D3F0F9BDE8E006AD1B1 /* libFlurry.a */,
 			);
 			path = FlurryLib;
+			sourceTree = "<group>";
+		};
+		054B55600FBB10F9000A1147 /* InGameHelp */ = {
+			isa = PBXGroup;
+			children = (
+				054B55610FBB1124000A1147 /* InGameHelpController.h */,
+				054B55620FBB1124000A1147 /* InGameHelpController.m */,
+				054B55630FBB1124000A1147 /* InGameHelpView.xib */,
+			);
+			name = InGameHelp;
 			sourceTree = "<group>";
 		};
 		0552276F0F5BB01600512D4B /* landscape-joystick */ = {
@@ -817,6 +833,7 @@
 				054B528F0FBA5DA5000A1147 /* fullscreen_btn_help.png in Resources */,
 				054B52910FBA5DFB000A1147 /* help_overlay_fullscreen.png in Resources */,
 				054B52930FBA5E02000A1147 /* help_overlay_normal.png in Resources */,
+				054B55650FBB1124000A1147 /* InGameHelpView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +895,7 @@
 				0519DDDC0FA93A1900504033 /* UIApplication-Network.m in Sources */,
 				05B2E1200FB93EF000596135 /* GameControlsController.mm in Sources */,
 				05B2E1FA0FB9547F00596135 /* SideMenuController.mm in Sources */,
+				054B55640FBB1124000A1147 /* InGameHelpController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

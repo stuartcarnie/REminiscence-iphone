@@ -33,6 +33,14 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 @synthesize emulationController=_emulationController, sidePanel=_sidePanel;
 @synthesize itemsVisible=_itemsVisible;
 
+enum {
+	TabSave,
+	TabLoad,
+	TabHelp,
+//	TabSettings,
+	TabInfo
+};
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -40,7 +48,7 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 					  @"console_save_off.png", @"console_save_on.png", 
 					  @"console_load_off.png", @"console_load_on.png",
 					  @"console_help_off.png", @"console_help_on.png", 
-					  @"console_settings_off.png", @"console_settings_on.png",
+					  //@"console_settings_off.png", @"console_settings_on.png",
 					  @"console_info_off.png", @"console_info_on.png", nil];
 	_imageBar = [[ImageBarControl alloc] initWithItems:items];
 	[self.view addSubview:_imageBar];
@@ -53,10 +61,6 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 	[self.view addSubview:_gameList.view];
 	
 	self.caption.text = kSaveGameCaption;
-	
-	_credits.view.frame = kSaveGameViewFrame;
-	_credits.view.hidden = YES;
-	[self.view addSubview:_credits.view];
 }
 
 - (void)didSelectSaveGame:(SaveGameFileInfo*)info {
@@ -114,17 +118,23 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 	BOOL hideCredits = YES;
 	
 	switch (sender.selectedSegmentIndex) {
-		case 0:	// save
+		case TabSave:	// save
 			self.caption.text = kSaveGameCaption;
 			break;
-		case 1:	// load
+		case TabLoad:	// load
 			self.caption.text = kLoadGameCaption;
 			break;
-		case 2: // help
+		case TabHelp: // help
 			break;
-		case 3: // settings
-			break;
-		case 4:	// info
+		//case TabSettings: // settings
+		//	break;
+		case TabInfo:	// info
+			if (!_isCreditsInitialized) {
+				_credits.view.frame = kSaveGameViewFrame;
+				_credits.view.hidden = YES;
+				[self.view addSubview:_credits.view];
+				_isCreditsInitialized = YES;
+			}
 			hideCredits = NO;
 			[self.credits.textView scrollRangeToVisible:NSMakeRange(210, 1)];
 			break;

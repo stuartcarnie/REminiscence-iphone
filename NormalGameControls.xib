@@ -75,7 +75,7 @@
 					<object class="IBUIButton" id="940766945">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 242}, {87, 72}}</string>
+						<string key="NSFrame">{{8, 243}, {87, 77}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -228,8 +228,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="311426798"/>
-							<reference ref="940766945"/>
 							<reference ref="432749691"/>
+							<reference ref="940766945"/>
 						</object>
 						<reference key="parent" ref="678963351"/>
 					</object>
