@@ -11,31 +11,6 @@
 #import "debug.h"
 #import "iPhoneStub.h"
 
-@implementation GameControlsController
-
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
-
 enum tagFireButtons {
 	FireShift = 1,
 	FireSpace,
@@ -44,10 +19,25 @@ enum tagFireButtons {
 	FireOptions
 };
 
-- (IBAction)fireButton:(UIButton*)sender {
-	FireButtonState state = (FireButtonState)sender.state;
-	
-	switch(sender.tag) {
+@interface GameControlsController()
+
+- (void)setFireButton:(tagFireButtons)button toState:(FireButtonState)state;
+
+@end
+
+
+@implementation GameControlsController
+
+- (void)fireButton:(UIButton*)sender {
+	[self setFireButton:(tagFireButtons)sender.tag toState:FireButtonDown];
+}
+
+- (void)fireButtonUp:(UIButton*)sender {
+	[self setFireButton:(tagFireButtons)sender.tag toState:FireButtonUp];
+}
+
+- (void)setFireButton:(tagFireButtons)button toState:(FireButtonState)state {
+	switch(button) {
 		case FireShift:
 			TheJoyStick->setButtonOneState(state);
 			break;
@@ -57,7 +47,7 @@ enum tagFireButtons {
 		case FireEnter:
 			TheJoyStick->setButton4State(state);
 			break;
-	}
+	}	
 }
 
 - (IBAction)itemsButton:(id)sender {

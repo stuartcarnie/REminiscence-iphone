@@ -216,7 +216,7 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	[view addSubview:_controlPanel.view];
 			
 	self.view = view;
-	view.isUserInteractionEnabled = YES;
+	view.userInteractionEnabled = YES;
     [view release];	
 
 	_isFullScreen = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];

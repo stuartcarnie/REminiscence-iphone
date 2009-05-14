@@ -25,6 +25,7 @@ class iPhoneStub;
 @property (nonatomic, assign)			id				delegate;
 
 - (IBAction)fireButton:(UIButton*)sender;
+- (IBAction)fireButtonUp:(UIButton*)sender;
 - (IBAction)itemsButton:(id)sender;
 - (IBAction)optionsButton:(id)sender;
 
