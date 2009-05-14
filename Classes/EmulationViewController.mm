@@ -62,6 +62,7 @@
 - (void)setNormalControlsHidden:(BOOL)hidden;
 - (void)setFullScreenControlsHidden:(BOOL)hidden;
 
+- (void)didRotate;
 @end
 
 
@@ -155,6 +156,10 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	// read user defaults
 	[self readUserDefaults];
 	
+	_layoutOrientation = (UIInterfaceOrientation)[[UIDevice currentDevice] orientation];
+	if (!UIInterfaceOrientationIsLandscape(_layoutOrientation)) 
+		_layoutOrientation = UIInterfaceOrientationLandscapeRight;
+	
 	// create all the views
 	CGRect frame = [UIScreen mainScreen].applicationFrame;
 	UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -222,7 +227,11 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 	}
 	
 	self.view.center = CGPointMake(160, 240);
-	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
+	if (_layoutOrientation == UIInterfaceOrientationLandscapeLeft) {
+		self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(-90));
+	} else {
+		self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
+	}	
 	self.view.bounds = CGRectMake(0, 0, 480, 320);
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -234,6 +243,13 @@ static Version detectVersion(const char *lang, const char *dataPath) {
                                              selector:@selector(userDefaultsDidChange) 
                                                  name:NSUserDefaultsDidChangeNotification 
                                                object:nil];
+	
+	// monitor device rotation
+	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didRotate)
+												 name:@"UIDeviceOrientationDidChangeNotification" 
+											   object:nil];
 }
 
 - (void)readUserDefaults {
@@ -418,6 +434,29 @@ static Version detectVersion(const char *lang, const char *dataPath) {
 		[[UIApplication sharedApplication] performSelector:@selector(terminate)];
 	}
 	[pool release];
+}
+
+- (void)didRotate {
+	UIInterfaceOrientation orientation = (UIInterfaceOrientation)[[UIDevice currentDevice] orientation];
+	if (!UIInterfaceOrientationIsLandscape(orientation) || _layoutOrientation == orientation)
+		return;
+	
+	DLog(@"didRotate:");
+	
+	_layoutOrientation = (UIInterfaceOrientation)orientation;
+	
+	[UIView beginAnimations:@"rotate" context:nil];
+	
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:kDefaultAnimationDuration];
+	
+	if (_layoutOrientation == UIInterfaceOrientationLandscapeLeft) {
+		self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(-90));
+	} else {
+		self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
+	}
+	
+	[UIView commitAnimations];
 }
 
 #pragma mark Emulator State

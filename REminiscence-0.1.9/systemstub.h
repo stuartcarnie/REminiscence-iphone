@@ -40,7 +40,6 @@ struct PlayerInput {
 	bool shift;					// Operate / run / take
 	bool backspace;				// Inventory / Exit from cinematic scene
 	bool escape;				// Game Options
-	bool abort;
 
 	char lastChar;
 
@@ -55,6 +54,14 @@ struct PlayerInput {
 
 	uint8 dbgMask;
 	bool quit;
+	
+	void restart() {
+		backspace = true;
+		_restart = true;
+		quit = true;
+	};
+	
+	bool _restart;
 };
 
 struct SystemStub {

@@ -71,6 +71,8 @@ enum tagEmulatorState {
 	
 	UIImageView					*currentHelpOverlay;
 	double						_controlsAlpha;
+	
+	UIInterfaceOrientation		_layoutOrientation;
 }
 
 @property (nonatomic, retain)	DisplayView							*displayView;
