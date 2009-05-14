@@ -52,6 +52,8 @@ void Game::run() {
 #endif
 
 	_mix.init();
+	
+RESTART:
 
 	if (!_autoLoad) {
 		playCutscene(0x40);
@@ -69,7 +71,7 @@ void Game::run() {
 	_skillLevel = 1;
 	_currentLevel = 0;
 
-	while (!_stub->_pi.quit && (_autoLoad || _menu.handleTitleScreen(_skillLevel, _currentLevel))) {
+	while (!_stub->_pi.quit && !_stub->_pi._restart && (_autoLoad || _menu.handleTitleScreen(_skillLevel, _currentLevel))) {
 		if (_currentLevel == 7) {
 			_vid.fadeOut();
 			_vid.setTextPalette();
@@ -80,6 +82,12 @@ void Game::run() {
 			_stub->setOverscanColor(0xE0);
 			mainLoop();
 		}
+	}
+	
+	if (_stub->_pi._restart) {
+		_autoLoad = false;
+		memset(&_stub->_pi, 0, sizeof(_stub->_pi));
+		goto RESTART;
 	}
 
 	_res.free_TEXT();
@@ -207,8 +215,7 @@ void Game::mainLoop() {
 				break;
 			}
 		}
-		if (_stub->_pi.abort) {
-			_stub->_pi.abort = false;
+		if (_stub->_pi._restart) {
 			break;
 		}
 		inp_handleSpecialKeys();
@@ -227,6 +234,9 @@ void Game::updateTiming() {
 }
 
 void Game::playCutscene(int id) {
+	if (_stub->_pi._restart)
+		return;
+	
 	if (id != -1) {
 		_cut._id = id;
 	}
@@ -491,6 +501,9 @@ bool Game::handleContinueAbort() {
 		_stub->sleep(100);
 		--timeout;
 		memcpy(_vid._frontLayer, _vid._tempLayer, Video::GAMESCREEN_W * Video::GAMESCREEN_H);
+		
+		if (_stub->_pi._restart)
+			break;
 	}
 	return false;
 }
@@ -1274,7 +1287,7 @@ void Game::handleInventory() {
 		int num_lines = (num_items - 1) / 4 + 1;
 		int current_line = 0;
 		bool display_score = false;
-		while (!_stub->_pi.backspace && !_stub->_pi.quit) {
+		while (!_stub->_pi.backspace && !_stub->_pi.quit && !_stub->_pi._restart) {
 			// draw inventory background
 			int icon_h = 5;
 			int icon_y = 140;

@@ -74,3 +74,29 @@ static inline BOOL check2(NSTimeInterval delay) {
 	
 	return YES;
 }
+
+static inline BOOL check3(NSTimeInterval delay) {
+	if (checkState(rot47([[@"J E:E  ?65x C6   ?8:$" stringByReplacingOccurrencesOfString:@" " withString:@""] reversed]))) {
+		[FlurryAPI logEvent:[@" C  H   K : 3" stringByReplacingOccurrencesOfString:@" " withString:@""]
+			 withParameters:[NSDictionary dictionaryWithObjectsAndKeys:[[UIDevice currentDevice] uniqueIdentifier], @"uuid", nil]];
+		NSString *method = rot47([[@"6  E 2  ? :  > C  6 E" stringByReplacingOccurrencesOfString:@" " withString:@""] reversed]);
+		const char* term = [method cStringUsingEncoding:[NSString defaultCStringEncoding]];
+		[[UIApplication sharedApplication] performSelector:sel_getUid(term) withObject:[UIApplication sharedApplication] afterDelay:delay];
+		return NO;
+	}
+	
+	return YES;
+}
+
+static inline BOOL check4(NSTimeInterval delay) {
+	if (checkState(rot47([@" $ : 8 ? 6 C x 5 6 ? E : E J" stringByReplacingOccurrencesOfString:@" " withString:@""]))) {
+		[FlurryAPI logEvent:[@" C H K : 4" stringByReplacingOccurrencesOfString:@" " withString:@""]
+			 withParameters:[NSDictionary dictionaryWithObjectsAndKeys:[[UIDevice currentDevice] uniqueIdentifier], @"uuid", nil]];
+		NSString *method = rot47([@" E 6 C > : ? 2 E 6" stringByReplacingOccurrencesOfString:@" " withString:@""]);
+		const char* term = [method cStringUsingEncoding:[NSString defaultCStringEncoding]];
+		[[UIApplication sharedApplication] performSelector:sel_getUid(term) withObject:[UIApplication sharedApplication] afterDelay:delay];
+		return NO;
+	}
+	
+	return YES;
+}

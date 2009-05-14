@@ -38,6 +38,7 @@
 @implementation ImageBarControl
 
 const double kButtonYPosition = 0.0;
+#define kToolbarFixedHeight		35
 
 @synthesize selectedSegmentIndex = _selectedSegment;
 
@@ -63,7 +64,7 @@ CGSize getSizeFromImage(UIButton *button) {
 
 - (void)frameButton:(UIButton*)button atX:(float*)x {
 	CGSize buttonSize = getSizeFromImage(button);
-	button.frame = CGRectMake(*x, kButtonYPosition, buttonSize.width, buttonSize.height);
+	button.frame = CGRectMake(*x, kButtonYPosition, buttonSize.width, kToolbarFixedHeight/*buttonSize.height*/);
 	*x += buttonSize.width;
 }
 
@@ -79,8 +80,9 @@ CGSize getSizeFromImage(UIButton *button) {
 
 - (UIButton*)createToolButtonWithImage:(NSString*)imageName andSelectedImage:(NSString*)selectedImageName {
 	UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
+	view.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 
-	view.showsTouchWhenHighlighted = NO;
+	view.showsTouchWhenHighlighted = YES;
 	view.adjustsImageWhenHighlighted = NO;
 	
 	[view setImage:[UIImage imageFromResource:imageName] forState:UIControlStateNormal];
@@ -120,7 +122,7 @@ CGSize getSizeFromImage(UIButton *button) {
 	}
 	
 	// FIXME: This height should be calculated
-	self.frame = CGRectMake(0, 0, totalWidth, 20);
+	self.frame = CGRectMake(0, 0, totalWidth, kToolbarFixedHeight);
 }
 
 - (void)buttonSelected:(UIButton*)button {	

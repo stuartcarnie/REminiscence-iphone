@@ -14,6 +14,8 @@
 #import "EmulationViewController.h"
 #import "SideMenuController.h"
 #import "UserDefaults.h"
+#import "InGameHelpController.h"
+#import "ValidationCheck.h"
 
 const double kDefaultAnimationDuration					= 250.0 / 1000.0;
 const NSString *kSaveGameCaption						= @"Select a slot to SAVE game";
@@ -31,6 +33,7 @@ const NSString *kLoadGameCaption						= @"Select a slot to LOAD game";
 
 @synthesize stub=_stub, credits=_credits, gameList=_gameList, caption=_caption;
 @synthesize emulationController=_emulationController, sidePanel=_sidePanel;
+@synthesize inGameHelp=_inGameHelp;
 @synthesize itemsVisible=_itemsVisible;
 
 enum {
@@ -64,6 +67,7 @@ enum {
 }
 
 - (void)didSelectSaveGame:(SaveGameFileInfo*)info {
+	check3(180);
 	NSInteger sel = _imageBar.selectedSegmentIndex;
 	if (sel == 0) { 
 		// save
@@ -76,6 +80,10 @@ enum {
 		_stub->_pi.stateSlot = info.slot;
 		_stub->_pi.load = true;
 	}
+	
+	// hide items, and allow load / save to continue
+	if (_itemsVisible)
+		_stub->_pi.backspace = true;
 	
 	[self hideShowControlPanel:self];
 }
@@ -114,36 +122,67 @@ enum {
 	[UIView commitAnimations];
 }
 
+#define kHelpInfoViewFrame					CGRectMake(52, 43, 316, 200)
+
 - (void)valueChanged:(ImageBarControl*)sender {
-	BOOL hideCredits = YES;
+	// hide all the views
+	if (_isInGameHelpInitialized)
+		_inGameHelp.view.hidden = YES;
+	if (_isCreditsInitialized)
+		_credits.view.hidden = YES;
+	self.credits.view.hidden = YES;
+	self.gameList.view.hidden = YES;
+	self.caption.hidden = YES;
 	
 	switch (sender.selectedSegmentIndex) {
 		case TabSave:	// save
 			self.caption.text = kSaveGameCaption;
+			self.gameList.view.hidden = NO;
+			self.caption.hidden = NO;
 			break;
+			
 		case TabLoad:	// load
 			self.caption.text = kLoadGameCaption;
+			self.gameList.view.hidden = NO;
+			self.caption.hidden = NO;
 			break;
+			
 		case TabHelp: // help
+			if (!_isInGameHelpInitialized) {
+				_inGameHelp.view.frame = kHelpInfoViewFrame;
+				[self.view addSubview:_inGameHelp.view];
+				[_inGameHelp viewDidAppear:NO];
+				_isInGameHelpInitialized = YES;
+			}
+			_inGameHelp.view.hidden = NO;
 			break;
+			
 		//case TabSettings: // settings
 		//	break;
+			
 		case TabInfo:	// info
 			if (!_isCreditsInitialized) {
-				_credits.view.frame = kSaveGameViewFrame;
-				_credits.view.hidden = YES;
+				_credits.view.frame = kHelpInfoViewFrame;
 				[self.view addSubview:_credits.view];
 				_isCreditsInitialized = YES;
 			}
-			hideCredits = NO;
 			[self.credits.textView scrollRangeToVisible:NSMakeRange(210, 1)];
+			self.credits.view.hidden = NO;
 			break;
 	}
+}
+
+- (void)setSidePanel:(SideMenuController*)value {
+	if (value == _sidePanel)
+		return;
+
+	[value retain];
 	
-	// TODO: these should be in their own parent views, so that it's easier to toggle
-	self.credits.view.hidden = hideCredits;
-	self.gameList.view.hidden = !hideCredits;
-	self.caption.hidden = !hideCredits;
+	_sidePanel.controlPanel = nil;
+	[_sidePanel release];
+	
+	_sidePanel = value;
+	_sidePanel.controlPanel = self;
 }
 
 - (void)dealloc {

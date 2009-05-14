@@ -9,14 +9,17 @@
 #import <UIKit/UIKit.h>
 
 class iPhoneStub;
+@class ControlPanelViewController;
 
 @interface SideMenuController : UIViewController {
 	iPhoneStub						*_stub;
 	UIButton						*_fullScreen;
+	ControlPanelViewController		*_controlPanel;
 }
 
 @property(nonatomic, assign)			iPhoneStub					*stub;
 @property(nonatomic, retain) IBOutlet	UIButton					*fullScreen;
+@property(nonatomic, retain)			ControlPanelViewController	*controlPanel;
 
 - (IBAction)restartGame:(id)sender;
 - (IBAction)toggleFullScreen:(UIButton*)sender;

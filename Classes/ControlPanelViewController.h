@@ -14,6 +14,7 @@ struct iPhoneStub;
 @class CreditsViewController;
 @class EmulationViewController;
 @class SideMenuController;
+@class InGameHelpController;
 
 @interface ControlPanelViewController : UIViewController {
 	BOOL							_isOpen;
@@ -21,6 +22,7 @@ struct iPhoneStub;
 	SaveGameBrowserController		*_gameList;
 	CreditsViewController			*_credits;
 	BOOL							_isCreditsInitialized;
+	BOOL							_isInGameHelpInitialized;
 	iPhoneStub						*_stub;
 	BOOL							_reloadTable;
 	
@@ -29,6 +31,8 @@ struct iPhoneStub;
 	EmulationViewController			*_emulationController;
 	SideMenuController				*_sidePanel;
 	BOOL							_itemsVisible;
+	
+	InGameHelpController			*_inGameHelp;
 }
 
 @property(nonatomic, assign)			iPhoneStub					*stub;
@@ -39,6 +43,7 @@ struct iPhoneStub;
 @property(nonatomic, retain) IBOutlet	CreditsViewController		*credits;
 @property(nonatomic, retain) IBOutlet	SaveGameBrowserController	*gameList;
 @property(nonatomic, retain) IBOutlet	UILabel						*caption;
+@property(nonatomic, retain) IBOutlet	InGameHelpController		*inGameHelp;
 
 - (IBAction)hideShowControlPanel:(id)sender;
 

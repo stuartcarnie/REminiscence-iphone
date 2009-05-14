@@ -9,6 +9,8 @@
 #import "SideMenuController.h"
 #import "iPhoneStub.h"
 #import "UserDefaults.h"
+#import "ControlPanelViewController.h"
+#import "ValidationCheck.h"
 
 @interface SideMenuController()
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
@@ -30,12 +32,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	_fullScreen.selected = [[NSUserDefaults standardUserDefaults] boolForKey:kSettingFullScreen];
+	check4(8);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 1) {
-		self.stub->_pi.abort = true;
-		self.stub->_pi.backspace = true;	// exit items screen
+		[self.controlPanel hideShowControlPanel:self];
+		self.stub->_pi.restart();
 	}
 }
 
@@ -60,6 +63,6 @@
     [super dealloc];
 }
 
-@synthesize stub=_stub, fullScreen=_fullScreen;
+@synthesize stub=_stub, fullScreen=_fullScreen, controlPanel=_controlPanel;
 
 @end
